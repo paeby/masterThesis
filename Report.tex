@@ -1,0 +1,164 @@
+% RS comment and modifications 08/01/2014 
+
+
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{epsfig}
+
+
+%\usepackage[dcucite,abbr]{harvard}
+%\harvardparenthesis{none}
+%\harvardyearparenthesis{round}
+%\newcommand{\citeasnoun}[1]{\cite{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+%\usepackage{euler,times}
+%\usepackage{euler,beton}	% RS comment out - normal text font
+
+\usepackage[margin=1.3in]{geometry} % RS addition
+
+% \newcommand{\footnoteremember}[2]{	% RS comment out - more simple affiliation
+% \footnote{#2}
+%   \newcounter{#1}
+%   \setcounter{#1}{\value{footnote}}
+% } 
+% \newcommand{\footnoterecall}[1]{
+% \footnotemark[\value{#1}]
+% } 
+
+\usepackage[authoryear]{natbib} % package to use Harwad style for reference http://www.andy-roberts.net/writing/latex/bibliographies
+
+
+\begin{document}
+
+
+\thispagestyle{empty}
+
+  \vspace{-3cm}
+  \includegraphics[height=2cm]{./images/EPFL.pdf}
+%  \hspace{1.5cm} \includegraphics[height=2cm]{./images/Trace.jpg} 
+  \hfill \includegraphics[height=2cm]{./images/bestmile.jpg}
+  
+  \hrulefill
+  \vspace{3.0cm}
+
+%%%%%%%%%%%%%%%%%%%
+%%  TITLE HERE  %%%
+%%%%%%%%%%%%%%%%%%%
+\begin{center}
+ Master Project
+ 
+ \LARGE
+ \bigskip
+ Experimental Comparison of Autonomous Vehicles Routing Optimization Algorithms
+\end{center}
+
+%%%%%%%%%%%%%%%%%
+%% TITLE HERE %%%
+%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%
+%% AUTHORS HERE %%%
+%%%%%%%%%%%%%%%%%%%
+\vspace{2.0cm}
+\begin{tabbing}
+\hspace*{3cm}		\=	\hspace*{4cm}							\=	\hspace*{3cm} \\
+Author:			\>	Prisca Aeby		  \textsuperscript{1}	\> prisca.aeby@epfl.ch\\
+Supervisors:		\>	Bastien Rojanawisut	  \textsuperscript{2}	\> bastien.rojanawisut@bestmile.com\\	
+					\>	Boi Faltings    \textsuperscript{3}	\> boi.faltings@epfl.ch\\
+\end{tabbing}
+%%%%%%%%%%%%%%%%%%
+% AUTHORS HERE %%%
+%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{center}
+
+\today
+\end{center}
+
+\vfill
+\hrulefill
+
+\small \textsuperscript{1} Section of Computer Science,  \'Ecole Polytechnique F\'ed\'erale de Lausanne (EPFL), Switzerland
+
+\small \textsuperscript{2} Scala Backend Software Engineer, BestMile, Switzerland 
+
+\small \textsuperscript{3} Artifical Intelligence Laboratory , School of Computer and Communication Sciences, \'Ecole Polytechnique F\'ed\'erale de Lausanne (EPFL), Switzerland, \verb+liawww.epfl.ch+ 
+
+
+
+
+\newpage
+
+
+\begin{abstract}
+Your abstract.
+\end{abstract}
+
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+General problem: two types of services, on-demand and fixed-line => explain why we focus on fixed line (all constraints of the platform)
+
+
+\section{Related Literature}
+Here talk about models proposed by Luts?
+
+\subsection{Public Transport}
+\subsection{Public Transport}
+
+\section{Problem Formulation}
+\subsection{}
+\section{Methodology}
+\subsection{Simulation Framework}
+graph explaining framework 
+
+\subsubsection{Simulated Vehicles}
+start: spread on the line
+
+\subsubsection{Reported Metrics}
+Logs fetched from database 
+- vehicle logs
+- journey logs
+output graph
+
+\subsection{Scheduling}
+\subsubsection{Vehicles' Behaviour}
+when they arrive at station, if they can they pick up the booking (based on booking size)
+they drop off bookings that finish here
+they wait based on headway computation
+*battery* check if it is under threshold
+finish to drop off everybody and go to charging station
+\subsubsection{Headway}
+compute headway based  on fleetorchestrationservice
+\subsubsection{Dynamic Fleet Size}
+how choose vehicles to send to charge and which ones to activate
+
+\section{Numerical Experiments}
+Real environment
+\subsection{}
+\subsection{Simulation Settings}
+speed 
+
+\subsection{Graph}
+Unless stated, charging locations at same place
+\subsection{Optimal Headway}
+\subsection{}
+
+\subsection{Simulated Demand}
+\subsection{}
+
+\section{Conclusion}
+
+\bibliographystyle{apalike}
+\bibliography{../../../../../Bibliography/Bibliography}
+
+\end{document}
