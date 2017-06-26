@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.13)  22 JUN 2017 14:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.13)  26 JUN 2017 17:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -239,30 +239,24 @@ LaTeX Font Info:    Try loading font information for T1+cmtt on input line 91.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-Overfull \hbox (4.73244pt too wide) in paragraph at lines 91--92
-\T1/cmr/m/n/10.95 ences, École Poly-tech-nique Fédérale de Lau-sanne (EPFL), Sw
-itzer-land, [][]\T1/cmtt/m/n/10.95 liawww.epfl.ch 
- []
-
-[1
+) [1
 
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./image
 s/EPFL.pdf> <./images/bestmile.jpg>] [2] (./Report.toc)
 \tf@toc=\write3
 \openout3 = `Report.toc'.
 
- [3] [4]
+ [3] [4] [5]
 No file Report.bbl.
-[5] (./Report.aux) ) 
+[6] (./Report.aux) ) 
 Here is how much of TeX's memory you used:
- 2628 strings out of 492995
- 36279 string characters out of 6132704
- 103213 words of memory out of 5000000
- 6143 multiletter control sequences out of 15000+600000
+ 2631 strings out of 492995
+ 36300 string characters out of 6132704
+ 105243 words of memory out of 5000000
+ 6146 multiletter control sequences out of 15000+600000
  15322 words of font info for 37 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,4n,32p,337b,147s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,4n,32p,1191b,147s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/cm-supe
 r/cm-super-t1.enc}</usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-sup
 er/sfbx1095.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super
@@ -273,11 +267,10 @@ x1728.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfrm0
 5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfrm1200.
 pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pf
 b></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb>
-
-Output written on Report.pdf (5 pages, 206303 bytes).
+Output written on Report.pdf (6 pages, 211431 bytes).
 PDF statistics:
- 62 PDF objects out of 1000 (max. 8388607)
- 42 compressed objects within 1 object stream
+ 65 PDF objects out of 1000 (max. 8388607)
+ 44 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -65,7 +65,7 @@
 %%%%%%%%%%%%%%%%%%%
 \vspace{2.0cm}
 \begin{tabbing}
-\hspace*{3cm}		\=	\hspace*{4cm}							\=	\hspace*{3cm} \\
+\hspace*{3cm}		\=	\hspace*{5cm}							\=	\hspace*{3cm} \\
 Author:			\>	Prisca Aeby		  \textsuperscript{1}	\> prisca.aeby@epfl.ch\\
 Supervisors:		\>	Bastien Rojanawisut	  \textsuperscript{2}	\> bastien.rojanawisut@bestmile.com\\	
 					\>	Boi Faltings    \textsuperscript{3}	\> boi.faltings@epfl.ch\\
@@ -84,11 +84,11 @@ Supervisors:		\>	Bastien Rojanawisut	  \textsuperscript{2}	\> bastien.rojanawisu
 \vfill
 \hrulefill
 
-\small \textsuperscript{1} Section of Computer Science,  \'Ecole Polytechnique F\'ed\'erale de Lausanne (EPFL), Switzerland
+\small \textsuperscript{1} Computer Science,  \'Ecole Polytechnique F\'ed\'erale de Lausanne, Switzerland
 
 \small \textsuperscript{2} Scala Backend Software Engineer, BestMile, Switzerland 
 
-\small \textsuperscript{3} Artifical Intelligence Laboratory , School of Computer and Communication Sciences, \'Ecole Polytechnique F\'ed\'erale de Lausanne (EPFL), Switzerland, \verb+liawww.epfl.ch+ 
+\small \textsuperscript{3} Artifical Intelligence Laboratory , School of Computer and Communication Sciences, \'Ecole Polytechnique F\'ed\'erale de Lausanne, Switzerland, \verb+liawww.epfl.ch+ 
 
 
 
@@ -106,18 +106,34 @@ Your abstract.
 \newpage
 
 \section{Introduction}
-General problem: two types of services, on-demand and fixed-line => explain why we focus on fixed line (all constraints of the platform)
+General problem: two types of services, on-demand and fixed-line => explain why we focus on fixed line (all constraints of the platform) 
+Fixed line because now roads are not made for more complex systems
 
 
 \section{Related Literature}
-Here talk about models proposed by Luts?
+The scope of vehicle scheduling problems related to our specific case study can range from fixed-line bus services to on-demand systems. In fact, electric shuttles' routes and stops are predefined but timetables can be flexible to respond to the known real-time demand. The set of constraints differs from traditional bus transportation, for example workforce regulations can be eliminated as the shuttles are not human driven but a battery management component needs to be introduced into the planning process. As we will see in this chapter, current research often concentrates on one specific aspect of the scheduling strategy, simplifying some constraints, assessing the system's performance using various types of metrics and considering different inputs. In what follows, we describe in section \ref{pubtrans} some techniques used in the traditional public transport industry to guarantee a good quality of service. In section \ref{das} we describe the concept of Demand-Adaptive Transit Systems. Finally, we detail in section \ref{luts} an approach proposed by the Urban Transport Systems Laboratory (LUTS), EPFL, for scheduling autonomous vehicles activities.  
 
-\subsection{Public Transport}
-\subsection{Public Transport}
+\subsection{Public Transport}\label{pubtrans}
+There are two possible fixed line bus transportation services: 
+\begin{enumerate}
+\item \textbf{Fixed schedule}: buses are supposed to arrive at predefined times and respect their timetables. 
+\item \textbf{Constant Headway}: a desirable headway has to be achieved to satisfy the demand, which means that the time between two consecutive bus arrivals should be constant at each stop. 
+\end{enumerate}
+Both scheduling strategies suffer from the well-known bunching 
+Well suited for strong transportation demand and many buses with high capacity. 
+
+\subsection{Demand-Adaptive Transit Systems}\label{das}
+
+\subsection{}\label{luts}
 
 \section{Problem Formulation}
-\subsection{}
+\subsection{Input}
+\subsubsection{Vehicles}
+they cannot take over other vehicles, need to follow the loop unless when they go to charge they don't compute the headway and go max speed
+\subsubsection{Bookings}
+\subsubsection{Graph}s
 \section{Methodology}
+
 \subsection{Simulation Framework}
 graph explaining framework 
 
@@ -131,7 +147,8 @@ Logs fetched from database
 output graph
 
 \subsection{Scheduling}
-\subsubsection{Vehicles' Behaviour}
+Why we don't follow exactly luts: adapt the vehicles on the fly on one fixed route
+\subsubsection{Vehicles' Activities Schedule}
 when they arrive at station, if they can they pick up the booking (based on booking size)
 they drop off bookings that finish here
 they wait based on headway computation
