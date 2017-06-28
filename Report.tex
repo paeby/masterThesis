@@ -111,29 +111,45 @@ Fixed line because now roads are not made for more complex systems
 
 
 \section{Related Literature}
-The scope of vehicle scheduling problems related to our specific case study can range from fixed-line bus services to on-demand systems. In fact, electric shuttles' routes and stops are predefined but timetables can be flexible to respond to the known real-time demand. The set of constraints differs from traditional bus transportation, for example workforce regulations can be eliminated as the shuttles are not human driven but a battery management component needs to be introduced into the planning process. As we will see in this chapter, current research often concentrates on one specific aspect of the scheduling strategy, simplifying some constraints, assessing the system's performance using various types of metrics and considering different inputs. In what follows, we describe in section \ref{pubtrans} some techniques used in the traditional public transport industry to guarantee a good quality of service. In section \ref{das} we describe the concept of Demand-Adaptive Transit Systems. Finally, we detail in section \ref{luts} an approach proposed by the Urban Transport Systems Laboratory (LUTS), EPFL, for scheduling autonomous vehicles activities.  
+The scope of vehicle scheduling problems related to our specific case study can range from fixed-line bus services to on-demand systems. In fact, electric shuttles' routes and stops are predefined but timetables can be flexible to respond to the known real-time demand. The set of constraints differs from traditional bus transportation, for example workforce regulations can be eliminated as the shuttles are not human driven but a battery management component needs to be introduced into the planning process. As we will see in this chapter, current research often concentrates on one specific aspect of the scheduling strategy, simplifying some constraints, assessing the system's performance using various types of metrics and considering different inputs. In what follows, we describe in section \ref{pubtrans} some techniques used in the traditional public transport industry to guarantee a good quality of service. In section \ref{das} we describe the concept of Demand-Adaptive Transit Systems. Finally, we detail in section \ref{luts} an approach proposed by the Urban Transport Systems Laboratory at EPFL (LUTS) for scheduling autonomous vehicles activities.  
 
 \subsection{Public Transport}\label{pubtrans}
-There are two possible fixed line bus transportation services: 
+Within the standard transit organization, policies and standards affect a lot the development of transport strategies and how people interact with the systems. The planning process of a fixed line bus transportation service is mainly composed of three different tasks: route planning, service frequencies and service timing. Route planning consists of defining a sequence of stops composing each route and how those routes are interconnected. Service frequency captures the number of vehicles per unit time which pass a given route (often expressed in vehicles per hour). A common measure used to express the ideal distance between vehicles is the headway, the inverse of the frequency, in other word the fixed interval at which vehicles are coming at a station. The service frequencies set by the transport organization can be chosen based on different policies (see \cite{tcrp}): 
 \begin{enumerate}
-\item \textbf{Fixed schedule}: buses are supposed to arrive at predefined times and respect their timetables. 
-\item \textbf{Constant Headway}: a desirable headway has to be achieved to satisfy the demand, which means that the time between two consecutive bus arrivals should be constant at each stop. 
+\item \textbf{Fixed headway}: the agency establishes a fixed interval at which vehicles come to stations. It is convenient for customers as they have access to an exact schedule, but it is hard to keep the time between vehicles constant as it is vulnerable to external disturbances.
+\item \textbf{Demand-based headway}: in existing transport services, agencies can adapt the timetables based on the observed demand at the stations (number of passenger boardings/deboardings) in order to reach the desired passenger load in vehicles.
+\item \textbf{Performance-based headway}: the goal is to find the headway for which performance standards are optimized. Those costs are usually measured during a service period, for example a day. It may include the service productivity (e.g. the revenue per passenger per hour), the cost effectiveness of the service or the overall effectiveness (e.g. net subsidy per passenger). 
 \end{enumerate}
-Both scheduling strategies suffer from the well-known bunching 
-Well suited for strong transportation demand and many buses with high capacity. 
+
+All those scheduling strategies suffer from the well-known bunching effect: two or more buses arrive at the same time at a stop with the first one being overcrowded and the other one empty. This phenomenon occurs because of external disruptions in the service (e.g. stochastic passenger arrivals at stops, traffic jams, etc) (see \cite{hwadherence}) slowing down one of the bus which pick up passengers who would have taken the next bus. 
+
+Several corrective measures based on different strategies have been developed to overcome this problem. There are mainly two different holding approaches to mitigate bus bunching as described in \cite{reliability}:
+
+\begin{itemize}
+\item \textbf{Headway-Based Holding:} vehicles arriving with a shorter headway at a stop (or holding point) wait to restore the headway distribution. If they arrive with a longer headway, it is possible to speed up the buses by skipping stations. The analytical study \cite{hybrid} proved the efficiency of using headway holding strategy and bus skipping (considering the extra waiting time of passenger whose station has been skipped) with the two-dimensional objective function composed of the regularization of bus headways on the one hand and the level of service with respect to a circle route scenario. 
+\item \textbf{Schedule-Based Holding:} in the case of fixed timetables, schedule-based holding involves holding a vehicle at a stop if it is ahead of its schedule and dispatch it immediately otherwise.
+\end{itemize}
+  
+\cite{selfadjusting} proposed a method using boarding limits at stations to control buses which does not involve bus accelerating or waiting at stations and thus does not influence the customers' travel time and does not disturb the traffic. They do not consider schedule and a priori target headway. However, they proved that their self-adjusting control stabilizes the headway spontaneously in a short time. 
+
+As stated by \cite{information}, the majority of earlier studies conducted on maintaining a balanced headway uses arrival time of the current bus at the current stop and arrival times of the preceding buses but does not take advantage of real time information like the vehicles' geolocation. Later methods proposed new approaches assuming availability of locations and even real-time arrivals of passengers to each bus stop. For example, \cite{cooperation} proposed a solution taking into account the distance between the current bus and the preceding and following buses to adjust the speed of the current bus. It includes holding buses at stations, accelerating or decelerating. 
+
+The studies carried out within the traditional fixed-line bus services handle situations where the demand is consistently strong over the territory and where the fleet is composed of high-capacity vehicles. When the demand is weaker, it is complicated to operate an economical and frequent transit system as the resources are shared by few people and are very costly (e.g. driver salaries, fuel expenses, etc.). The autonomous fleets are composed of vehicles with lower capacity, but it is easier to dynamically adapt their scheduling strategy at low cost and have access to real-time information.
 
 \subsection{Demand-Adaptive Transit Systems}\label{das}
+Demand-Adaptive System (DAS), or Demand-Responsive Transit (DRT), is a personalized type of transportation displaying features from both fixed-line services and on-demand systems. In such systems, passengers are picked up and dropped off on-demand at predetermined stops, and unrequested stops are skipped. There are still compulsory stops, which are served within a predefined time window, but the routes are adapted based on the the requested stops. A method to determine the time windows at the compulsory stops has been proposed by  \cite{masterschedule}. \cite{dasdesign} depicted the advantages to substitute fixed-line bus services to DRT services in two cities in California with low demand density.  
 
+\cite{evaluation} addresses the problem 
 \subsection{}\label{luts}
 
 \section{Problem Formulation}
-\subsection{Input}
+\subsection{Input}v
 \subsubsection{Vehicles}
 they cannot take over other vehicles, need to follow the loop unless when they go to charge they don't compute the headway and go max speed
 \subsubsection{Bookings}
 \subsubsection{Graph}s
 \section{Methodology}
-
+concentrates on respecting the fixed headway (which is first computed) but not optimising the real costs taking everyhitng into account like battery management, etc
 \subsection{Simulation Framework}
 graph explaining framework 
 
@@ -176,6 +192,6 @@ Unless stated, charging locations at same place
 \section{Conclusion}
 
 \bibliographystyle{apalike}
-\bibliography{../../../../../Bibliography/Bibliography}
+\bibliography{/Users/prisca/Documents/Final_Report/bibliography/bibliography}
 
 \end{document}

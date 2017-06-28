@@ -1,0 +1,63 @@
+\begin{thebibliography}{}
+
+\bibitem[Camps and Romeu, 2016]{hwadherence}
+Camps, J.~M. and Romeu, M.~E. (2016).
+\newblock Headway adherance. detection and reduction of the bus bunching
+  effect.
+\newblock {\em AET papers repository}.
+
+\bibitem[Cort{\'{e}}s et~al., 2010]{hybrid}
+Cort{\'{e}}s, C.~E., S{\'{a}}ez, D., Milla, F., N{\'{u}}{\~{n}}ez, A., and
+  Riquelme, M. (2010).
+\newblock Hybrid predictive control for real-time optimization of public
+  transport systems' operations based on evolutionary multi-objective
+  optimization.
+\newblock {\em Transportation Research Part C: Emerging Technologies},
+  18(5):757--769.
+
+\bibitem[Crainic et~al., 2010]{masterschedule}
+Crainic, T.~G., Errico, F., Malucelli, F., and Nonato, M. (2010).
+\newblock Designing the master schedule for demand-adaptive transit systems.
+\newblock {\em Annals of Operations Research}, 194(1):151--166.
+
+\bibitem[Daganzo and Pilachowski, 2011]{cooperation}
+Daganzo, C.~F. and Pilachowski, J. (2011).
+\newblock Reducing bunching with bus-to-bus cooperation.
+\newblock {\em Transportation Research Part B: Methodological}, 45(1):267--277.
+
+\bibitem[Gabriel et~al., 2008]{evaluation}
+Gabriel, T., Fausto, C., Malucelli, E.~F., and Nonato, M. (2008).
+\newblock A proposal for the evaluation of demand-adaptive transit systems.
+\newblock {\em Annals of Operations Research}.
+
+\bibitem[He, 2015]{information}
+He, S.-X. (2015).
+\newblock An anti-bunching strategy to improve bus schedule and headway
+  reliability by making use of the available accurate information.
+\newblock {\em Computers \& Industrial Engineering}, 85:17 -- 32.
+
+\bibitem[Li et~al., 2007]{dasdesign}
+Li, Y., Wang, J., and Chen, J. (2007).
+\newblock {\em Design of a Demand-responsive Transit System}.
+\newblock California PATH working paper. California PATH Program, Institute of
+  Transportation Studies, University of California at Berkeley.
+
+\bibitem[Pine et~al., 1998]{tcrp}
+Pine, R., Niemeyer, J., and Chisholm, R. (1998).
+\newblock {\em Transit Scheduling: Basic and Advanced Manuals}.
+\newblock Report (Transit Cooperative Research Program). National Academy
+  Press.
+
+\bibitem[van Oort et~al., 2010]{reliability}
+van Oort, N., Wilson, N., and van Nes, R. (2010).
+\newblock Reliability improvement in short headway transit services.
+\newblock {\em Transportation Research Record: Journal of the Transportation
+  Research Board}, 2143:67--76.
+
+\bibitem[Zhao et~al., 2016]{selfadjusting}
+Zhao, S., Lu, C., Liang, S., and Liu, H. (2016).
+\newblock A self-adjusting method to resist bus bunching based on boarding
+  limits.
+\newblock {\em Mathematical Problems in Engineering}, 2016:1--7.
+
+\end{thebibliography}
