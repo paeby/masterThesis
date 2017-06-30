@@ -1,0 +1,14 @@
+name,pickupTime,seatCount,pickupStation,dropoffStation
+Customer_83,12:00:00 AM,1,Stop 2,Stop 1
+Customer_84,12:04:37 AM,1,Stop 6,Stop 32
+Customer_85,12:09:14 AM,2,Stop 12,Stop 1
+Customer_86,12:13:51 AM,1,Stop 12,Stop 9
+Customer_87,12:18:28 AM,1,Stop 27,Stop 31
+Customer_88,12:23:05 AM,1,Stop 4,Stop 21
+Customer_89,12:27:42 AM,1,Stop 29,Stop 2
+Customer_90,12:32:19 AM,4,Stop 2,Stop 3
+Customer_91,12:36:56 AM,3,Stop 24,Stop 28
+Customer_92,12:41:33 AM,1,Stop 21,Stop 30
+Customer_93,12:46:10 AM,3,Stop 32,Stop 10
+Customer_94,12:50:47 AM,1,Stop 7,Stop 12
+Customer_95,12:55:24 AM,3,Stop 23,Stop 29

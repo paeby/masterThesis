@@ -1,5 +1,10 @@
 \begin{thebibliography}{}
 
+\bibitem[Bongiovanni et~al., 2016]{luts}
+Bongiovanni, C., Kaspi, M., and Geroliminis, N. (2016).
+\newblock Scheduling autonomous vehicles activities.
+\newblock Technical report, Urban Transport Systems Laboratory EPFL.
+
 \bibitem[Camps and Romeu, 2016]{hwadherence}
 Camps, J.~M. and Romeu, M.~E. (2016).
 \newblock Headway adherance. detection and reduction of the bus bunching
