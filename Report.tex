@@ -6,7 +6,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
 \usepackage{epsfig}
-
+\usepackage{enumitem}
 
 %\usepackage[dcucite,abbr]{harvard}
 %\harvardparenthesis{none}
@@ -51,6 +51,7 @@
  Master Project 
  \LARGE
  \bigskip
+ 
  Experimental Comparison of Autonomous Vehicles Routing Optimization Algorithms
 \end{center}
 
@@ -141,22 +142,55 @@ Demand-Adaptive System (DAS), or Demand-Responsive Transit (DRT), is a personali
 \cite{evaluation} address the issues of evaluating DAS services in comparison to traditional transit services and fully on-demand systems. The transit systems' evaluation denotes the part of the planning process dedicated to the study of the behaviour and the performance of the line under various conditions with respect to demands, policies and costs. They mention the main steps of transit lines' evaluation in order to tune operating parameters impacting the system performance under different scenarios for cost-benefit analyzes: 1) the scenario, parameters and policies are specified, as well as the demand to serve 2) the line is designed 3) the operation of the line is simulated (during a specified time-horizon) 4) results are collected and performance measures are computed. The importance of demand generation in step 1) differs from one system to the other: whilst in fixed lines transits static methods are often used to simulate an average demand, dynamic methods are used to simulate the time-dependent stop-to-stop requests in on-demand systems. The performance measurements in step 4) vary as well from one system to the other: in fixed-lines the service quality is mainly represented by the buses' punctuality and the constant interarrival times whereas for on-demand systems it is expressed by the specific users' waiting time and journey time. \cite{evaluation} propose a framework for evaluating DAS lines including the scenario input, the optimization modules for the design and operation of the line and the simulation module which yield the statistical information about the performance.
 
 \subsection{Vehicles Assignment to Routes}\label{luts}
-\cite{luts} present an optimization approach for the autonomous vehicles scheduling within a transit system composed of circular routes. They separate the planning process in two main tasks: line planning and vehicle scheduling. Line planning corresponds to defining the routes and the required headway on each route over the planning horizon. Vehicle scheduling refers to computing a general assignment plan for each vehicle for each time period over the planning horizon of one day. It means that each vehicle is assigned to a specific route or to a recharging station for each time period. They focus on the vehicle scheduling task which takes as input the predefined routes, frequencies, fleet size and battery model. They present the scheduling problem as a mixed-integer linear programming (MILP) with battery constraints and the goal of the objective function being to maximize the total battery charge levels at the end of the planning horizon. 
+\cite{luts} present an optimization approach for the autonomous vehicles scheduling within a transit system composed of circular routes. They separate the planning process in two main tasks: line planning and vehicle scheduling. Line planning corresponds to defining the routes and the required headway on each route over the planning horizon. Vehicle scheduling refers to computing a general assignment plan for each vehicle for each time period over the planning horizon of one day. It means that each vehicle is assigned to a specific route or to a recharging station for each time period. The underlying assumption is that the vehicles will not transfer between routes and charging stations too often which makes the time discretization of the planning horizon possible. They focus on the vehicle scheduling task which takes as input the predefined routes, frequencies, fleet size and battery model. They present the scheduling problem as a mixed-integer linear programming (MILP) with battery constraints and the goal of the objective function being to maximize the total battery charge levels at the end of the planning horizon. 
 
 \section{Problem Formulation}
-\subsection{Input}v
-\subsubsection{Vehicles}
-they cannot take over other vehicles, need to follow the loop unless when they go to charge they don't compute the headway and go max speed
-\subsubsection{Bookings}
-\subsubsection{Graph}s
+In this section we formulate the mathematical model describing the autonomous vehicles circular line system. All the variables are listed in Table \ref{table:parameters}. In addition to traditional bus transit system descriptions, we introduce the concept of battery stations and we include dynamic bookings from one station to an other station on the loop. As we have access to information during the service horizon time $T$, we denote a discrete timestamp $t$ which takes value between $[0, T]$ at fixed sampling $interval$.
+\begin{table}
+\begin{tabular}{| l | r |}
+  \hline			
+  Parameter & Signification \\
+  
+  4 & 5 \\
+  7 & 8 \\
+  \hline  
+\end{tabular}
+\caption{My table}
+\label{table:parameters}
+\end{table}
+\subsection{Circular Route}
+The circular line in this transportation system is a route which starts at a certain station, traverses other stations once and terminates at the starting station. The route is represented by set of stations $S = \{1,..., n\}$ and a set of directed edges $E$ linking each station $s \in S$ to its following station.  If the station $s \in S$ has a charging station the boolean variable $C^{s}$ is set to 1. The maximum speed of an edge, representing the traffic at time $t$, is expressed as $speed^{e}_{t}$.
+
+\subsection{Vehicles}
+Each vehicle composing the fleet $v \in V$ moving on the circular closed line is characterized by a capacity $c^{v}$, a maximum charge $q^{v}$, a recharge rate $\alpha^{v}$, a battery consumption rate $\beta^{v}$ and a maximum speed $s^{v}$. The battery level of vehicle $v$ at the timestamp $t$ is $I^{v}_{t} \in [0, q^{v}]$. The battery change between  The edge it is currently traversing is $e^{v}_{t}$ and the distance to the next vehicle in front of it on the loop is given by $next^{v}_{t}$. The occupancy of the vehicle is expressed as $o^{v}_{t} \in [0, c^{v}]$. The vehicle is travelling either at its maximum speed or at the limitation of the current edge. Its current speed is therefore max$\{s^{v}, speed^{e^{v}_{t}}\}$. When a vehicle is charging at a station the boolean variable $x^{v}_{t}$ is set to 1 and it can not carry any passengers $o^{v}_{t} = 0$.
+
+\subsection{Bookings}
+The set $B$ represents the users' bookings made during the service horizon. A booking $b_{i,j} \in B$ requests a trip from station $i$ to $j$ at time $t^{b}$ for a group of $n^{b}$ persons. If the booking has been satisfied, the boolean variable $D_{b}$ is set to 1 and we know that it has been executed by vehicle $v^{b} \in V$. The pickup time of booking $b$ at station $i$ is $p^{b}$ and drop-off time at station $j$ is $d^{b}$. The waiting time  $w^{b}$ equals $p^{b} - t^{b}$ and the journey time $\Delta^{b}$ is $d^{b} - p^{b}$.
+
+\subsection{Output Metrics}
+At the end of the service horizon $T$, some metrics can be derived in order to evaluate the performance of the overall system dispatching the vehicles to serve the requests.
+
+\subsubsection*{Energy}
+The total energy consumed by a vehicle $v$ is the difference  
+
+\subsubsection*{Occupancy}
+
+\subsubsection*{Waiting Time}
+
+\subsubsection*{Journey Time}
+
+\subsubsection*{Completed Bookings Percentage}
+Travel time, booking time, 
+
 \section{Methodology}
 concentrates on respecting the fixed headway (which is first computed) but not optimising the real costs taking everyhitng into account like battery management, etc
 \subsection{Simulation Framework}
 graph explaining framework 
 
 \subsubsection{Simulated Vehicles}
-start: spread on the line
-
+start: spread on the line, battery is full 
+starting location
+they cannot take over other vehicles, need to follow the loop unless when they go to charge they don't compute the headway and go max speed
 \subsubsection{Reported Metrics}
 Logs fetched from database 
 - vehicle logs

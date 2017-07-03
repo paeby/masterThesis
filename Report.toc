@@ -4,24 +4,24 @@
 \contentsline {subsection}{\numberline {2.2}Demand-Adaptive Transit Systems}{6}
 \contentsline {subsection}{\numberline {2.3}Vehicles Assignment to Routes}{6}
 \contentsline {section}{\numberline {3}Problem Formulation}{7}
-\contentsline {subsection}{\numberline {3.1}Input}{7}
-\contentsline {subsubsection}{\numberline {3.1.1}Vehicles}{7}
-\contentsline {subsubsection}{\numberline {3.1.2}Bookings}{7}
-\contentsline {subsubsection}{\numberline {3.1.3}Graph}{7}
-\contentsline {section}{\numberline {4}Methodology}{7}
-\contentsline {subsection}{\numberline {4.1}Simulation Framework}{7}
-\contentsline {subsubsection}{\numberline {4.1.1}Simulated Vehicles}{7}
-\contentsline {subsubsection}{\numberline {4.1.2}Reported Metrics}{7}
-\contentsline {subsection}{\numberline {4.2}Scheduling}{7}
-\contentsline {subsubsection}{\numberline {4.2.1}Vehicles' Activities Schedule}{7}
-\contentsline {subsubsection}{\numberline {4.2.2}Headway}{7}
-\contentsline {subsubsection}{\numberline {4.2.3}Dynamic Fleet Size}{8}
-\contentsline {section}{\numberline {5}Numerical Experiments}{8}
-\contentsline {subsection}{\numberline {5.1}}{8}
-\contentsline {subsection}{\numberline {5.2}Simulation Settings}{8}
-\contentsline {subsection}{\numberline {5.3}Graph}{8}
-\contentsline {subsection}{\numberline {5.4}Optimal Headway}{8}
-\contentsline {subsection}{\numberline {5.5}}{8}
-\contentsline {subsection}{\numberline {5.6}Simulated Demand}{8}
-\contentsline {subsection}{\numberline {5.7}}{8}
-\contentsline {section}{\numberline {6}Conclusion}{8}
+\contentsline {subsection}{\numberline {3.1}Circular Route}{7}
+\contentsline {subsection}{\numberline {3.2}Vehicles}{7}
+\contentsline {subsection}{\numberline {3.3}Bookings}{7}
+\contentsline {subsection}{\numberline {3.4}Output Metrics}{8}
+\contentsline {section}{\numberline {4}Methodology}{8}
+\contentsline {subsection}{\numberline {4.1}Simulation Framework}{8}
+\contentsline {subsubsection}{\numberline {4.1.1}Simulated Vehicles}{8}
+\contentsline {subsubsection}{\numberline {4.1.2}Reported Metrics}{8}
+\contentsline {subsection}{\numberline {4.2}Scheduling}{8}
+\contentsline {subsubsection}{\numberline {4.2.1}Vehicles' Activities Schedule}{8}
+\contentsline {subsubsection}{\numberline {4.2.2}Headway}{9}
+\contentsline {subsubsection}{\numberline {4.2.3}Dynamic Fleet Size}{9}
+\contentsline {section}{\numberline {5}Numerical Experiments}{9}
+\contentsline {subsection}{\numberline {5.1}}{9}
+\contentsline {subsection}{\numberline {5.2}Simulation Settings}{9}
+\contentsline {subsection}{\numberline {5.3}Graph}{9}
+\contentsline {subsection}{\numberline {5.4}Optimal Headway}{9}
+\contentsline {subsection}{\numberline {5.5}}{9}
+\contentsline {subsection}{\numberline {5.6}Simulated Demand}{9}
+\contentsline {subsection}{\numberline {5.7}}{9}
+\contentsline {section}{\numberline {6}Conclusion}{9}
