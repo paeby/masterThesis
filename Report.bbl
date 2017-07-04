@@ -1,5 +1,12 @@
 \begin{thebibliography}{}
 
+\bibitem[Adra et~al., 2004]{loadFactor}
+Adra, N., Michaux, J.~L., and Andre, M. (2004).
+\newblock {Analysis of the load factor and the empty running rate for road
+  transport. Artemis - assessment and reliability of transport emission models
+  and inventory systems}.
+\newblock Rapport de recherche.
+
 \bibitem[Bongiovanni et~al., 2016]{luts}
 Bongiovanni, C., Kaspi, M., and Geroliminis, N. (2016).
 \newblock Scheduling autonomous vehicles activities.

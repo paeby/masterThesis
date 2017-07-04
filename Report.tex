@@ -7,7 +7,13 @@
 \usepackage[latin9]{inputenc}
 \usepackage{epsfig}
 \usepackage{enumitem}
-
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{lipsum}
+\usepackage{titlesec}
+\titlespacing\section{0pt}{12pt plus 1pt minus 1pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{5pt plus 1pt minus 1pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{5pt plus 1pt minus 1pt}{0pt plus 2pt minus 2pt}
 %\usepackage[dcucite,abbr]{harvard}
 %\harvardparenthesis{none}
 %\harvardyearparenthesis{round}
@@ -29,7 +35,6 @@
 % } 
 
 \usepackage[authoryear]{natbib} % package to use Harwad style for reference http://www.andy-roberts.net/writing/latex/bibliographies
-
 
 \begin{document}
 
@@ -104,7 +109,7 @@ Your abstract.
 
 \tableofcontents
 \newpage
-
+\setlength{\parskip}{0.5em}
 \section{Introduction}
 General problem: two types of services, on-demand and fixed-line => explain why we focus on fixed line (all constraints of the platform) 
 Fixed line because now roads are not made for more complex systems
@@ -132,6 +137,8 @@ Several corrective measures based on different strategies have been developed to
   
 \cite{selfadjusting} proposed a method using boarding limits at stations to control buses which does not involve bus accelerating or waiting at stations and thus does not influence the customers' travel time and does not disturb the traffic. They do not consider schedule and a priori target headway. However, they proved that their self-adjusting control stabilizes the headway spontaneously in a short time. 
 
+\cite{loadFactor} study the importance of the vehicle load effects on the emission of vehicles through the study of the load factor and the empty running rate. The passenger load factor measures the efficiency of a transportation system, representing the capacity utilization of the seats. It is often expressed as the ratio between the passenger-kilometres travelled to seat-kilometres available. 
+
 As stated by \cite{information}, the majority of earlier studies conducted on maintaining a balanced headway uses arrival time of the current bus at the current stop and arrival times of the preceding buses but does not take advantage of real time information like the vehicles' geolocation. Later methods proposed new approaches assuming availability of locations and even real-time arrivals of passengers to each bus stop. For example, \cite{cooperation} proposed a solution taking into account the distance between the current bus and the preceding and following buses to adjust the speed of the current bus. It includes holding buses at stations, accelerating or decelerating. 
 
 The studies carried out within the traditional fixed-line bus services handle situations where the demand is consistently strong over the territory and where the fleet is composed of high-capacity vehicles. When the demand is weaker, it is complicated to operate an economical and frequent transit system as the resources are shared by few people and are very costly (e.g. driver salaries, fuel expenses, etc.). The autonomous fleets are composed of vehicles with lower capacity, but it is easier to dynamically adapt their scheduling strategy at low cost and have access to real-time information.
@@ -145,46 +152,96 @@ Demand-Adaptive System (DAS), or Demand-Responsive Transit (DRT), is a personali
 \cite{luts} present an optimization approach for the autonomous vehicles scheduling within a transit system composed of circular routes. They separate the planning process in two main tasks: line planning and vehicle scheduling. Line planning corresponds to defining the routes and the required headway on each route over the planning horizon. Vehicle scheduling refers to computing a general assignment plan for each vehicle for each time period over the planning horizon of one day. It means that each vehicle is assigned to a specific route or to a recharging station for each time period. The underlying assumption is that the vehicles will not transfer between routes and charging stations too often which makes the time discretization of the planning horizon possible. They focus on the vehicle scheduling task which takes as input the predefined routes, frequencies, fleet size and battery model. They present the scheduling problem as a mixed-integer linear programming (MILP) with battery constraints and the goal of the objective function being to maximize the total battery charge levels at the end of the planning horizon. 
 
 \section{Problem Formulation}
-In this section we formulate the mathematical model describing the autonomous vehicles circular line system. All the variables are listed in Table \ref{table:parameters}. In addition to traditional bus transit system descriptions, we introduce the concept of battery stations and we include dynamic bookings from one station to an other station on the loop. As we have access to information during the service horizon time $T$, we denote a discrete timestamp $t$ which takes value between $[0, T]$ at fixed sampling $interval$.
+In this section we formulate the mathematical model describing the autonomous vehicles circular line system. All the variables are listed in Table \ref{table:parameters}. In addition to traditional bus transit system descriptions, we introduce the concept of battery stations and we include dynamic bookings from one station to an other station on the loop. As we have access to information during the service horizon time $H$, we denote a discrete timestamp $t$ which takes values between $[0, H]$ at fixed sampling $interval$.
 \begin{table}
-\begin{tabular}{| l | r |}
+\makebox[\textwidth][c]{
+  \centering
+\begin{tabular}{| l | l |}
   \hline			
-  Parameter & Signification \\
+  & Signification \\
+  \hline		
+  $S = \{1,..., n\}$ & Set of stations on the route \\
+  $E =  \{n+i,..., 2n\}$ & Set of directed edges linking the stations \\
+  $V = \{1,..., v\}$ & Set of vehicles composing the fleet \\
+  $C \subset S$ & Set of charging locations \\
+  $B = \{1,... b\}$ & Set of bookings made during the scheduling horizon \\
+  $B^{*} \subset B$ & Set of bookings which have been satisfied at the end of $H$\\
   
-  4 & 5 \\
-  7 & 8 \\
+  $H$ & Length of the scheduling horizon \\
+  $interval \in \mathbb{R}$ & Interval at which values are sampled \\
+  $T = \{t = interval * k, k \in \mathbb{N} | 0 < t < H\}$ & Set of timestamps  \\
+  $c^{v}$ & Maximum load capacity of vehicle $v \in V$\\
+  $q^{v}$ & Maximum charge of vehicle $v \in V$\\
+  $\alpha^{v}$ & Battery recharge rate of vehicle $v \in V$\\
+  $\beta^{v}$ & Battery consumption rate of vehicle $v \in V$\\
+  $s^{v}$ & Maximum speed of vehicle $v \in V$ \\
+  
+  $speed^{e}_{t}$ & Speed of edge $e$ at time $t$ \\
+  $I^{v}_{t} \in [0, q^{v}]$ & Battery level of vehicle $v$ at time $t$ \\  
+  $\delta^{v}_{t}$ & Battery change between $t$ and its preceding timestamp \\  
+  $e^{v}_{t}$ & Edge $e \in E$ which vehicle $v$ is traversing at time $t$ \\
+  $next^{v}_{t}$ &  Distance to the next vehicle in front of $v$ on the loop at time $t$ \\
+  $o^{v}_{t} \in [0, c^{v}]$ & Number of passengers in vehicle $v$ at time $t$ \\
+  
+  $b_{i,j} \in B$ & Request of trip from station $i$ to station $j$, $i,j \in S$ \\
+  $t^{b}$ & Time at which the request $b \in B$ has been made \\
+  
+  $p^{b}$ & Pick-up timestamp of booking $b$ \\
+  $d^{b}$ & Drop-off timestamp of booking $b$ \\
+  $w^{b}$ & Waiting time of booking $b$ \\
+  $\Delta^{b}$ & Journey time of booking $b$ \\
+  
+  $C^{s}$ & 1 if $s$ is a charging station, 0 otherwise \\
+  $x^{v}_{t}$ & 1 if the vehicle $v$ is charging at a station at time $t$, 0 otherwise \\
+  $D_{b}$ & 1 if request $b$ has been satisfied \\
   \hline  
 \end{tabular}
-\caption{My table}
+}
+\caption{Problem sets and parameters}
 \label{table:parameters}
 \end{table}
 \subsection{Circular Route}
-The circular line in this transportation system is a route which starts at a certain station, traverses other stations once and terminates at the starting station. The route is represented by set of stations $S = \{1,..., n\}$ and a set of directed edges $E$ linking each station $s \in S$ to its following station.  If the station $s \in S$ has a charging station the boolean variable $C^{s}$ is set to 1. The maximum speed of an edge, representing the traffic at time $t$, is expressed as $speed^{e}_{t}$.
+The circular line in this transportation system is a route which starts at a certain station, traverses other stations once and terminates at the starting station. The route is represented by set of stations  and a set of directed edges $E$ linking each station $s \in S$ to its following station. The set of charging stations $C$ includes stations located on the stops within the loop: $C \subset S$. The maximum speed of an edge, representing the traffic at time $t$, is expressed as $speed^{e}_{t}$.
 
 \subsection{Vehicles}
-Each vehicle composing the fleet $v \in V$ moving on the circular closed line is characterized by a capacity $c^{v}$, a maximum charge $q^{v}$, a recharge rate $\alpha^{v}$, a battery consumption rate $\beta^{v}$ and a maximum speed $s^{v}$. The battery level of vehicle $v$ at the timestamp $t$ is $I^{v}_{t} \in [0, q^{v}]$. The battery change between  The edge it is currently traversing is $e^{v}_{t}$ and the distance to the next vehicle in front of it on the loop is given by $next^{v}_{t}$. The occupancy of the vehicle is expressed as $o^{v}_{t} \in [0, c^{v}]$. The vehicle is travelling either at its maximum speed or at the limitation of the current edge. Its current speed is therefore max$\{s^{v}, speed^{e^{v}_{t}}\}$. When a vehicle is charging at a station the boolean variable $x^{v}_{t}$ is set to 1 and it can not carry any passengers $o^{v}_{t} = 0$.
+Each vehicle composing the fleet $v \in V$ moving on the circular closed line is characterized by a capacity $c^{v}$, a maximum charge $q^{v}$, a recharge rate $\alpha^{v}$, a battery consumption rate $\beta^{v}$ and a maximum speed $s^{v}$. The battery level of vehicle $v$ at the timestamp $t$ is $I^{v}_{t} \in [0, q^{v}]$. The battery change between the preceding discrete timestamp and the current timestamp $t$ is given by $\delta^{v}_{t}$. The edge it is currently traversing is $e^{v}_{t}$ and the distance to the next vehicle in front of it on the loop is given by $next^{v}_{t}$. The occupancy of the vehicle is expressed as $o^{v}_{t} \in [0, c^{v}]$. The vehicle is travelling either at its maximum speed or at the limitation of the current edge. Its current speed is therefore max$\{s^{v}, speed^{e^{v}_{t}}\}$. When a vehicle is charging at a station the boolean variable $x^{v}_{t}$ is set to 1 and it can not carry any passengers $o^{v}_{t} = 0$.
 
 \subsection{Bookings}
-The set $B$ represents the users' bookings made during the service horizon. A booking $b_{i,j} \in B$ requests a trip from station $i$ to $j$ at time $t^{b}$ for a group of $n^{b}$ persons. If the booking has been satisfied, the boolean variable $D_{b}$ is set to 1 and we know that it has been executed by vehicle $v^{b} \in V$. The pickup time of booking $b$ at station $i$ is $p^{b}$ and drop-off time at station $j$ is $d^{b}$. The waiting time  $w^{b}$ equals $p^{b} - t^{b}$ and the journey time $\Delta^{b}$ is $d^{b} - p^{b}$.
+The set $B$ represents the users' bookings made during the service horizon. A booking $b_{i,j} \in B$ requests a trip from station $i$ to $j$ at time $t^{b}$ for a group of $n^{b}$ persons. If the booking has been satisfied, the boolean variable $D_{b}$ is set to 1 and we know that it has been executed by vehicle $v^{b} \in V$. The pickup time of booking $b$ at station $i$ is $p^{b}$ and drop-off time at station $j$ is $d^{b}$. The waiting time  $w^{b}$ equals $p^{b} - t^{b}$ and the journey time $\Delta^{b}$ is $d^{b} - p^{b}$. We denote $B^{*}$ the set of bookings which have been satisfied, so the bookings for which $D_{b} = 1$.
 
 \subsection{Output Metrics}
-At the end of the service horizon $T$, some metrics can be derived in order to evaluate the performance of the overall system dispatching the vehicles to serve the requests.
+At the end of the service horizon $T$, some metrics can be derived in order to evaluate the performance of the overall system dispatching the vehicles to serve the requests. 
 
 \subsubsection*{Energy}
-The total energy consumed by a vehicle $v$ is the difference  
-
+The total energy consumed by a vehicle $v$ is the sum of the battery changes over the scheduling horizon when the vehicle is not charging:
+$$energy^{v} = \sum_{t \in T}\delta^{v}_{t} * (1-x^{v}_{t}) $$
+The total energy cost for the entire system is therefore the sum of the energy consumption of each vehicle composing the fleet:
+$$energyCost = \sum_{v \in V}energy^{v}$$
 \subsubsection*{Occupancy}
-
+The average occupancy of a vehicle $v$ over the scheduling horizon $T$ is given by:
+$$avgOccupancy = \frac{\sum_{t \in T}o^{v}_{t}}{|T|}$$
+The average occupancy does not take into account of the time vehicles spend at charging stations and therefore can not carry any passenger. As explained in section \ref{pubtrans}, a common unit used in transportation  measurement is the load factor, which expresses the efficiency of a vehicle based on the kilometres travelled by passengers over the total kilometres that could have been driven considering its maximum capacity. In our case, as we are mainly interested in how the energy of the vehicles has efficiently been used, we define the passenger-energy measure: it is the energy that has been consumed by the vehicle during the passenger journey time. The passenger-energy for one vehicle is therefore the sum of the passenger-energy of the bookings it has satisfied. The seat-energy available represents the maximum possible passenger-energy if the vehicle would have been always full: it is the energy consumption of the vehicle times its maximum capacity. The vehicles' load factor is its passenger-energy over its seat-energy:
+$$loadFactor^{v} = \frac{\sum_{t \in T} \delta^{v}_{t} * (1-x^{v}_{t}) * o^{v}_{t}}{energy^{v} * c^{v}}$$
+We can compute the average load factor of the fleet as:
+$$avgLoadFactor = \frac{\sum_{v \in V}loadFactor^{v}}{|V|}$$
+We denote the stability load factor the difference between the maximum load factor among the vehicles composing the fleet and the minimum one. The closer it is to 0 the better as it implies that all vehicles are used equivalently: $stabilityLoadFactor = \max_{v^{+} \in V}{loadFactor^{v^{+}}} -  \min_{v^{-} \in V}{loadFactor^{v^{-}}}$.
 \subsubsection*{Waiting Time}
-
+The average waiting time among the satisfied bookings is given by: 
+$$avgWaitingTime = \frac{\sum_{b \in B*}w^{b}}{|B^{*}|} $$
+The stability waiting time is the difference between the maximum waiting time and the minimum waiting time among the bookings:  $stabilityWaitingTime = \max_{b^{+} \in B^{*}}{w^{b^{+}}} -  \min_{b^{-} \in B^{*}}{w^{b^{-}}}$.
 \subsubsection*{Journey Time}
+The average journey time among the satisfied bookings is given by:
+$$avgJourneyTime = \frac{\sum_{b \in B*}\Delta^{b}}{|B^{*}|} $$
 
 \subsubsection*{Completed Bookings Percentage}
 Travel time, booking time, 
+At the end of the scheduling horizon, some bookings may not have been satisfied. The percentage of bookings which have been satisfied is given by:
+$$completedBookings = \frac{|B^{*}|}{|B|}$$
 
 \section{Methodology}
-concentrates on respecting the fixed headway (which is first computed) but not optimising the real costs taking everyhitng into account like battery management, etc
-\subsection{Simulation Framework}
+In order to evaluate the behaviour and performance of the system under various conditions with respect to the line configurations, the booking scenarios and the vehicles scheduling alternatives, we undertake analyses under laboratory conditions by simulating the the operation of the system on the platform dispatching the vehicles. One of our main goal in the analysis we conduct on the line is to get measures as close as possible to real world conditions. In order to achieve this, a dynamic system is required which handles the time-dependent events of the system. In section \ref{framework} we describe the behaviour of the different interconnected modules simulating the transportation line under given conditions and the performance meas
+
+\subsection{Simulation Framework}\label{framework}
 graph explaining framework 
 
 \subsubsection{Simulated Vehicles}

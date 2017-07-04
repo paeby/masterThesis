@@ -124,6 +124,19 @@
   year        = {2016},
 }
 
+@Misc{loadfactor,
+  author      = {Adra, N. and Michaux, J. L. and Andre, Michel},
+  title       = {{Analysis of the load factor and the empty running rate for road transport. Artemis - assessment and reliability of transport emission models and inventory systems}},
+  year        = {2004},
+  note        = {Rapport de recherche},
+  hal_id      = {hal-00546125},
+  hal_version = {v1},
+  keywords    = {load factor ; empty running ; bus ; coach ; transport of goods ; statistics},
+  pages       = {31p},
+  pdf         = {https://hal.archives-ouvertes.fr/hal-00546125/file/LTE0419-1.pdf},
+  url         = {https://hal.archives-ouvertes.fr/hal-00546125},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}
 
 @Comment{jabref-meta: fileDirectory:/Users/prisca/Documents/Final Report/bibliography;}
