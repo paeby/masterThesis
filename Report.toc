@@ -10,18 +10,15 @@
 \contentsline {subsection}{\numberline {3.4}Output Metrics}{7}
 \contentsline {section}{\numberline {4}Methodology}{10}
 \contentsline {subsection}{\numberline {4.1}Simulation Framework}{10}
-\contentsline {subsubsection}{\numberline {4.1.1}Simulated Vehicles}{10}
-\contentsline {subsubsection}{\numberline {4.1.2}Reported Metrics}{10}
-\contentsline {subsection}{\numberline {4.2}Scheduling}{10}
-\contentsline {subsubsection}{\numberline {4.2.1}Vehicles' Activities Schedule}{10}
-\contentsline {subsubsection}{\numberline {4.2.2}Headway}{10}
+\contentsline {subsection}{\numberline {4.2}Scheduling}{11}
+\contentsline {subsubsection}{\numberline {4.2.1}Vehicles' Activities Schedule}{11}
+\contentsline {subsubsection}{\numberline {4.2.2}Headway}{11}
 \contentsline {subsubsection}{\numberline {4.2.3}Dynamic Fleet Size}{11}
 \contentsline {section}{\numberline {5}Numerical Experiments}{11}
-\contentsline {subsection}{\numberline {5.1}}{11}
-\contentsline {subsection}{\numberline {5.2}Simulation Settings}{11}
-\contentsline {subsection}{\numberline {5.3}Graph}{11}
-\contentsline {subsection}{\numberline {5.4}Optimal Headway}{11}
-\contentsline {subsection}{\numberline {5.5}}{11}
-\contentsline {subsection}{\numberline {5.6}Simulated Demand}{11}
-\contentsline {subsection}{\numberline {5.7}}{11}
-\contentsline {section}{\numberline {6}Conclusion}{11}
+\contentsline {subsection}{\numberline {5.1}Simulation Settings}{11}
+\contentsline {subsection}{\numberline {5.2}Graph}{11}
+\contentsline {subsection}{\numberline {5.3}Optimal Headway}{12}
+\contentsline {subsection}{\numberline {5.4}}{12}
+\contentsline {subsection}{\numberline {5.5}Simulated Demand}{12}
+\contentsline {subsection}{\numberline {5.6}}{12}
+\contentsline {section}{\numberline {6}Conclusion}{12}

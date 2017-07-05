@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.13)  4 JUL 2017 17:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.13)  5 JUL 2017 15:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -347,43 +347,51 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 134.
  [5] [6] [7]
-[8] [9] [10] (./Report.bbl [11]) [12] (./Report.aux) ) 
+[8] [9] <./images/simulationFramework.png, id=57, 644.4075pt x 253.94875pt>
+File: ./images/simulationFramework.png Graphic file (type png)
+
+<use ./images/simulationFramework.png>
+Package pdftex.def Info: ./images/simulationFramework.png used on input line 24
+8.
+(pdftex.def)             Requested size: 354.42522pt x 139.67223pt.
+ [10 <./images/simulationFramework.png>]
+(./Report.bbl [11]) [12] (./Report.aux) ) 
 Here is how much of TeX's memory you used:
- 4124 strings out of 492995
- 56057 string characters out of 6132704
- 237427 words of memory out of 5000000
- 7589 multiletter control sequences out of 15000+600000
+ 4133 strings out of 492995
+ 56274 string characters out of 6132704
+ 237447 words of memory out of 5000000
+ 7596 multiletter control sequences out of 15000+600000
  18552 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  39i,11n,32p,1638b,247s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2017/
-texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2017/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2017/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2017/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2017/texmf
--dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2017/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2017/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2017/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2017/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2017/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2017/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type
-1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2017/texmf-dist/fonts/
-type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2017/texmf-dist/fonts/ty
-pe1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/type
-1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/
-public/cm-super/sfbx1728.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/pu
-blic/cm-super/sfrm0800.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/publ
-ic/cm-super/sfrm1095.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public
-/cm-super/sfrm1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/c
-m-super/sfrm2074.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-
-super/sfti1095.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-su
-per/sftt1095.pfb>
-Output written on Report.pdf (12 pages, 374730 bytes).
+{/usr/local/texlive/2017/texmf-dist/fo
+nts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2017/texmf-dist/font
+s/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2017/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2017/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2017/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2017/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmsy6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmsy8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsf
+onts/symbols/msbm10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/
+cm-super/sfbx1095.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm
+-super/sfbx1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-s
+uper/sfbx1440.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-sup
+er/sfbx1728.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super
+/sfrm0800.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/s
+frm1095.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfr
+m1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfrm2
+074.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfti109
+5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sftt1095.
+pfb>
+Output written on Report.pdf (12 pages, 405547 bytes).
 PDF statistics:
- 137 PDF objects out of 1000 (max. 8388607)
- 97 compressed objects within 1 object stream
+ 140 PDF objects out of 1000 (max. 8388607)
+ 98 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

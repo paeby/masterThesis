@@ -239,22 +239,33 @@ At the end of the scheduling horizon, some bookings may not have been satisfied.
 $$completedBookings = \frac{|B^{*}|}{|B|}$$
 
 \section{Methodology}
-In order to evaluate the behaviour and performance of the system under various conditions with respect to the line configurations, the booking scenarios and the vehicles scheduling alternatives, we undertake analyses under laboratory conditions by simulating the the operation of the system on the platform dispatching the vehicles. One of our main goal in the analysis we conduct on the line is to get measures as close as possible to real world conditions. In order to achieve this, a dynamic system is required which handles the time-dependent events of the system. In section \ref{framework} we describe the behaviour of the different interconnected modules simulating the transportation line under given conditions and the performance meas
+In order to evaluate the behaviour and performance of the system under various conditions with respect to the line configurations, the booking scenarios and the vehicles scheduling alternatives, we undertake analyses under laboratory conditions by simulating the the operation of the system on the platform dispatching the vehicles. One of our main goal in the analysis we conduct on the line is to get measures as close as possible to real world conditions. In order to achieve this, a dynamic system is required which handles the time-dependent events of the system. In section \ref{framework} we describe the behaviour of the different interconnected services simulating the vehicles' behaviour reacting to external conditions and how the overall system is evaluated. In section \ref{scheduling} we present the variations of scheduling strategies used to dispatch the vehicles on the line. 
 
 \subsection{Simulation Framework}\label{framework}
-graph explaining framework 
-
-\subsubsection{Simulated Vehicles}
+\setlength{\belowcaptionskip}{10pt}
+\begin{figure}[h] 
+  \centering
+\includegraphics[scale=0.55]{./images/simulationFramework.png}
+\caption{Interconnected modules composing the simulation framework}
+\label{fig:simulationFramework}
+\end{figure}
+Figure~\ref{fig:simulationFramework} illustrates the different web services and how they are linked to each others. In what follows we describe the behaviour of each module and the simulation parameters which can be tuned.
+- Deileon simulator for the vehicles => register the vehicles, handle battery, send TCP messages with hermes
+- World-simulator starting the vehicles, sending the edge speeds and bookings
+- 
+\subsubsection*{World Simulator}
+The world-simulator is the web service which is used to start the simulation, send the booking requests and send traffic updates information. At the beginning of the simulation, it sets the time control to a given ratio which is broadcasted to the other web services in order to synchronize them. A day can be simulated in $m$ minutes which corresponds to a ratio $r$ of $m / 24h$. The world-simulator is instantiated with a scenario describing the external events which affect the overall system. It mimics the bookings which would have been made by users with a booking application. The scenario is 
+\subsubsection*{Simulated Vehicles}
 start: spread on the line, battery is full 
 starting location
 they cannot take over other vehicles, need to follow the loop unless when they go to charge they don't compute the headway and go max speed
-\subsubsection{Reported Metrics}
+\subsubsection*{Reported Metrics}
 Logs fetched from database 
 - vehicle logs
 - journey logs
-output graph
+- output graph
 
-\subsection{Scheduling}
+\subsection{Scheduling}\label{scheduling}
 Why we don't follow exactly luts: adapt the vehicles on the fly on one fixed route
 \subsubsection{Vehicles' Activities Schedule}
 when they arrive at station, if they can they pick up the booking (based on booking size)
@@ -269,9 +280,10 @@ how choose vehicles to send to charge and which ones to activate
 
 \section{Numerical Experiments}
 Real environment
-\subsection{}
 \subsection{Simulation Settings}
-speed 
+tuning
+speed of actors
+logs fetched from db
 
 \subsection{Graph}
 Unless stated, charging locations at same place
