@@ -203,25 +203,25 @@ In this section we formulate the mathematical model describing the autonomous ve
 \subsection{Circular Route}
 The circular line in this transportation system is a route which starts at a certain station, traverses other stations once and terminates at the starting station. The route is represented by set of stations  and a set of directed edges $E$ linking each station $s \in S$ to its following station. The set of charging stations $C$ includes stations located on the stops within the loop: $C \subset S$. The maximum speed of an edge, representing the traffic at time $t$, is expressed as $speed^{e}_{t}$.
 
-\subsection{Vehicles}
+\subsection{Vehicles}\label{vehicles}
 Each vehicle composing the fleet $v \in V$ moving on the circular closed line is characterized by a capacity $c^{v}$, a maximum charge $q^{v}$, a recharge rate $\alpha^{v}$, a battery consumption rate $\beta^{v}$ and a maximum speed $s^{v}$. The battery level of vehicle $v$ at the timestamp $t$ is $I^{v}_{t} \in [0, q^{v}]$. The battery change between the preceding discrete timestamp and the current timestamp $t$ is given by $\delta^{v}_{t}$. The edge it is currently traversing is $e^{v}_{t}$ and the distance to the next vehicle in front of it on the loop is given by $next^{v}_{t}$. The occupancy of the vehicle is expressed as $o^{v}_{t} \in [0, c^{v}]$. The vehicle is travelling either at its maximum speed or at the limitation of the current edge. Its current speed is therefore max$\{s^{v}, speed^{e^{v}_{t}}\}$. When a vehicle is charging at a station the boolean variable $x^{v}_{t}$ is set to 1 and it can not carry any passengers $o^{v}_{t} = 0$.
 
-\subsection{Bookings}
+\subsection{Bookings}\label{bookings}
 The set $B$ represents the users' bookings made during the service horizon. A booking $b_{i,j} \in B$ requests a trip from station $i$ to $j$ at time $t^{b}$ for a group of $n^{b}$ persons. If the booking has been satisfied, the boolean variable $D_{b}$ is set to 1 and we know that it has been executed by vehicle $v^{b} \in V$. The pickup time of booking $b$ at station $i$ is $p^{b}$ and drop-off time at station $j$ is $d^{b}$. The waiting time  $w^{b}$ equals $p^{b} - t^{b}$ and the journey time $\Delta^{b}$ is $d^{b} - p^{b}$. We denote $B^{*}$ the set of bookings which have been satisfied, so the bookings for which $D_{b} = 1$.
 
-\subsection{Output Metrics}
+\subsection{Output Metrics}\label{metrics}
 At the end of the service horizon $T$, some metrics can be derived in order to evaluate the performance of the overall system dispatching the vehicles to serve the requests. 
 
-\subsubsection*{Energy}
-The total energy consumed by a vehicle $v$ is the sum of the battery changes over the scheduling horizon when the vehicle is not charging:
-$$energy^{v} = \sum_{t \in T}\delta^{v}_{t} * (1-x^{v}_{t}) $$
-The total energy cost for the entire system is therefore the sum of the energy consumption of each vehicle composing the fleet:
-$$energyCost = \sum_{v \in V}energy^{v}$$
+\subsubsection*{Battery}
+The total battery consumed by a vehicle $v$ is the sum of the battery changes over the scheduling horizon when the vehicle is not charging:
+$$battery^{v} = \sum_{t \in T}\delta^{v}_{t} * (1-x^{v}_{t}) $$
+The total battery cost for the entire system is therefore the sum of the battery consumption of each vehicle composing the fleet:
+$$batteryCost = \sum_{v \in V}battery^{v}$$
 \subsubsection*{Occupancy}
 The average occupancy of a vehicle $v$ over the scheduling horizon $T$ is given by:
 $$avgOccupancy = \frac{\sum_{t \in T}o^{v}_{t}}{|T|}$$
-The average occupancy does not take into account of the time vehicles spend at charging stations and therefore can not carry any passenger. As explained in section \ref{pubtrans}, a common unit used in transportation  measurement is the load factor, which expresses the efficiency of a vehicle based on the kilometres travelled by passengers over the total kilometres that could have been driven considering its maximum capacity. In our case, as we are mainly interested in how the energy of the vehicles has efficiently been used, we define the passenger-energy measure: it is the energy that has been consumed by the vehicle during the passenger journey time. The passenger-energy for one vehicle is therefore the sum of the passenger-energy of the bookings it has satisfied. The seat-energy available represents the maximum possible passenger-energy if the vehicle would have been always full: it is the energy consumption of the vehicle times its maximum capacity. The vehicles' load factor is its passenger-energy over its seat-energy:
-$$loadFactor^{v} = \frac{\sum_{t \in T} \delta^{v}_{t} * (1-x^{v}_{t}) * o^{v}_{t}}{energy^{v} * c^{v}}$$
+The average occupancy does not take into account of the time vehicles spend at charging stations and therefore can not carry any passenger. As explained in section \ref{pubtrans}, a common unit used in transportation  measurement is the load factor, which expresses the efficiency of a vehicle based on the kilometres travelled by passengers over the total kilometres that could have been driven considering its maximum capacity. In our case, as we are mainly interested in how the battery of the vehicles has efficiently been used, we define the passenger-battery measure: it is the battery that has been consumed by the vehicle during the passenger journey time. The passenger-battery for one vehicle is therefore the sum of the passenger-battery of the bookings it has satisfied. The seat-battery available represents the maximum possible passenger-battery if the vehicle would have been always full: it is the battery consumption of the vehicle times its maximum capacity. The vehicles' load factor is its passenger-battery over its seat-battery:
+$$loadFactor^{v} = \frac{\sum_{t \in T} \delta^{v}_{t} * (1-x^{v}_{t}) * o^{v}_{t}}{battery^{v} * c^{v}}$$
 We can compute the average load factor of the fleet as:
 $$avgLoadFactor = \frac{\sum_{v \in V}loadFactor^{v}}{|V|}$$
 We denote the stability load factor the difference between the maximum load factor among the vehicles composing the fleet and the minimum one. The closer it is to 0 the better as it implies that all vehicles are used equivalently: $stabilityLoadFactor = \max_{v^{+} \in V}{loadFactor^{v^{+}}} -  \min_{v^{-} \in V}{loadFactor^{v^{-}}}$.
@@ -245,35 +245,34 @@ In order to evaluate the behaviour and performance of the system under various c
 \setlength{\belowcaptionskip}{10pt}
 \begin{figure}[h] 
   \centering
-\includegraphics[scale=0.55]{./images/simulationFramework.png}
+\includegraphics[scale=0.55]{./images/SimulationFramework2.pdf}
 \caption{Interconnected modules composing the simulation framework}
 \label{fig:simulationFramework}
 \end{figure}
-Figure~\ref{fig:simulationFramework} illustrates the different web services and how they are linked to each others. In what follows we describe the behaviour of each module and the simulation parameters which can be tuned.
-- Deileon simulator for the vehicles => register the vehicles, handle battery, send TCP messages with hermes
-- World-simulator starting the vehicles, sending the edge speeds and bookings
-- 
-\subsubsection*{World Simulator}
-The world-simulator is the web service which is used to start the simulation, send the booking requests and send traffic updates information. At the beginning of the simulation, it sets the time control to a given ratio which is broadcasted to the other web services in order to synchronize them. A day can be simulated in $m$ minutes which corresponds to a ratio $r$ of $m / 24h$. The world-simulator is instantiated with a scenario describing the external events which affect the overall system. It mimics the bookings which would have been made by users with a booking application. The scenario is 
+Figure~\ref{fig:simulationFramework} illustrates the different web services and how they are linked to each others. Services can communicate by exchanging messages via Kafka which is an asynchronous publish-and-subscribe message broker. In what follows we describe the behaviour of each module and the simulation parameters which can be tuned.
+\subsubsection*{World-Simulator}
+The world-simulator is a web service which is used to start the simulation, send the booking requests and send traffic updates information. At the beginning of the simulation, it sets the time control to a given ratio which is sent to the core-engine application.  A day can be simulated in $m$ minutes which corresponds to a ratio $r$ of $m / 24h$. The world-simulator is instantiated with a scenario describing the external events which affect the overall system. It mimics the bookings which would have been made by users with the booking application and sent through a REST API. Every second at time $t$ it checks if there are bookings with $t^{b} = t$ and speed updates $speed_{t}^{e}$ to send to the core-engine application. 
+
 \subsubsection*{Simulated Vehicles}
-start: spread on the line, battery is full 
-starting location
-they cannot take over other vehicles, need to follow the loop unless when they go to charge they don't compute the headway and go max speed
+Vehicles are connected to the core-engine through an established TCP protocol. They can send status messages and receive missions, like going to a specific charging station or waiting at a stop for a given time. The vehicles are simulated concurrently following an actor model. Each vehicle is a different actor part of the actor system. When the vehicles web service receives an HTTP request to start the simulation with a given fleet size from the world-simulator, an actor is created for each vehicle, which announces its position to the core-engine through a TCP message and subscribes to the time topic. The vehicles start at equal distance of each others on the loop with the battery completely recharged and their position and battery level is then updated every $1000/rate$ milliseconds.    
+
+\subsubsection*{Core-Engine}
+The core-engine application is a distributed system that combines and processes real-time information for coordinating and optimizing the fleet of autonomous vehicles. Several scenario components are instantiated by the core-engine application: the map, the vehicles' configurations and fleet schedule through the day. The map is a GeoJSON file which is translated into the application to a directed graph with an edge between every stop and charging stations. The vehicles' configurations include all the parameters enumerated in section \ref{vehicles}. The core-engine handles the bookings it receives from the world-simulator, updates the edges' speed of the graph and sends the actions to be executed by the vehicles. When it receives the starting simulation time and ratio $r$ from the world-simulator, it publishes the updated time to the corresponding Kafka topic. The scheduler component manages the number of vehicles which need to be on service at different times during the day and sends corresponding missions to the vehicles. 
+
 \subsubsection*{Reported Metrics}
-Logs fetched from database 
-- vehicle logs
-- journey logs
-- output graph
+The reporting web-service subscribes to the vehicle and journey topics and writes the stream events to its database. An event for vehicle $v$ at time $t$ includes its speed, position, battery level and battery state $x_{t}^{v}$. There is an event only for a booking which has been satisfied $b \in B^{*}$ and it includes all the parameters listed in section \ref{bookings}. At the end of the simulation, events are fetched from the database at fixed sampling $interval$ and then those logs are analysed in order to compare different scenarios in term of their overall performance. All the metrics listed in section \ref{metrics}. In addition, we represent visually the simulation's performances with different graphs. In order to evaluate the different behaviours among the vehicles, we plot the hourly average occupancy of each vehicle during the scheduling horizon $H$. It is useful to see if all the vehicles are carrying passengers through the scheduling period or only few of them. We compare as well the number of vehicles which are at charging stations to the hourly average waiting time. It gives a good indicator to determine if the time at which the vehicle has been sent to charge was appropriate or if it impacts a lot the service in terms of quality of service provided to the passengers.
 
 \subsection{Scheduling}\label{scheduling}
-Why we don't follow exactly luts: adapt the vehicles on the fly on one fixed route
+The approach proposed by \cite{luts} described in section \ref{luts} is formulated as an optimization problem which considers the optimal headway for each route as an input but does not specify how to define it. Many real world aspects are not considered in their model. For example, it does not include transfers costs to charging stations or the time it takes to stop at stations and board passengers. It does not evaluate any demand scenarios neither. Our approach is to focus on scenarios as close as possible to real world conditions and find heuristics to define the number of vehicles needed on the fixed line in order to have a good balance between the battery consumption and the quality of service offered to the passengers. In what follows we describe how the core-engine handles the missions it sends to the vehicles based on the dynamic events it receives. 
+
 \subsubsection{Vehicles' Activities Schedule}
+When a vehicle $v$ arrives at a station $j$, it checks if it is carrying passengers which have made a booking with end destination $j$, 
 when they arrive at station, if they can they pick up the booking (based on booking size)
 they drop off bookings that finish here
 they wait based on headway computation
 *battery* check if it is under threshold
 finish to drop off everybody and go to charging station
-\subsubsection{Headway}
+\subsubsection{Headway}\label{hw}
 compute headway based  on fleetorchestrationservice
 \subsubsection{Dynamic Fleet Size}
 how choose vehicles to send to charge and which ones to activate
