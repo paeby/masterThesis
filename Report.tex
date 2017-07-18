@@ -115,11 +115,11 @@ General problem: two types of services, on-demand and fixed-line => explain why 
 Fixed line because now roads are not made for more complex systems
 
 
-\section{Related Literature}
+\section{Related Literature} 
 The scope of vehicle scheduling problems related to our specific case study can range from fixed-line bus services to on-demand systems. In fact, electric shuttles' routes and stops are predefined but timetables can be flexible to respond to the known real-time demand. The set of constraints differs from traditional bus transportation, for example workforce regulations can be eliminated as the shuttles are not human driven but a battery management component needs to be introduced into the planning process. As we will see in this chapter, current research often concentrates on one specific aspect of the scheduling strategy, simplifying some constraints, assessing the system's performance using various types of metrics and considering different inputs. In what follows, we describe in section \ref{pubtrans} some techniques used in the traditional public transport industry to guarantee a good quality of service. In section \ref{das} we describe the concept of Demand-Adaptive Transit Systems. Finally, we detail in section \ref{luts} an approach proposed by the Urban Transport Systems Laboratory at EPFL (LUTS) for scheduling autonomous vehicles activities.  
 
 \subsection{Public Transport}\label{pubtrans}
-Within the standard transit organization, policies and standards affect a lot the development of transport strategies and how people interact with the systems. The planning process of a fixed line bus transportation service is mainly composed of three different tasks: route planning, service frequencies and service timing. Route planning consists of defining a sequence of stops composing each route and how those routes are interconnected. Service frequency captures the number of vehicles per unit time which pass a given route (often expressed in vehicles per hour). A common measure used to express the ideal distance between vehicles is the headway, the inverse of the frequency, in other word the fixed interval at which vehicles are coming at a station. The service frequencies set by the transport organization can be chosen based on different policies (see \cite{tcrp}): 
+Within the standard transit organization, policies and standards affect a lot the development of transport strategies and how people interact with the systems. The planning process of a fixed line bus transportation service is mainly composed of three different tasks: route planning and deciding service frequencies as well as the service timing. Route planning consists of defining a sequence of stops composing each route and how those routes are interconnected. Deciding service frequencies implies specifying the number of vehicles per unit time which need to pass a given route (often expressed in vehicles per hour). A common measure used to express the ideal distance between vehicles is the headway, the inverse of the frequency, in other word the fixed interval at which vehicles are coming at a station. The service frequencies set by the transport organization can be chosen based on different policies (see \cite{tcrp}): 
 \begin{enumerate}
 \item \textbf{Fixed headway}: the agency establishes a fixed interval at which vehicles come to stations. It is convenient for customers as they have access to an exact schedule, but it is hard to keep the time between vehicles constant as it is vulnerable to external disturbances.
 \item \textbf{Demand-based headway}: in existing transport services, agencies can adapt the timetables based on the observed demand at the stations (number of passenger boardings/deboardings) in order to reach the desired passenger load in vehicles.
@@ -182,7 +182,7 @@ In this section we formulate the mathematical model describing the autonomous ve
   $e^{v}_{t}$ & Edge $e \in E$ which vehicle $v$ is traversing at time $t$ \\
   $next^{v}_{t}$ &  Distance to the next vehicle in front of $v$ on the loop at time $t$ \\
   $o^{v}_{t} \in [0, c^{v}]$ & Number of passengers in vehicle $v$ at time $t$ \\
-  $i^{v}_{t}$ & Seconds vehicle $v$ needs to stop at time $t$ \\  
+  $wait^{v}_{t}$ & Seconds vehicle $v$ needs to stop at time $t$ \\  
   
   $b_{i,j} \in B$ & Request of trip from station $i$ to station $j$, $i,j \in S$ \\
   $t^{b}$ & Time at which the request $b \in B$ has been made \\
@@ -190,8 +190,10 @@ In this section we formulate the mathematical model describing the autonomous ve
   $p^{b}$ & Pick-up timestamp of booking $b$ \\
   $d^{b}$ & Drop-off timestamp of booking $b$ \\
   $w^{b}$ & Waiting time of booking $b$ \\
-  $\Delta^{b}$ & Journey time of booking $b$ \\
+  $\rho^{b}$ & Journey time of booking $b$ \\
   
+  $len$ & Total length of the circular route \\
+
   $A^{s}, s \in C$ & 1 if $s$ is an available charging station, 0 otherwise \\
   $M^{s}$ & 1 if $s$ is the stop is mandatory, 0 otherwise \\
   $x^{v}_{t}$ & 1 if the vehicle $v$ is charging at a station at time $t$, 0 otherwise \\
@@ -203,13 +205,13 @@ In this section we formulate the mathematical model describing the autonomous ve
 \label{table:parameters}
 \end{table}
 \subsection{Circular Route}
-The circular line in this transportation system is a route which starts at a certain station, traverses other stations once and terminates at the starting station. The route is represented by set of stations  and a set of directed edges $E$ linking each station $s \in S$ to its following station. The set of charging stations $C$ includes stations located on the stops within the loop: $C \subset S$. If the charging station is not used by any vehicle of the fleet we have $A^{s} = 1$. A stop $s$ can be mandatory (vehicles always stop when they reach the stop) or optional (the stop can be skipped). If the stop is mandatory the boolean variable $M^{s}$ is set to 1, and 0 otherwise. The maximum speed of an edge, representing the traffic at time $t$, is expressed as $speed^{e}_{t}$.
+The circular line in this transportation system is a route which starts at a certain station, traverses other stations once and terminates at the starting station. The route is represented by set of stations  and a set of directed edges $E$ linking each station $s \in S$ to its following station. The set of charging stations $C$ includes stations located on the stops within the loop: $C \subset S$. If the charging station is not used by any vehicle of the fleet we have $A^{s} = 1$. A stop $s$ can be mandatory (vehicles always stop when they reach the stop) or optional (the stop can be skipped). If the stop is mandatory the boolean variable $M^{s}$ is set to 1, and 0 otherwise. The maximum speed of an edge, representing the traffic at time $t$, is expressed as $speed^{e}_{t}$. The total distance of the circular line is given by $len$.
 
 \subsection{Vehicles}\label{vehicles}
-Each vehicle composing the fleet $v \in V$ moving on the circular closed line is characterized by a capacity $c^{v}$, a maximum charge $q^{v}$, a recharge rate $\alpha^{v}$, a battery consumption rate $\beta^{v}$ and a maximum speed $s^{v}$. The battery level of vehicle $v$ at the timestamp $t$ is $I^{v}_{t} \in [0, q^{v}]$. The battery change between the preceding discrete timestamp and the current timestamp $t$ is given by $\delta^{v}_{t}$. The edge it is currently traversing is $e^{v}_{t}$ and the distance to the next vehicle in front of it on the loop is given by $next^{v}_{t}$. The occupancy of the vehicle is expressed as $o^{v}_{t} \in [0, c^{v}]$. The vehicle is travelling either at its maximum speed or at the limitation of the current edge. Its current speed is therefore max$\{s^{v}, speed^{e^{v}_{t}}\}$. When a vehicle is charging at a station the boolean variable $x^{v}_{t}$ is set to 1 and it can not carry any passengers $o^{v}_{t} = 0$. A vehicle entering a station at time $t$ might have to wait $p^{v}_{t}$ seconds.
+Each vehicle composing the fleet $v \in V$ moving on the circular closed line is characterized by a capacity $c^{v}$, a maximum charge $q^{v}$, a recharge rate $\alpha^{v}$, a battery consumption rate $\beta^{v}$ and a maximum speed $s^{v}$. The battery level of vehicle $v$ at the timestamp $t$ is $I^{v}_{t} \in [0, q^{v}]$. The battery change between the preceding discrete timestamp and the current timestamp $t$ is given by $\delta^{v}_{t}$. The edge it is currently traversing is $e^{v}_{t}$ and the distance to the next vehicle in front of it on the loop is given by $next^{v}_{t}$. The occupancy of the vehicle is expressed as $o^{v}_{t} \in [0, c^{v}]$. The vehicle is travelling either at its maximum speed or at the limitation of the current edge. Its current speed is therefore max$\{s^{v}, speed^{e^{v}_{t}}\}$. When a vehicle is charging at a station the boolean variable $x^{v}_{t}$ is set to 1 and it can not carry any passengers $o^{v}_{t} = 0$. A vehicle entering a station at time $t$ might have to wait $wait^{v}_{t}$ seconds.
 
 \subsection{Bookings}\label{bookings}
-The set $B$ represents the users' bookings made during the service horizon. A booking $b_{i,j} \in B$ requests a trip from station $i$ to $j$ at time $t^{b}$ for a group of $n^{b}$ persons. If the booking has been satisfied, the boolean variable $D_{b}$ is set to 1 and we know that it has been executed by vehicle $v^{b} \in V$. The pickup time of booking $b$ at station $i$ is $p^{b}$ and drop-off time at station $j$ is $d^{b}$. The waiting time  $w^{b}$ equals $p^{b} - t^{b}$ and the journey time $\Delta^{b}$ is $d^{b} - p^{b}$. We denote $B^{*}$ the set of bookings which have been satisfied, so the bookings for which $D_{b} = 1$.
+The set $B$ represents the users' bookings made during the service horizon. A booking $b_{i,j} \in B$ requests a trip from station $i$ to $j$ at time $t^{b}$ for a group of $n^{b}$ persons. If the booking has been satisfied, the boolean variable $D_{b}$ is set to 1 and we know that it has been executed by vehicle $v^{b} \in V$. The pickup time of booking $b$ at station $i$ is $p^{b}$ and drop-off time at station $j$ is $d^{b}$. The waiting time  $w^{b}$ equals $p^{b} - t^{b}$ and the journey time $\rho^{b}$ is $d^{b} - p^{b}$. We denote $B^{*}$ the set of bookings which have been satisfied, so the bookings for which $D_{b} = 1$. Moreover, we define the demand 
 
 \subsection{Output Metrics}\label{metrics}
 At the end of the service horizon $T$, some metrics can be derived in order to evaluate the performance of the overall system dispatching the vehicles to serve the requests. 
@@ -233,7 +235,7 @@ $$avgWaitingTime = \frac{\sum_{b \in B{*}}w^{b}}{|B^{*}|} $$
 The stability waiting time is the difference between the maximum waiting time and the minimum waiting time among the bookings:  $stabilityWaitingTime = \max_{b^{+} \in B^{*}}{w^{b^{+}}} -  \min_{b^{-} \in B^{*}}{w^{b^{-}}}$.
 \subsubsection*{Journey Time}
 The average journey time among the satisfied bookings is given by:
-$$avgJourneyTime = \frac{\sum_{b \in B^{*}}\Delta^{b}}{|B^{*}|} $$
+$$avgJourneyTime = \frac{\sum_{b \in B^{*}}\rho^{b}}{|B^{*}|} $$
 
 \subsubsection*{Completed Bookings Percentage}
 Travel time, booking time, 
@@ -263,6 +265,11 @@ Vehicles are connected to the core-engine through an established TCP protocol. T
 \subsubsection{Core-Engine}
 The core-engine application is a distributed system that combines and processes real-time information for coordinating and optimizing the fleet of autonomous vehicles. Several testing environment components are instantiated by the core-engine application: the map, the vehicles' configurations and fleet schedule through the day. The map is a GeoJSON file which is translated into the application to a directed graph with an edge between every stop and charging stations. The vehicles' configurations include all the parameters enumerated in section \ref{vehicles}. The core-engine handles the bookings it receives from the world-simulator, updates the edges' speed of the graph and sends the actions to be executed by the vehicles. When it receives the starting simulation time and ratio $r$ from the world-simulator, it publishes the updated time to the corresponding Kafka topic. The scheduler component manages the number of vehicles which need to be on service at different times during the day and sends corresponding missions to the vehicles. The positions and battery states received from the vehicles through the TCP connection are then published to the corresponding Kafka topics.  
 
+\subsubsection{Time Synchronization}
+The different time-dependent services use a $timesource$ controller which is a time simulator allowing the services to use a time behaving in a transformed way. Each $timesource$ has in addition to the ratio $r$ a $shift duration$ which shifts the simulated time by a constant value and a $start timestamp$ which is a  synchronization marker used to create multiple $timesources$ which are consistent with each others. $Timesources$ created at different time with the exact same ratio $r$, $start timestamp$ and $shift duration$ are perfectly synchronized as long as the system clocks of the running services are synced as well. In order to get the simulated time on the different services we can simply compute it with the following formula:
+$$simTime = start timestamp + (current system time - start timestamp) * r + shift duration$$
+
+
 \subsubsection{Reported Metrics}
 The reporting web-service subscribes to the vehicle and journey topics and writes the stream events to its database. An event for vehicle $v$ at time $t$ includes its speed, position, battery level and battery state $x_{t}^{v}$. There is an event only for a booking which has been satisfied $b \in B^{*}$ and it includes all the parameters listed in section \ref{bookings}. At the end of the simulation, events are fetched from the database at fixed sampling $interval$ and then those logs are analysed in order to compare different scenarios in term of their overall performance. All the metrics listed in section \ref{metrics}. In addition, we represent visually the simulation's performances with different graphs. In order to evaluate the different behaviours among the vehicles, we plot the hourly average occupancy of each vehicle during the scheduling horizon $H$. It is useful to see if all the vehicles are carrying passengers through the scheduling period or only few of them. We compare as well the number of vehicles which are at charging stations to the hourly average waiting time. It gives a good indicator to determine if the time at which the vehicle has been sent to charge was appropriate or if it impacts a lot the service in terms of quality of service provided to the passengers.
 
@@ -275,12 +282,29 @@ When a vehicle $v$ arrives at a station $j$ at $simTime$, it checks if it is car
 The battery level $I^{v}_{simTime}$ of vehicle $v$ is controlled every time a vehicle arrives at a station. If it is under a threshold $minBatt$, it can not pick up any passenger any more, need to drop off every passenger at their requested drop-off station and finally goes the the closest charging station. When a vehicle is recharging and there is a booking $b$ not picked up yet, $D_{b} = 0$, then the vehicle is dispatched on the loop again if its battery level is above a threshold denoted $enoughBatt$. 
 
 \subsubsection{Headway}\label{hw}
-Even though the vehicles start at equal distance at the beginning of the scheduling horizon, if no strategy is adopted to maintain an equal distance between them the system will suffer from the well-known bus bunching effect described in section \ref{pubtrans}. In fact, the buses picking up passengers (which need to wait longer at stations) are slowing down and their preceding buses will catch them up, especially if some stations are not mandatory and they can skip them. As we have at our disposal updated vehicles' states, we can adopt a decentralized strategy in order to dynamically balance the distances between the active vehicles operating on the loop. The idea is to compute the ideal distance between the vehicles and to stop longer the ones too close to their following vehicle on the line, or on the other hand stop less if they are too far. As explained in section \ref{schedule}, each time a vehicle stops at a station we compute the number of seconds it has to wait until it can leave. We set a default 
+Even though the vehicles start at equal distance at the beginning of the scheduling horizon, if no strategy is adopted to maintain an equal distance between them the system will suffer from the well-known bus bunching effect described in section \ref{pubtrans}. In fact, the buses picking up passengers (which need to wait longer at stations) are slowing down and their preceding buses will catch them up, especially if some stations are not mandatory and they can skip them. As we have at our disposal updated vehicles' states, we can adopt a decentralized strategy in order to dynamically balance the distances between the active vehicles operating on the loop. The idea is to compute the ideal distance between the vehicles and to stop longer the ones too close to their following vehicle on the line, or on the other hand stop less if they are too far. As explained in section \ref{schedule}, each time a vehicle stops at a station we compute the number of seconds it has to wait until it can leave if does not skip the station. Let $default$ be the default waiting time in seconds at a station. The time a vehicle $v$ waits at a station at time $simTime$ is $wait^{v}_{simTime} = default * ratio$, with $ratio$ computed as follows:
+\begin{itemize}
+\setlength\itemsep{1pt}
+\item The ideal distance between each vehicle is given by $ideal = len / |V^{*}|$, $V^{*}$ being the set of active vehicles on the line with $V^{*}\in V$ and $\forall v \in V^{*}: x^{v}_{simTime} = 0$. 
+\item We compute the distance to the next vehicle on the line $next^{v}_{timTime}$. Let $ratio$ be the ratio between the ideal distance and the distance to the following car $next^{v}_{simTime} / ideal$.
+\end{itemize}o
+It holds then that if $ratio < 1$ the next vehicle is too far so the vehicle needs to wait less than $ideal$ and otherwise the next vehicle is too close and it waits more as $ratio >1$. Moreover, the time a vehicle waits at a station is bounded from below by $waitMin$ and from above by $waitMax$ in order to avoid irrational values.
 
 \subsubsection{Dynamic Fleet Size}
-how choose vehicles to send to charge and which ones to activate
+A fixed fleet of vehicles always operating on the line might not be an optimal solution to offer a good customer level of service whilst optimizing the fleet costs. In fact, passenger demand differ through the day and it might be substantially more cost-effective and efficient to adapt the number of active vehicles during the scheduling horizon $H$. For example, if the demand is low at certain times of the day then it does not make sense to have many vehicles active on the loop as some of them will not be used at all. On the other hand, if the demand is high and passengers are unable to board the first coming shuttle it would increase drastically the waiting time. Several questions arise concerning the exact strategy to adopt in order to define the minimal number of active vehicles needed based on the demand and the frequency at which fleet should be rescheduled. 
 
-\begin{table}9
+Our strategy implies to decide how many vehicles should be active at each hour of the scheduling horizon based on the demand. In what follows we will first explain how the fleet is rescheduled when the number of vehicles needed on the line changes. We will then present the different approaches taken in our study to find a balance between the cost of the running vehicles and the quality of service offered to the passengers. 
+
+\paragraph{Rescheduling the Vehicles} When the fleet size has to be changed decisions must be taken in order to adapt the number of vehicles on the line in an efficient way. It implies activating or deactivating the appropriate vehicles and scheduling their next activities. The main idea resides in optimizing the time vehicles are not being used by recharging them. The vehicles will have to go to a charging station and it eliminates the problem of knowing where to pause them as they can not be waiting indefinitely at stops. There are two situations to handle: the fleet size has to be increased or decreased by $\Delta$ vehicles at $simTime$. 
+
+\begin{itemize}
+\setlength\itemsep{1pt}
+\item \textbf{Increase the fleet size:} we need to decide which vehicles to reincorporate into the fleet from the ones being at the charging stations $V^{\#}$, with $V^{\#} \in V$ and $\forall v \in V^{\#}: x^{v}_{simTime} = 1$. The goal is to insert the ones which have the highest battery level and eventually they will not have to be sent to charge whilst they will be operating on the loop as it affects the system performance. The $\Delta$ vehicles with the highest energy level are activated to go back to the route. If the fleet size is not large enough $|V^{\#}| < \Delta$, all the vehicles in $V^{\#}$ will be activated. If the battery level of a vehicle $v$ is not sufficient to leave the charging station $I_{simTime}^{v} < enoughBatt$ then it stays on charge until its battery level reaches $enoughBatt$.
+\item \textbf{Decrease the fleet size:} following the same logic as the choice of vehicles to activate, the vehicles with the lowest battery level within the active vehciles $V^{*}$ will be sent to the charging stations. They will first drop off any passengers they carry as described in section \ref{schedule}. However, even if their battery level reaches $enoughBatt$ they are not sent back to the route if they have not been reactivated in the meantime.
+\end{itemize}
+
+\paragraph{Optimal Fleet Size} 
+\begin{table}
 \makebox[\textwidth][c]{
   \centering
 \begin{tabular}{| l | l |}
@@ -293,6 +317,9 @@ how choose vehicles to send to charge and which ones to activate
   $interval$ & Interval at which events are fetched from the reporting database \\
   $minBatt$ & A vehicle $v$ needs to finish its mission(s) and go to charge if $I^{v}_{t} < minBatt$\\
   $enoughBatt$ & A vehicle $v$, $x^{v}_{t}$, can leave the charging station if $I^{v}_{t} < minBatt$\\
+  $default$ & Default waiting time at station in seconds\\
+  $waitMax$ & Maximum time a vehicle can wait at a station\\
+  $waitMin$ & Minimum time a vehicle can wait at a station\\
   \hline  
 \end{tabular}
 }
