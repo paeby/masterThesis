@@ -115,7 +115,7 @@ General problem: two types of services, on-demand and fixed-line => explain why 
 Fixed line because now roads are not made for more complex systems
 
 
-\section{Related Literature} 
+\section{Related Literature}\label{literature} 
 The scope of vehicle scheduling problems related to our specific case study can range from fixed-line bus services to on-demand systems. In fact, electric shuttles' routes and stops are predefined but timetables can be flexible to respond to the known real-time demand. The set of constraints differs from traditional bus transportation, for example workforce regulations can be eliminated as the shuttles are not human driven but a battery management component needs to be introduced into the planning process. As we will see in this chapter, current research often concentrates on one specific aspect of the scheduling strategy, simplifying some constraints, assessing the system's performance using various types of metrics and considering different inputs. In what follows, we describe in section \ref{pubtrans} some techniques used in the traditional public transport industry to guarantee a good quality of service. In section \ref{das} we describe the concept of Demand-Adaptive Transit Systems. Finally, we detail in section \ref{luts} an approach proposed by the Urban Transport Systems Laboratory at EPFL (LUTS) for scheduling autonomous vehicles activities.  
 
 \subsection{Public Transport}\label{pubtrans}
@@ -151,6 +151,8 @@ Demand-Adaptive System (DAS), or Demand-Responsive Transit (DRT), is a personali
 \subsection{Vehicles Assignment to Routes}\label{luts}
 \cite{luts} present an optimization approach for the autonomous vehicles scheduling within a transit system composed of circular routes. They separate the planning process in two main tasks: line planning and vehicle scheduling. Line planning corresponds to defining the routes and the required headway on each route over the planning horizon. Vehicle scheduling refers to computing a general assignment plan for each vehicle for each time period over the planning horizon of one day. It means that each vehicle is assigned to a specific route or to a recharging station for each time period. The underlying assumption is that the vehicles will not transfer between routes and charging stations too often which makes the time discretization of the planning horizon possible. They focus on the vehicle scheduling task which takes as input the predefined routes, frequencies, fleet size and battery model. They present the scheduling problem as a mixed-integer linear programming (MILP) with battery constraints and the goal of the objective function being to maximize the total battery charge levels at the end of the planning horizon. 
 
+\cite{ga} tackle in their study the optimal fleet size distribution, so the fleet size of each route, and the scheduling strategy to adopt which minimizes the waiting time of passengers at their point of origin and the transfer times from one route to an other. They formulate the problem as a non-linear mixed integer programming problem (NLMIP) with resource limitations and service related constraints such as the fleet size, a minimum required headway, a minimum fleet size on each route and a maximum transfer time for passengers. They consider in the objective function only the level of service offered to the passengers, taking into account the initial waiting time of passengers and the total transfer time of passengers but no vehicles' operating cost. They mention the lack of work on this topic, possibly because of its extreme complexity, but consider the most promising attempts at solving the optimal scheduling problem being the ones using simple binary Genetic Algorithms as the optimization tool. 
+
 \section{Problem Formulation}
 In this section we formulate the mathematical model describing the autonomous vehicles circular line system. All the variables are listed in Table \ref{table:parameters}. In addition to traditional bus transit system descriptions, we introduce the concept of battery stations and we include dynamic bookings from one station to an other station on the loop. As we have access to information during the service horizon time $H$, we denote a discrete timestamp $t$ which takes values between $[0, H]$ at fixed sampling $interval$.
 \begin{table}
@@ -158,7 +160,7 @@ In this section we formulate the mathematical model describing the autonomous ve
   \centering
 \begin{tabular}{| l | l |}
   \hline			
-  & Signification \\
+  Notation & Signification \\
   \hline		
   $S = \{1,..., n\}$ & Set of stations on the route \\
   $E =  \{n+i,..., 2n\}$ & Set of directed edges linking the stations \\
@@ -191,6 +193,7 @@ In this section we formulate the mathematical model describing the autonomous ve
   $d^{b}$ & Drop-off timestamp of booking $b$ \\
   $w^{b}$ & Waiting time of booking $b$ \\
   $\rho^{b}$ & Journey time of booking $b$ \\
+  $dem_{t}^{\eta}$ & Demand, number of bookings made between $t$ and $t + \eta$\\
   
   $len$ & Total length of the circular route \\
 
@@ -210,8 +213,8 @@ The circular line in this transportation system is a route which starts at a cer
 \subsection{Vehicles}\label{vehicles}
 Each vehicle composing the fleet $v \in V$ moving on the circular closed line is characterized by a capacity $c^{v}$, a maximum charge $q^{v}$, a recharge rate $\alpha^{v}$, a battery consumption rate $\beta^{v}$ and a maximum speed $s^{v}$. The battery level of vehicle $v$ at the timestamp $t$ is $I^{v}_{t} \in [0, q^{v}]$. The battery change between the preceding discrete timestamp and the current timestamp $t$ is given by $\delta^{v}_{t}$. The edge it is currently traversing is $e^{v}_{t}$ and the distance to the next vehicle in front of it on the loop is given by $next^{v}_{t}$. The occupancy of the vehicle is expressed as $o^{v}_{t} \in [0, c^{v}]$. The vehicle is travelling either at its maximum speed or at the limitation of the current edge. Its current speed is therefore max$\{s^{v}, speed^{e^{v}_{t}}\}$. When a vehicle is charging at a station the boolean variable $x^{v}_{t}$ is set to 1 and it can not carry any passengers $o^{v}_{t} = 0$. A vehicle entering a station at time $t$ might have to wait $wait^{v}_{t}$ seconds.
 
-\subsection{Bookings}\label{bookings}
-The set $B$ represents the users' bookings made during the service horizon. A booking $b_{i,j} \in B$ requests a trip from station $i$ to $j$ at time $t^{b}$ for a group of $n^{b}$ persons. If the booking has been satisfied, the boolean variable $D_{b}$ is set to 1 and we know that it has been executed by vehicle $v^{b} \in V$. The pickup time of booking $b$ at station $i$ is $p^{b}$ and drop-off time at station $j$ is $d^{b}$. The waiting time  $w^{b}$ equals $p^{b} - t^{b}$ and the journey time $\rho^{b}$ is $d^{b} - p^{b}$. We denote $B^{*}$ the set of bookings which have been satisfied, so the bookings for which $D_{b} = 1$. Moreover, we define the demand 
+\subsection{Bookings and Demand}\label{bookings}
+The set $B$ represents the users' bookings made during the service horizon. A booking $b_{i,j} \in B$ requests a trip from station $i$ to $j$ at time $t^{b}$ for a group of $n^{b}$ persons. If the booking has been satisfied, the boolean variable $D_{b}$ is set to 1 and we know that it has been executed by vehicle $v^{b} \in V$. The pickup time of booking $b$ at station $i$ is $p^{b}$ and drop-off time at station $j$ is $d^{b}$. The waiting time  $w^{b}$ equals $p^{b} - t^{b}$ and the journey time $\rho^{b}$ is $d^{b} - p^{b}$. We denote $B^{*}$ the set of bookings which have been satisfied, so the bookings for which $D_{b} = 1$. Moreover, we define the demand $dem_{t}^{\eta}$ over a time period $\eta$ the number of bookings which have been made between $t$ and $t + \eta$, so we have $dem_{t}^{\eta} = |B^{\#}|$, with $\forall b \in B^{\#}: t \leq t^{b} < (t+\eta)$
 
 \subsection{Output Metrics}\label{metrics}
 At the end of the service horizon $T$, some metrics can be derived in order to evaluate the performance of the overall system dispatching the vehicles to serve the requests. 
@@ -266,8 +269,8 @@ Vehicles are connected to the core-engine through an established TCP protocol. T
 The core-engine application is a distributed system that combines and processes real-time information for coordinating and optimizing the fleet of autonomous vehicles. Several testing environment components are instantiated by the core-engine application: the map, the vehicles' configurations and fleet schedule through the day. The map is a GeoJSON file which is translated into the application to a directed graph with an edge between every stop and charging stations. The vehicles' configurations include all the parameters enumerated in section \ref{vehicles}. The core-engine handles the bookings it receives from the world-simulator, updates the edges' speed of the graph and sends the actions to be executed by the vehicles. When it receives the starting simulation time and ratio $r$ from the world-simulator, it publishes the updated time to the corresponding Kafka topic. The scheduler component manages the number of vehicles which need to be on service at different times during the day and sends corresponding missions to the vehicles. The positions and battery states received from the vehicles through the TCP connection are then published to the corresponding Kafka topics.  
 
 \subsubsection{Time Synchronization}
-The different time-dependent services use a $timesource$ controller which is a time simulator allowing the services to use a time behaving in a transformed way. Each $timesource$ has in addition to the ratio $r$ a $shift duration$ which shifts the simulated time by a constant value and a $start timestamp$ which is a  synchronization marker used to create multiple $timesources$ which are consistent with each others. $Timesources$ created at different time with the exact same ratio $r$, $start timestamp$ and $shift duration$ are perfectly synchronized as long as the system clocks of the running services are synced as well. In order to get the simulated time on the different services we can simply compute it with the following formula:
-$$simTime = start timestamp + (current system time - start timestamp) * r + shift duration$$
+The different time-dependent services use a $timesource$ controller which is a time simulator allowing the services to use a time behaving in a transformed way. Each $timesource$ has in addition to the ratio $r$ a $shift Duration$ which shifts the simulated time by a constant value and a $start Timestamp$ which is a  synchronization marker used to create multiple $timesources$ which are consistent with each others. $Timesources$ created at different time with the exact same ratio $r$, $start Timestamp$ and $shift Duration$ are perfectly synchronized as long as the system clocks of the running services are synced as well. In order to get the simulated time on the different services we can simply compute it with the following formula:
+$$simTime = start Timestamp + (current System Time - start Timestamp) * r + shift Duration$$
 
 
 \subsubsection{Reported Metrics}
@@ -303,7 +306,17 @@ Our strategy implies to decide how many vehicles should be active at each hour o
 \item \textbf{Decrease the fleet size:} following the same logic as the choice of vehicles to activate, the vehicles with the lowest battery level within the active vehciles $V^{*}$ will be sent to the charging stations. They will first drop off any passengers they carry as described in section \ref{schedule}. However, even if their battery level reaches $enoughBatt$ they are not sent back to the route if they have not been reactivated in the meantime.
 \end{itemize}
 
-\paragraph{Optimal Fleet Size} 
+\paragraph{Optimal Fleet Size} The goal is to find an optimal number of vehicles which need to be active on the line based on the demand. There are therefore two main questions that arise: how can we define that a fleet size is $optimal$ and what is exactly the $demand$. In what follows we will justify the strategical choices and heuristics used in this experimental study.
+
+As explained in section \ref{literature}, most of the studies we can relate to our specific problem of autonomous vehicles scheduling on fixed line formulate an optimization problem with  
+several inequality, equality and combinatorial constraints. There is one specific objective function representing the cost to minimize which is often composed of the fleet operational costs and/or measures osf the level of service offered to the passengers. Different techniques can be used to find optimal or near-optimal solutions satisfying the constraints. There are some exact algorithms which find the optimal solution(s) but there are often not applicable for that kind of complex NP-hard problems as many problem instances are intractable. Heuristic methods  must be used instead which find near-optimal solutions. Some software solvers can also be used and they often provide good solution for linear programming solution. However, when the scheduling problem is transposed into an optimization problem there are many real-world aspects that are omitted and many simplifications and assumptions are made. This is precisely the reason why we explore different scheduling strategies by simulating the real comportment of vehicles in an environment as close as possible to reality. The simulation framework for evaluating the system described in \ref{framework} is therefore close to the evaluation method used by \cite{evaluation} for DAS described in section \ref{das}, with the values we want to minimize close to the ones often used in the objective function of the optimization formulations. We now present how we formulate the demand at different times of the scheduling horizon and how we choose that a fleet size is sufficient to serve the demand.
+
+\begin{itemize}
+\setlength\itemsep{1pt}
+\item \textbf{Passengers Demand} In transit system for which the goal is to provide a given frequency of service, so to keep a perfect headway between vehicles, the demand is generalized as the number of passengers per hour and the necessary number of vehicles can be directly derived. This demand can be time-dependent and vary through the scheduling horizon.  In standard vehicle routing optimization problems, the demand is often expressed stochastically as a probability to have a given number of passengers going from one station to an other station.  An other approach, taken for example by \cite{ga} when choosing the number of vehicles for each route, is to define the demand as the number of passengers arriving between the successive arrivals of two buses at a specific station. In our case, we are mostly interested in the general demand over the loop as the vehicles go from one station to the following one and we do not modify their route. We assume that the system can predict the number of demands which will be made for each hour of the scheduling horizon as the 
+\item \textbf{}
+\end{itemize}
+
 \begin{table}
 \makebox[\textwidth][c]{
   \centering
