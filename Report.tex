@@ -2,7 +2,7 @@
 
 
 \documentclass[12pt,a4paper]{article}
-
+\usepackage[]{algorithm2e}
 \usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
 \usepackage{epsfig}
@@ -171,7 +171,8 @@ In this section we formulate the mathematical model describing the autonomous ve
   
   $H$ & Length of the scheduling horizon \\
   $interval \in \mathbb{R}$ & Interval at which values are sampled \\
-  $T = \{t = interval * k, k \in \mathbb{N} | 0 < t < H\}$ & Set of timestamps  \\
+  $T = \{t = interval * k, k \in \mathbb{N} | 0 < t < H\}$ & Set of timestamps at regular $interval$ \\
+  $T^{*} = \{t^{*} = 1\text{h} * k, k \in \mathbb{N} | 0 < t < H\}$ & Set of hourly timestamps \\
   $c^{v}$ & Maximum load capacity of vehicle $v \in V$\\
   $q^{v}$ & Maximum charge of vehicle $v \in V$\\
   $\alpha^{v}$ & Battery recharge rate of vehicle $v \in V$\\
@@ -193,7 +194,7 @@ In this section we formulate the mathematical model describing the autonomous ve
   $d^{b}$ & Drop-off timestamp of booking $b$ \\
   $w^{b}$ & Waiting time of booking $b$ \\
   $\rho^{b}$ & Journey time of booking $b$ \\
-  $dem_{t^{*}}^{\eta}$ & Demand, number of bookings made between $t^{*}$ and $t^{*} + \eta$\\
+  $dem_{t^{*}}$ & Demand, number of bookings made between $t^{*}$ and $t^{*} + 1\text{h}$\\
   $len$ & Total length of the circular route \\
 
   $A^{s}, s \in C$ & 1 if $s$ is an available charging station, 0 otherwise \\
@@ -210,10 +211,10 @@ In this section we formulate the mathematical model describing the autonomous ve
 The circular line in this transportation system is a route which starts at a certain station, traverses other stations once and terminates at the starting station. The route is represented by set of stations  and a set of directed edges $E$ linking each station $s \in S$ to its following station. The set of charging stations $C$ includes stations located on the stops within the loop: $C \subset S$. If the charging station is not used by any vehicle of the fleet we have $A^{s} = 1$. A stop $s$ can be mandatory (vehicles always stop when they reach the stop) or optional (the stop can be skipped). If the stop is mandatory the boolean variable $M^{s}$ is set to 1, and 0 otherwise. The maximum speed of an edge, representing the traffic at time $t$, is expressed as $speed^{e}_{t}$. The total distance of the circular line is given by $len$.
 
 \subsection{Vehicles}\label{vehicles}
-Each vehicle composing the fleet $v \in V$ moving on the circular closed line is characterized by a capacity $c^{v}$, a maximum charge $q^{v}$, a recharge rate $\alpha^{v}$, a battery consumption rate $\beta^{v}$ and a maximum speed $s^{v}$. The battery level of vehicle $v$ at the timestamp $t$ is $I^{v}_{t} \in [0, q^{v}]$. The battery change between the preceding discrete timestamp and the current timestamp $t$ is given by $\delta^{v}_{t}$. The edge it is currently traversing is $e^{v}_{t}$ and the distance to the next vehicle in front of it on the loop is given by $next^{v}_{t}$. The occupancy of the vehicle is expressed as $o^{v}_{t} \in [0, c^{v}]$. The vehicle is travelling either at its maximum speed or at the limitation of the current edge. Its current speed is therefore max$\{s^{v}, speed^{e^{v}_{t}}\}$. When a vehicle is charging at a station the boolean variable $x^{v}_{t}$ is set to 1 and it can not carry any passengers $o^{v}_{t} = 0$. A vehicle entering a station at time $t$ might have to wait $wait^{v}_{t}$ seconds.
+Each vehicle composing the fleet $v \in V$ moving on the circular closed line is characterized by a capacity $c^{v}$, a maximum charge $q^{v}$, a recharge rate $\alpha^{v}$, a battery consumption rate $\beta^{v}$ and a maximum speed $s^{v}$. The battery level of vehicle $v$ at the timestamp $t$ is $I^{v}_{t} \in [0, q^{v}]$. The battery change between the preceding timestamp and the current timestamp $t$ is given by $\delta^{v}_{t}$. The edge it is currently traversing is $e^{v}_{t}$ and the distance to the next vehicle in front of it on the loop is given by $next^{v}_{t}$. The occupancy of the vehicle is expressed as $o^{v}_{t} \in [0, c^{v}]$. The vehicle is travelling either at its maximum speed or at the limitation of the current edge. Its current speed is therefore max$\{s^{v}, speed^{e^{v}_{t}}\}$. When a vehicle is charging at a station the boolean variable $x^{v}_{t}$ is set to 1 and it can not carry any passengers $o^{v}_{t} = 0$. A vehicle entering a station at time $t$ might have to wait $wait^{v}_{t}$ seconds.
 
 \subsection{Bookings and Demand}\label{bookings}
-The set $B$ represents the users' bookings made during the service horizon. A booking $b_{i,j} \in B$ requests a trip from station $i$ to $j$ at time $t^{b}$ for a group of $n^{b}$ persons. If the booking has been satisfied, the boolean variable $D_{b}$ is set to 1 and we know that it has been executed by vehicle $v^{b} \in V$. The pickup time of booking $b$ at station $i$ is $p^{b}$ and drop-off time at station $j$ is $d^{b}$. The waiting time  $w^{b}$ equals $p^{b} - t^{b}$ and the journey time $\rho^{b}$ is $d^{b} - p^{b}$. We denote $B^{*}$ the set of bookings which have been satisfied, so the bookings for which $D_{b} = 1$. Moreover, we define the demand $dem_{t^{*}}^{\eta}$ over a time period $\eta$ the number of bookings which have been made between $t^{*}$ and $t^{*} + \eta$, so we have $dem_{t^{*}}^{\eta} = |B^{\#}|$, with $\forall b \in B^{\#}: t \leq t^{b} < (t+\eta)$
+The set $B$ represents the users' bookings made during the service horizon. A booking $b_{i,j} \in B$ requests a trip from station $i$ to $j$ at time $t^{b}$ for a group of $n^{b}$ persons. If the booking has been satisfied, the boolean variable $D_{b}$ is set to 1 and we know that it has been executed by vehicle $v^{b} \in V$. The pickup time of booking $b$ at station $i$ is $p^{b}$ and drop-off time at station $j$ is $d^{b}$. The waiting time  $w^{b}$ equals $p^{b} - t^{b}$ and the journey time $\rho^{b}$ is $d^{b} - p^{b}$. We denote $B^{*}$ the set of bookings which have been satisfied, so the bookings for which $D_{b} = 1$. Moreover, we define the demand $dem_{t^{*}}$ the number of bookings which have been made between $t^{*}$ and $t^{*} + 1\text{h}$, so we have $dem_{t^{*}} = |B^{\#}|$, with $\forall b \in B^{\#}: t^{*} \leq t^{*b} < (t^{*}+1\text{h})$. $t{*}$ is a discrete hourly timestamp over the scheduling horizon, so we have $t^{*} \in T^{*}$ with $T^{*} = \{t* = 1\text{h} * k, k \in \mathbb{N} | 0 < t^{*} < H\}$.
 
 \subsection{Output Metrics}\label{metrics}
 At the end of the service horizon $H$, some metrics can be derived in order to evaluate the performance of the overall system dispatching the vehicles to serve the requests. 
@@ -240,7 +241,6 @@ The average journey time among the satisfied bookings is given by:
 $$avgJourneyTime = \frac{\sum_{b \in B^{*}}\rho^{b}}{|B^{*}|} $$
 
 \subsubsection*{Completed Bookings Percentage}
-Travel time, booking time, 
 At the end of the scheduling horizon, some bookings may not have been satisfied. The percentage of bookings which have been satisfied is given by:
 $$completedBookings = \frac{|B^{*}|}{|B|}$$
 
@@ -297,11 +297,11 @@ A fixed fleet of vehicles always operating on the line might not be an optimal s
 
 Our strategy implies to decide how many vehicles should be active at each hour of the scheduling horizon based on the demand. In what follows we will first explain how the fleet is rescheduled when the number of vehicles needed on the line changes. We will then present the different approaches taken in our study to find a balance between the cost of the running vehicles and the quality of service offered to the passengers. 
 
-\paragraph{Rescheduling the Vehicles} When the fleet size has to be changed decisions must be taken in order to adapt the number of vehicles on the line in an efficient way. It implies activating or deactivating the appropriate vehicles and scheduling their next activities. The main idea resides in optimizing the time vehicles are not being used by recharging them. The vehicles will have to go to a charging station and it eliminates the problem of knowing where to pause them as they can not be waiting indefinitely at stops. There are two situations to handle: the fleet size has to be increased or decreased by $\Delta$ vehicles at $simTime$. 
+\paragraph{Rescheduling the Vehicles} When the fleet size has to be changed decisions must be taken in order to adapt the number of vehicles on the line in an efficient way. It implies activating or deactivating the appropriate vehicles and scheduling their next activities. The main idea resides in optimizing the time vehicles are not being used by recharging them. The vehicles will have to go to a charging station and it eliminates the problem of knowing where to pause them as they can not be waiting indefinitely at stops. There are two situations to handle: the fleet size has to be increased or decreased by $\Delta_{t*}$ vehicles, with $t^{*} \in T^{*}$. Scheduling events are created at each hour of the scheduling horizon in the Core-Engine application which handles rescheduling the vehicles.
 
 \begin{itemize}
 \setlength\itemsep{1pt}
-\item \textbf{Increase the fleet size:} we need to decide which vehicles to reincorporate into the fleet from the ones being at the charging stations $V^{\#}$, with $V^{\#} \in V$ and $\forall v \in V^{\#}: x^{v}_{simTime} = 1$. The goal is to insert the ones which have the highest battery level and eventually they will not have to be sent to charge whilst they will be operating on the loop as it affects the system performance. The $\Delta$ vehicles with the highest energy level are activated to go back to the route. If the fleet size is not large enough $|V^{\#}| < \Delta$, all the vehicles in $V^{\#}$ will be activated. If the battery level of a vehicle $v$ is not sufficient to leave the charging station $I_{simTime}^{v} < enoughBatt$ then it stays on charge until its battery level reaches $enoughBatt$.
+\item \textbf{Increase the fleet size:} we need to decide which vehicles to reincorporate into the fleet from the ones being at the charging stations $V^{\#}$, with $V^{\#} \in V$ and $\forall v \in V^{\#}: x^{v}_{simTime} = 1$. The goal is to insert the ones which have the highest battery level and eventually they will not have to be sent to charge whilst they will be operating on the loop as it affects the system performance. The $\Delta_{t^{*}}$ vehicles with the highest energy level are activated to go back to the route. If the fleet size is not large enough $|V^{\#}| < \Delta_{t^{*}}$, all the vehicles in $V^{\#}$ will be activated. If the battery level of a vehicle $v$ is not sufficient to leave the charging station $I_{simTime}^{v} < enoughBatt$ then it stays on charge until its battery level reaches $enoughBatt$.
 \item \textbf{Decrease the fleet size:} following the same logic as the choice of vehicles to activate, the vehicles with the lowest battery level within the active vehciles $V^{*}$ will be sent to the charging stations. They will first drop off any passengers they carry as described in section \ref{schedule}. However, even if their battery level reaches $enoughBatt$ they are not sent back to the route if they have not been reactivated in the meantime.
 \end{itemize}
 
@@ -312,15 +312,30 @@ several inequality, equality and combinatorial constraints. There is one specifi
 
 \begin{itemize}
 \setlength\itemsep{1pt}
-\item \textbf{Passengers Demand} In transit system for which the goal is to provide a given frequency of service, in other words to keep a perfect headway between vehicles, the demand is generalized as the number of passengers per hour at each stop. This demand can be time-dependent and vary through the scheduling horizon. The ideal number of vehicles can be directly derived using standard transportation mathematical models. In standard vehicle routing optimization problems, the demand is often expressed stochastically as a probability to have a given number of passengers going from one station to an other station. An other approach, used for example by \cite{ga} when choosing the number of vehicles for each route, is to define the demand as the number of passengers arriving between the successive arrivals of two buses at a specific station. In our case, we are mostly interested in the general demand over the loop as the vehicles go from one station to the following one and we do not modify their route. We define therefore the demand as the number of bookings made over one hour from any starting stations on the loop. From the definition described in section \ref{bookings} we have therefore that the demand at the hour $t$ is $dem_{t}^{\eta}$, with $\eta = 1$h. It is reasonable to assume that the system is able to predict the number of demands which will be made at each hour of the scheduling horizon. In fact, whilst traditional bus transportation services make use of theoretical models, electric shuttles systems can take advantage of gathering real-life data and build prediction models through a machine learning pipeline. Models' accuracy can be continuously improved by training it on new data coming from the usage of the electric shuttles transport service. Useful real-life data used to build demand prediction models include the bookings made by passengers but also weather conditions, traffic and people behaviour through the area (e.g. residential, work or shopping areas). All the metrics described in section \ref{metrics} can also be gathered and used to improve the system performance.
-\item \textbf{Optimality} We need to define a strategy to find an optimal number of vehicles based on the demand of each hour. We adopt two distinct strategies inspired from the different formulations of the objective function in optimization problems. The first approach is to include both the fleet operating cost and the level of service offered to the passengers in the computation of the total cost to minimize. The second one is to include the minimum level of service which need to be achieved in the constraints set and therefore to minimize the fleet operating costs. For both strategies, in order to gather data about the overall performance and compute the different costs, we run several simulations with varying the fleet size as ell as the demand. The demand is simulated between the minimum value of demand over the scheduling horizon $\min_{dem_t^{1}\text{h}}$ and the maximum value:  $\min_{dem} dem_{0}^{1\text{h}}$Those simulations are run over a scheduling horizon of one hour $H = 1$h and all the metrics described in section \ref{metrics} are collected. Vehicles have an autonomy larger than one hour which eliminates any noise coming from the battery scheduling of the vehicles. 
+\item \textbf{Passengers Demand} In transit system for which the goal is to provide a given frequency of service, in other words to keep a perfect headway between vehicles, the demand is generalized as the number of passengers per hour at each stop. This demand can be time-dependent and vary through the scheduling horizon. The ideal number of vehicles can be directly derived using standard transportation mathematical models. In standard vehicle routing optimization problems, the demand is often expressed stochastically as a probability to have a given number of passengers going from one station to an other station. An other approach, used for example by \cite{ga} when choosing the number of vehicles for each route, is to define the demand as the number of passengers arriving between the successive arrivals of two buses at a specific station. In our case, we are mostly interested in the general demand over the loop as the vehicles go from one station to the following one and we do not modify their route. We define therefore the demand as the number of bookings made over one hour from any starting stations on the loop. From the definition described in section \ref{bookings} we have therefore that the demand at the hour $t^{*}$ is $dem_{t^{*}}$. It is reasonable to assume that the system is able to predict the number of demands which will be made at each hour of the scheduling horizon. In fact, whilst traditional bus transportation services make use of theoretical models, electric shuttles systems can take advantage of gathering real-life data and build prediction models through a machine learning pipeline. Models' accuracy can be continuously improved by training it on new data coming from the usage of the electric shuttles transport service. Useful real-life data used to build demand prediction models include the bookings made by passengers but also weather conditions, traffic and people behaviour through the area (e.g. residential, work or shopping areas). All the metrics described in section \ref{metrics} can also be gathered and used to improve the system performance.
+\item \textbf{Optimality} We need to define a strategy to find an optimal number of vehicles based on the demand of each hour. We adopt two distinct strategies inspired from the different formulations of the objective function in optimization problems. The first approach is to include both the fleet operating cost and the level of service offered to the passengers in the computation of the total cost to minimize. The second one is to include the minimum level of service which need to be achieved in the constraints set and therefore to minimize the fleet operating costs. For both strategies, in order to gather data about the overall performance and compute the different costs, we run several simulations with varying the fleet size as ell as the demand. The demand is simulated between $dem^{-}$ and $dem^{+}$ and the fleet size between $V^{-}$ and $V^{+}$. Those simulations are run over a scheduling horizon of one hour $H = 1$h and all the metrics described in section \ref{metrics} are collected. Vehicles have an autonomy larger than one hour which eliminates any noise coming from the battery scheduling of the vehicles. 
 \begin{enumerate}
 \setlength\itemsep{1pt} 
-\item In the first strategy we consider defining a cost function including both the cost of the vehicles and service provided to the passengers. For a fixed demand, the total energy consumption will grow proportionally to the fleet size whilst the waiting time decrease. This is logical as the more vehicles are active on the line the higher the service frequency will be. As we want to find a balance between the battery consumption and the quality of service offered to the passengers we sum the energy cost and the waiting time cost. In order to compare those two metrics which are not on the same scale, we normalize them between 0 and 1 by feature scaling $(x-min)/(max-min)$. We need to take into account as well the fact that some bookings made over the simulated hour are not completed by the end of the scheduling horizon $H$. We want to maximize the percentage of completed bookings over the hour as the ones not satisfied will be reported to the next hour. We can therefore divide the energy and waiting costs by the percentage of bookings completed. The cost function for the demand $dem_{0}^{1\text{h}} = |B|$ with a fleet size $|V|$ is then:
+\item In the first strategy we consider defining a cost function including both the cost of the vehicles and service provided to the passengers. For a fixed demand, the total energy consumption will grow proportionally to the fleet size whilst the waiting time decrease. This is logical as the more vehicles are active on the line the higher the service frequency will be. As we want to find a balance between the battery consumption and the quality of service offered to the passengers we sum the energy cost and the waiting time cost. In order to compare those two metrics which are not on the same scale, we normalize them between 0 and 1 by feature scaling $(x-min)/(max-min)$. We have to take into account the fact that some bookings made over the simulated hour are not completed by the end of the scheduling horizon $H$. We need then to maximize the percentage of completed bookings over the hour as the ones not satisfied will be reported to the next hour. We can therefore divide the energy and waiting costs by the percentage of bookings completed. The cost function for the demand $dem = |B|$ with a fleet size $|V|$ is then:
 $$ cost_{dem, |V|} = \frac{batteryCost + avgWaitingTime}{e^{completedBookings}}$$
-With $batteryCost$, $avgWaitingTime $
-\item hi
+$batteryCost$ is normalized between 0 and 1 with $min$ being the $batteryCost$ when we run the simulation for the same demand with $V^{-}$ vehicles and $max$ with $V^{+}$ vehicles. The same scaling is done for the $avgWaitingTime$. Taking the exponential of the $completedBookings \in [0,1]$ seems a reasonable measure as it will take values between $[1, e = 2.72]$ and that it is a factor influencing a lot the performance of the simulation over one hour. The optimal number of vehicles for demand $dem$ is then the fleet size $|V^{°}|$ which minimizes the cost function: $min_{V^{°}\in[V^{-}, V^{+}]} (cost_{dem, |V^{°}|})$.
+\item The second strategy is to define a level of service to be provided to the passengers and to find the minimum number of vehicles needed to satisfy the service constraint. The idea is to find a function that gives the $avgWaitingTime$ from the demand and the fleet size $avgWait_{dem, |V|}$ and then to find the minimum fleet size $|V{°}|$ required so that the $avgWait_{dem, |V^{°}|}$ is under an acceptable $avgWaitingTime$ threshold denoted $accWaitingTime$. As we have the data for the $avgWaitingTime$ based for each $dem$ and $|V|$ combinations it is possible to run for example linear or non-linear regressions to get the equation for the function $avgWait_{dem, |V|}$. An example of this procedure applied to a real-life scenario is explained in details in section \ref{experiments}.
 \end{enumerate}
+\item \textbf{Dynamic Fleet Size Scheduling Algorithm} For both strategies described above, we define the optimal fleet size $optFleet(dem) = |V^{°}|$. The dynamic fleet size scheduling strategy for a scheduling horizon $H$ consists then in: 
+
+\begin{algorithm}[H]
+ \KwData{Scheduling horizon $H$, maximum fleet size $V^{max}$, optimal fleet size function $optFleet(dem)$}
+ \KwResult{Optimal fleet size at each hour $t^{*}$ of the scheduling horizon $H$}
+ $precFleetSize = 0$\;
+ \For{each hour $t^{*} \in T^{*}$}{
+  {\sc $optFleet_{t^{*}} = \min(optFleet(dem_{t^{*}}), V^{max})$ \;}
+  {\sc $\Delta_{t^{*}} = optFleet_{t^{*}} - precFleetSize$\;}
+  \If{\sc $\Delta_{t^{*}} > 0$}{create increase fleet size event by $\Delta_{t^{*}}$ }
+  \Else{create decrease fleet size event by $- \Delta_{t^{*}}$ } 
+	{\sc $precFleetSize = optFleet_{t^{*}}$s\;}  
+  }
+ \caption{Dynamic Fleet Size Algorithm}
+\end{algorithm}
 \end{itemize}
 
 \begin{table}
@@ -339,6 +354,10 @@ With $batteryCost$, $avgWaitingTime $
   $default$ & Default waiting time at station in seconds\\
   $waitMax$ & Maximum time a vehicle can wait at a station\\
   $waitMin$ & Minimum time a vehicle can wait at a station\\
+  $V^{-}, V^{+}$ & Simulations between fleet size $V^{-}$ and $V^{+}$ for finding optimal fleet size \\
+    $dem^{-}, dem^{+}$ & Simulations between demand $dem^{-}$ and $dem^{+}$ for finding optimal fleet size \\
+    $opt(dem) =| V^{°}|$ & Optimal fleet size $|V^{°}|$ for demand $dem$ \\
+  
   \hline  
 \end{tabular}
 }
@@ -346,11 +365,9 @@ With $batteryCost$, $avgWaitingTime $
 \label{table:simparameters}
 \end{table}
 
-
-
-
 \section{Numerical Experiments}\label{experiments}
-Real environment
+The purpose of this section is to get insights as close as possible to real-life conditions on a 
+different scenarios that we run on our simulation framework described in section \label{framework} is to get insights a
 \subsection{Simulation Settings}
 tuning
 speed of actors
@@ -359,12 +376,11 @@ logs fetched from db
 \subsection{Graph}
 Unless stated, charging locations at same place
 \subsection{Optimal Headway}
-\subsection{}
-
 \subsection{Simulated Demand}
-\subsection{}
 BestMile developed a demand prediction algorithm based on graph information that can be used for simulations but also as input during the planning phase of a transportation service when there is no available information or a-priori knowledge about the demand distribution. 
-\section{Conclusion}
+\section{Conclusion}\label{conclusion}
+\subsection{Summary}\label{summary}
+\subsection{Future Work}\label{futurework}
 
 \bibliographystyle{apalike}
 \bibliography{/Users/prisca/Documents/Final_Report/bibliography/bibliography}

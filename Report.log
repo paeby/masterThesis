@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.13)  20 JUL 2017 17:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.13)  21 JUL 2017 16:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -23,7 +23,63 @@ File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(/usr/local/texlive/2017/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
+Package: algorithm2e 2013/01/06 v5.00 algorithms environments
+\c@AlgoLine=\count87
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\algocf@hangindent=\skip43
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/relsize/relsize.sty
+Package: relsize 2013/03/29 ver 4.1
+)
+********************************************************
+Package `algorithm2e' Release 5.1 -- october 19 2015 --
+- algorithm2e-announce@lirmm.fr mailing list for announcement about releases
+- algorithm2e-discussion@lirmm.fr mailing list for discussion about package
+subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
+- Author: Christophe Fiorio (christophe.fiorio@umontpellier.fr)
+********************************************************
+\skiptotal=\skip44
+\skiplinenumber=\skip45
+\skiprule=\skip46
+\skiphlne=\skip47
+\skiptext=\skip48
+\skiplength=\skip49
+\algomargin=\skip50
+\skipalgocfslide=\skip51
+\algowidth=\dimen103
+\inoutsize=\dimen104
+\inoutindent=\dimen105
+\interspacetitleruled=\dimen106
+\interspacealgoruled=\dimen107
+\interspacetitleboxruled=\dimen108
+\algocf@ruledwidth=\skip52
+\algocf@inoutbox=\box26
+\algocf@inputbox=\box27
+\AlCapSkip=\skip53
+\AlCapHSkip=\skip54
+\algoskipindent=\skip55
+\algocf@nlbox=\box28
+\algocf@hangingbox=\box29
+\algocf@untilbox=\box30
+\algocf@skipuntil=\skip56
+\algocf@capbox=\box31
+\algoheightruledefault=\skip57
+\algoheightrule=\skip58
+\algotitleheightruledefault=\skip59
+\algotitleheightrule=\skip60
+\c@algocfline=\count88
+\c@algocfproc=\count89
+\c@algocf=\count90
+\algocf@algoframe=\box32
+\algocf@algobox=\box33
+) (/usr/local/texlive/2017/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2017/04/05 v2.0i Standard LaTeX package
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1enc.def
@@ -68,25 +124,25 @@ Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
 (/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
 Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
 )
-\Gread@gobject=\count87
+\Gread@gobject=\count91
 ))
-\Gin@req@height=\dimen103
-\Gin@req@width=\dimen104
+\Gin@req@height=\dimen109
+\Gin@req@width=\dimen110
 )
-\epsfxsize=\dimen105
-\epsfysize=\dimen106
+\epsfxsize=\dimen111
+\epsfysize=\dimen112
 )
 (/usr/local/texlive/2017/texmf-dist/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2011/09/28 v3.5.2 Customized lists
-\labelindent=\skip43
-\enit@outerparindent=\dimen107
+\labelindent=\skip61
+\enit@outerparindent=\dimen113
 \enit@toks=\toks17
-\enit@inbox=\box26
-\enitdp@description=\count88
+\enit@inbox=\box34
+\enitdp@description=\count92
 )
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2016/11/05 v2.16a AMS math features
-\@mathmargin=\skip44
+\@mathmargin=\skip62
 
 For additional information on amsmath, use the `?' option.
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amstext.sty
@@ -95,49 +151,49 @@ Package: amstext 2000/06/29 v2.01 AMS text
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks18
-\ex@=\dimen108
+\ex@=\dimen114
 ))
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen109
+\pmbraise@=\dimen115
 )
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count89
+\inf@bad=\count93
 LaTeX Info: Redefining \frac on input line 213.
-\uproot@=\count90
-\leftroot@=\count91
+\uproot@=\count94
+\leftroot@=\count95
 LaTeX Info: Redefining \overline on input line 375.
-\classnum@=\count92
-\DOTSCASE@=\count93
+\classnum@=\count96
+\DOTSCASE@=\count97
 LaTeX Info: Redefining \ldots on input line 472.
 LaTeX Info: Redefining \dots on input line 475.
 LaTeX Info: Redefining \cdots on input line 596.
-\Mathstrutbox@=\box27
-\strutbox@=\box28
-\big@size=\dimen110
+\Mathstrutbox@=\box35
+\strutbox@=\box36
+\big@size=\dimen116
 LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
-\macc@depth=\count94
-\c@MaxMatrixCols=\count95
+\macc@depth=\count98
+\c@MaxMatrixCols=\count99
 \dotsspace@=\muskip10
-\c@parentequation=\count96
-\dspbrk@lvl=\count97
+\c@parentequation=\count100
+\dspbrk@lvl=\count101
 \tag@help=\toks19
-\row@=\count98
-\column@=\count99
-\maxfields@=\count100
+\row@=\count102
+\column@=\count103
+\maxfields@=\count104
 \andhelp@=\toks20
-\eqnshift@=\dimen111
-\alignsep@=\dimen112
-\tagshift@=\dimen113
-\tagwidth@=\dimen114
-\totwidth@=\dimen115
-\lineht@=\dimen116
+\eqnshift@=\dimen117
+\alignsep@=\dimen118
+\tagshift@=\dimen119
+\tagwidth@=\dimen120
+\totwidth@=\dimen121
+\lineht@=\dimen122
 \@envbody=\toks21
-\multlinegap=\skip45
-\multlinetaggap=\skip46
+\multlinegap=\skip63
+\multlinetaggap=\skip64
 \mathdisplay@stack=\toks22
 LaTeX Info: Redefining \[ on input line 2817.
 LaTeX Info: Redefining \] on input line 2818.
@@ -151,19 +207,19 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 )
 (/usr/local/texlive/2017/texmf-dist/tex/latex/lipsum/lipsum.sty
 Package: lipsum 2014/07/27 v1.3 150 paragraphs of Lorem Ipsum dummy text
-\c@lips@count=\count101
+\c@lips@count=\count105
 )
 (/usr/local/texlive/2017/texmf-dist/tex/latex/titlesec/titlesec.sty
 Package: titlesec 2016/03/21 v2.10.2 Sectioning titles
-\ttl@box=\box29
-\beforetitleunit=\skip47
-\aftertitleunit=\skip48
-\ttl@plus=\dimen117
-\ttl@minus=\dimen118
+\ttl@box=\box37
+\beforetitleunit=\skip65
+\aftertitleunit=\skip66
+\ttl@plus=\dimen123
+\ttl@minus=\dimen124
 \ttl@toksa=\toks23
-\titlewidth=\dimen119
-\titlewidthlast=\dimen120
-\titlewidthfirst=\dimen121
+\titlewidth=\dimen125
+\titlewidthlast=\dimen126
+\titlewidthfirst=\dimen127
 )
 (/usr/local/texlive/2017/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2010/09/12 v5.6 Page Geometry
@@ -178,26 +234,30 @@ Package ifvtex Info: VTeX not detected.
 (/usr/local/texlive/2017/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-\Gm@cnth=\count102
-\Gm@cntv=\count103
-\c@Gm@tempcnt=\count104
-\Gm@bindingoffset=\dimen122
-\Gm@wd@mp=\dimen123
-\Gm@odd@mp=\dimen124
-\Gm@even@mp=\dimen125
-\Gm@layoutwidth=\dimen126
-\Gm@layoutheight=\dimen127
-\Gm@layouthoffset=\dimen128
-\Gm@layoutvoffset=\dimen129
+\Gm@cnth=\count106
+\Gm@cntv=\count107
+\c@Gm@tempcnt=\count108
+\Gm@bindingoffset=\dimen128
+\Gm@wd@mp=\dimen129
+\Gm@odd@mp=\dimen130
+\Gm@even@mp=\dimen131
+\Gm@layoutwidth=\dimen132
+\Gm@layoutheight=\dimen133
+\Gm@layouthoffset=\dimen134
+\Gm@layoutvoffset=\dimen135
 \Gm@dimlist=\toks24
 )
 (/usr/local/texlive/2017/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip49
-\bibsep=\skip50
+\bibhang=\skip67
+\bibsep=\skip68
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count105
-) (./Report.aux)
+\c@NAT@ctr=\count109
+) (./Report.aux
+
+LaTeX Warning: Label `framework' multiply defined.
+
+)
 \openout1 = `Report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
@@ -212,18 +272,18 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 39.
 LaTeX Font Info:    ... okay on input line 39.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 39.
 LaTeX Font Info:    ... okay on input line 39.
-(/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+ (/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count106
-\scratchdimen=\dimen130
-\scratchbox=\box30
-\nofMPsegments=\count107
-\nofMParguments=\count108
+\scratchcounter=\count110
+\scratchdimen=\dimen136
+\scratchbox=\box38
+\nofMPsegments=\count111
+\nofMParguments=\count112
 \everyMPshowfont=\toks25
-\MPscratchCnt=\count109
-\MPscratchDim=\dimen131
-\MPnumerator=\count110
-\makeMPintoPDFobject=\count111
+\MPscratchCnt=\count113
+\MPscratchDim=\dimen137
+\MPnumerator=\count114
+\makeMPintoPDFobject=\count115
 \everyMPtoPDFconversion=\toks26
 ) (/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2017/03/19 v0.25 Utility functions of pdfTeX for LuaTeX (HO
@@ -353,10 +413,10 @@ File: ./images/SimulationFramework2.pdf Graphic file (type pdf)
 
 <use ./images/SimulationFramework2.pdf>
 Package pdftex.def Info: ./images/SimulationFramework2.pdf used on input line 2
-55.
+54.
 (pdftex.def)             Requested size: 359.3938pt x 192.11833pt.
  [11 <./images/SimulationFramework2.pdf>]
-Overfull \hbox (28.07771pt too wide) detected at line 273
+Overfull \hbox (28.07771pt too wide) detected at line 272
 \OML/cmm/m/it/10.95 simTime \OT1/cmr/m/n/10.95 = \OML/cmm/m/it/10.95 startTimes
 tamp \OT1/cmr/m/n/10.95 + (\OML/cmm/m/it/10.95 currentSystemTime \OMS/cmsy/m/n/
 10.95 ^^@ \OML/cmm/m/it/10.95 startTimestamp\OT1/cmr/m/n/10.95 ) \OMS/cmsy/m/n/
@@ -364,310 +424,128 @@ tamp \OT1/cmr/m/n/10.95 + (\OML/cmm/m/it/10.95 currentSystemTime \OMS/cmsy/m/n/
 uration
  []
 
-[12] [13] [14] [15]
-! Missing $ inserted.
-<inserted text> 
-                $
-l.319 \setlength
-                \itemsep{1pt}
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
+[12] [13] [14] [15] [16]
 
-! Missing } inserted.
-<inserted text> 
-                }
-l.319 \setlength
-                \itemsep{1pt}
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing \endgroup inserted.
-<inserted text> 
-                \endgroup 
-l.319 \setlength
-                \itemsep{1pt}
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
+LaTeX Warning: Command \^ invalid in math mode on input line 321.
 
 
-Overfull \hbox (459.63293pt too wide) in paragraph at lines 317--319
-\T1/cmr/m/n/10.95 1$\OML/cmm/m/it/10.95 handallthemetricsdescribedinsection\OT1
-/cmr/m/n/10.95 3\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 4[]\OML/cmm/m/it/10.95 
-arecollected:Vehicleshaveanautonomylargerthanonehourwhicheliminatesanynoisecomi
-ngfromthebatteryschedulingofthevehicles:[]$ 
+LaTeX Warning: Command \textdegree invalid in math mode on input line 321.
+
+Missing character: There is no Â in font cmr8!
+
+LaTeX Warning: Command \^ invalid in math mode on input line 321.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 321.
+
+
+LaTeX Warning: Command \^ invalid in math mode on input line 321.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 321.
+
+Missing character: There is no Â in font cmr6!
+Missing character: There is no Â in font cmr6!
+
+LaTeX Warning: Command \^ invalid in math mode on input line 322.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 322.
+
+Missing character: There is no Â in font cmr10!
+
+LaTeX Warning: Command \^ invalid in math mode on input line 322.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 322.
+
+Missing character: There is no Â in font cmr6!
+
+Overfull \hbox (1.89546pt too wide) in paragraph at lines 322--323
+\T1/cmr/m/n/10.95 then to find the min-i-mum fleet size $\OMS/cmsy/m/n/10.95 j\
+OML/cmm/m/it/10.95 V[]\OMS/cmsy/m/n/10.95 j$ \T1/cmr/m/n/10.95 re-quired so tha
+t the $\OML/cmm/m/it/10.95 avgWait[]$
  []
 
-! Extra }, or forgotten \endgroup.
-\par ...m \@noitemerr {\@@par }\fi \else {\@@par }
-                                                  \fi 
-l.319 \setlength
-                \itemsep{1pt}
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
 
-[16]
-
-! LaTeX Error: \begin{itemize} on input line 314 ended by \end{enumerate}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.324 \end{enumerate}
-                     
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-! Undefined control sequence.
-\enit@enditemize ->\enit@after 
-                               \endlist \ifx \enit@series \relax \else \ifnu...
-l.325 \end{itemize}
-                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-\enit@enditemize ...x \else \ifnum \enit@resuming 
-                                                  =\@ne \enit@setresumekeys ...
-l.325 \end{itemize}
-                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   =
-l.325 \end{itemize}
-                   
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Undefined control sequence.
-\enit@setresumekeys ...xpandafter {\enit@savekeys 
-                                                  }\xdef \enit@afterlist {#2...
-l.325 \end{itemize}
-                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-\enit@setresumekeys ...it@toks }\ifnum \enit@type 
-                                                  =\z@ #3\def \enit@noexcs {...
-l.325 \end{itemize}
-                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   =
-l.325 \end{itemize}
-                   
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Undefined control sequence.
-<argument> enit@resume@series@\enit@series 
-                                           
-l.325 \end{itemize}
-                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-\enit@setresumekeys ...me@#1}{\csname c@\@listctr 
-                                                  \endcsname \the \csname c@...
-l.325 \end{itemize}
-                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-\enit@setresumekeys ...e \the \csname c@\@listctr 
-                                                  \endcsname }\fi }
-l.325 \end{itemize}
-                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! You can't use `\relax' after \the.
-<recently read> \c@ 
-                    
-l.325 \end{itemize}
-                   
-I'm forgetting what you said and using zero instead.
-
-! Undefined control sequence.
-\enit@enditemize ...ist \fi \ifnum \enit@resuming 
-                                                  =\thr@@ \enit@setresumekey...
-l.325 \end{itemize}
-                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   =
-l.325 \end{itemize}
-                   
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Undefined control sequence.
-\enit@setresumekeys ...xpandafter {\enit@savekeys 
-                                                  }\xdef \enit@afterlist {#2...
-l.325 \end{itemize}
-                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-\enit@setresumekeys ...it@toks }\ifnum \enit@type 
-                                                  =\z@ #3\def \enit@noexcs {...
-l.325 \end{itemize}
-                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   =
-l.325 \end{itemize}
-                   
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Undefined control sequence.
-\enit@setresumekeys ...me@#1}{\csname c@\@listctr 
-                                                  \endcsname \the \csname c@...
-l.325 \end{itemize}
-                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-\enit@setresumekeys ...e \the \csname c@\@listctr 
-                                                  \endcsname }\fi }
-l.325 \end{itemize}
-                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! You can't use `\relax' after \the.
-<recently read> \c@ 
-                    
-l.325 \end{itemize}
-                   
-I'm forgetting what you said and using zero instead.
+Overfull \hbox (10.8122pt too wide) in paragraph at lines 322--323
+\T1/cmr/m/n/10.95 is un-der an ac-cept-able $\OML/cmm/m/it/10.95 avgWaitingTime
+$ \T1/cmr/m/n/10.95 thresh-old de-noted $\OML/cmm/m/it/10.95 accWaitingTime$\T1
+/cmr/m/n/10.95 .
+ []
 
 
-! LaTeX Error: \begin{document} ended by \end{itemize}.
+LaTeX Warning: Command \^ invalid in math mode on input line 324.
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.325 \end{itemize}
-                   
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
 
-! Extra \endgroup.
-<recently read> \endgroup 
-                          
-l.325 \end{itemize}
-                   
-Things are pretty mixed up, but I think the worst is over.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 324.
 
-(./Report.bbl [17]) [18] (./Report.aux) ) 
+Missing character: There is no Â in font cmr8!
+
+Overfull \hbox (29.3747pt too wide) in paragraph at lines 326--338
+$[]$ 
+ []
+
+
+LaTeX Warning: Command \^ invalid in math mode on input line 363.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 363.
+
+Missing character: There is no Â in font cmr8!
+
+LaTeX Warning: Command \^ invalid in math mode on input line 363.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 363.
+
+Missing character: There is no Â in font cmr8!
+[17] (./Report.bbl [18]) [19] (./Report.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ )
+(\end occurred inside a group at level 1)
+
+### simple group (level 1) entered at line 1061 ({)
+### bottom level 
 Here is how much of TeX's memory you used:
- 4155 strings out of 492995
- 56569 string characters out of 6132704
- 239567 words of memory out of 5000000
- 7618 multiletter control sequences out of 15000+600000
- 19318 words of font info for 51 fonts, out of 8000000 for 9000
+ 5121 strings out of 492995
+ 71982 string characters out of 6132704
+ 268689 words of memory out of 5000000
+ 8569 multiletter control sequences out of 15000+600000
+ 19994 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,11n,32p,2154b,247s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2017/texmf-dist/fo
-nts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2017/texmf-dist/font
-s/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2017/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2017/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2017/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2017/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmr6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmsy10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmsy6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmsy8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfont
-s/symbols/msbm10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-
-super/sfbx1095.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-su
-per/sfbx1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-supe
-r/sfbx1440.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/
-sfbx1728.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sf
-rm0800.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfrm
-1095.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfrm12
-00.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfrm2074
-.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfti1095.p
-fb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb
->
-Output written on Report.pdf (18 pages, 522212 bytes).
+ 39i,15n,32p,2137b,5962s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/cm-super/cm
+-super-t1.enc}</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmex10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmmi10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mmi6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+i8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10
+.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.p
+fb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb>
+</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></u
+sr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
+r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/
+local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/lo
+cal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></us
+r/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/
+local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/lo
+cal/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/loca
+l/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/
+texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfcc1095.pfb></usr/local/te
+xlive/2017/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texl
+ive/2017/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texliv
+e/2017/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/
+2017/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/20
+17/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb></usr/local/texlive/2017
+/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on Report.pdf (19 pages, 536269 bytes).
 PDF statistics:
- 185 PDF objects out of 1000 (max. 8388607)
- 126 compressed objects within 2 object streams
+ 193 PDF objects out of 1000 (max. 8388607)
+ 132 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
