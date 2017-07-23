@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Reporting</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/ui/calendar/fonts/font_roboto/roboto.css"/>
+    <link rel="stylesheet" type="text/css" href="/ui/calendar/dhtmlxcalendar.css"/>
+    <script src="/ui/calendar/dhtmlxcalendar.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <style>
+      .calendar_input {
+        border: 1px solid #dfdfdf;
+        font-family: Roboto, Arial, Helvetica;
+        font-size: 14px;
+        color: #404040;
+      }
+      .calendar_icon {
+        vertical-align: middle;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body onload="doOnLoad();">
+
+    <div id="main" style="margin-left: 50px">
+    <h2>Reporting</h2>
+    <p>
+      Select start date:
+    </p>
+    <div style="position: relative; height: 60px; width: 100px">
+      <input class="calendar_input" type="text" id="calendar_input_start" style="margin-bottom: 0px; height: 25px">
+      <span><img class="calendar_icon" id="calendar_icon_start" src="/ui/calendar/calendar.png" border="0"></span>
+    </div>
+    <p>
+      Select end date:
+    </p>
+    <div style="position: relative; height: 60px; width: 100px">
+      <input class="calendar_input" type="text" id="calendar_input_end" style="margin-bottom: 0px; height: 25px">
+      <span><img class="calendar_icon" id="calendar_icon_end" src="/ui/calendar/calendar.png" border="0"></span>
+    </div>
+    <ul>
+      <li>
+        <a id="summarystats" href="#">Summary Stats</a>
+      </li>
+      <li>
+        <a id="journeylog" href="#">Journey log</a>
+      </li>
+      <li>
+        <a id="vehiclestatuslog" href="#">Vehicles status log</a>
+      </li>
+      <li>
+        <a id="journeyplots" href="#">Journey plots</a>
+      </li>
+      <li>
+        <a id="vehicleplots" href="#">Vehicle plots</a>
+      </li>
+      <li>
+        <a id="deleteevents" href="#">Delete logs</a>
+      </li>
+    </ul>
+    </div>
+
+    <script>
+      var myCalendar;
+      function doOnLoad() {
+        myCalendar = new dhtmlXCalendarObject({input: "calendar_input_start", button: "calendar_icon_start"});
+        myCalendarEnd = new dhtmlXCalendarObject({input: "calendar_input_end", button: "calendar_icon_end"});
+      }
+
+      $('a#summarystats').click(function() {
+        var startDate = $('#calendar_input_start').val();  
+        var endDate = $('#calendar_input_end').val();
+        if (startDate == "") {
+          startDate = "2017-01-01"
+        }
+        if (endDate == "") {
+          window.open('/summarystats?start=' + startDate + "T00:00:00.000Z", 'Reporting');
+        }
+        else {
+          window.open('/summarystats?start=' + startDate + "T00:00:00.000Z"+'&end=' + endDate + "T00:00:00.000Z", 'Reporting');
+        }
+        return false;
+      });      
+
+      $('a#journeylog').click(function() {
+        var startDate = $('#calendar_input_start').val();  
+        var endDate = $('#calendar_input_end').val();
+        if (startDate == "") {
+          startDate = "2017-01-01"
+        }
+        if (endDate == "") {
+          window.open('/journeylog?start=' + startDate + "T00:00:00.000Z", 'Reporting');
+        }
+        else {
+          window.open('/journeylog?start=' + startDate + "T00:00:00.000Z"+'&end=' + endDate + "T00:00:00.000Z", 'Reporting');
+        }
+        return false;
+      });
+
+      $('a#vehiclestatuslog').click(function() {
+        var startDate = $('#calendar_input_start').val(); 
+        var endDate = $('#calendar_input_end').val();
+        if (startDate == "") {
+          startDate = "2017-01-01"
+        }
+        if (endDate == "") {
+          window.open('/vehiclestatuslog?start=' + startDate + "T00:00:00.000Z&interval=1000", 'Reporting');
+        }
+        else {
+          window.open('/vehiclestatuslog?start=' + startDate + "T00:00:00.000Z"+'&end=' + endDate + "T00:00:00.000Z" + "&interval=1000", 'Reporting');
+        } 
+        return false;
+      });
+
+      $('a#journeyplots').click(function() {
+        var startDate = $('#calendar_input_start').val();
+        var endDate = $('#calendar_input_end').val();
+        if (startDate == "") {
+          startDate = "2017-01-01"
+        }
+        if (endDate == "") {
+          window.open('/journeyplots?start=' + startDate + "T00:00:00.000Z&interval=1000", 'Reporting');
+        }
+        else {
+          window.open('/journeyplots?start=' + startDate + "T00:00:00.000Z"+'&end=' + endDate + "T00:00:00.000Z" + "&interval=1000", 'Reporting');
+        } 
+        return false;
+      });
+
+      $('a#vehicleplots').click(function() {
+        var startDate = $('#calendar_input_start').val();
+        var endDate = $('#calendar_input_end').val();
+        if (startDate == "") {
+          startDate = "2017-01-01"
+        }
+        if (endDate == "") {
+          window.open('/vehicleplots?start=' + startDate + "T00:00:00.000Z&interval=1000", 'Reporting');
+        }
+        else {
+          window.open('/vehicleplots?start=' + startDate + "T00:00:00.000Z"+'&end=' + endDate + "T00:00:00.000Z" + "&interval=1000", 'Reporting');
+        } 
+        return false;
+      });
+
+      $('a#deleteevents').click(function() {
+        $.post("/deleteevents");
+        return false;
+       });
+    </script>
+  </body>
+</html>

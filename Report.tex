@@ -210,6 +210,13 @@ In this section we formulate the mathematical model describing the autonomous ve
 \subsection{Circular Route}
 The circular line in this transportation system is a route which starts at a certain station, traverses other stations once and terminates at the starting station. The route is represented by set of stations  and a set of directed edges $E$ linking each station $s \in S$ to its following station. The set of charging stations $C$ includes stations located on the stops within the loop: $C \subset S$. If the charging station is not used by any vehicle of the fleet we have $A^{s} = 1$. A stop $s$ can be mandatory (vehicles always stop when they reach the stop) or optional (the stop can be skipped). If the stop is mandatory the boolean variable $M^{s}$ is set to 1, and 0 otherwise. The maximum speed of an edge, representing the traffic at time $t$, is expressed as $speed^{e}_{t}$. The total distance of the circular line is given by $len$.
 
+\begin{figure}[h] 
+  \centering
+\includegraphics[scale=0.7]{./images/loop.pdf}
+\caption{Example of a circular route}
+\label{fig:simulationFramework}
+\end{figure}
+
 \subsection{Vehicles}\label{vehicles}
 Each vehicle composing the fleet $v \in V$ moving on the circular closed line is characterized by a capacity $c^{v}$, a maximum charge $q^{v}$, a recharge rate $\alpha^{v}$, a battery consumption rate $\beta^{v}$ and a maximum speed $s^{v}$. The battery level of vehicle $v$ at the timestamp $t$ is $I^{v}_{t} \in [0, q^{v}]$. The battery change between the preceding timestamp and the current timestamp $t$ is given by $\delta^{v}_{t}$. The edge it is currently traversing is $e^{v}_{t}$ and the distance to the next vehicle in front of it on the loop is given by $next^{v}_{t}$. The occupancy of the vehicle is expressed as $o^{v}_{t} \in [0, c^{v}]$. The vehicle is travelling either at its maximum speed or at the limitation of the current edge. Its current speed is therefore max$\{s^{v}, speed^{e^{v}_{t}}\}$. When a vehicle is charging at a station the boolean variable $x^{v}_{t}$ is set to 1 and it can not carry any passengers $o^{v}_{t} = 0$. A vehicle entering a station at time $t$ might have to wait $wait^{v}_{t}$ seconds.
 
@@ -259,7 +266,7 @@ In order to evaluate the behaviour and performance of the system under various c
 Figure~\ref{fig:simulationFramework} illustrates the different web services and how they are linked to each others. Services can communicate by exchanging messages via Kafka which is an asynchronous publish-and-subscribe message broker. In what follows we describe the behaviour of each module and the simulation parameters which can be tuned. 
 
 \subsubsection{World-Simulator}
-The world-simulator is a web service which is used to start the simulation, send the booking requests and send traffic updates information through the HTTP connection established with the core-engine application. At the beginning of the simulation, it sets the time control to a given ratio which is sent to the core-engine application.  A day can be simulated in $m$ minutes which corresponds to a ratio $r$ of $m / 24h$. The simulated time $simTime$ is therefore $r$ times the real time. The world-simulator is instantiated with a scenario describing the external events which affect the overall system. It mimics the bookings which would have been made by users with the booking application and sent through a REST API. Every second at time $simTime$ it checks if there are bookings with $t^{b} = simTime$ and speed updates to send to the core-engine application with $speed_{t}^{e}, t = simTime$. 
+The world-simulator is a web service which is used to start the simulation, send the booking requests and send traffic updates information through the HTTP connection established with the core-engine application. At the beginning of the simulation, it sets the time control to a given ratio which is sent to the core-engine application.  A day can be simulated in $m$ minutes which corresponds to a ratio $r$ of $m / 24h$. The simulated time $simTime$ is therefore $r$ times the real time. The world-simulator is instantiated with a scenario describing the external events which affect the overall system. It mimics the bookings which would have been made by users with the booking application and sent through a REST API. Every simulated second at time $simTime$ it checks if there are bookings with $t^{b} = simTime$ and speed updates to send to the core-engine application with $speed_{t}^{e}, t = simTime$. 
 
 \subsubsection{Simulated Vehicles}
 Vehicles are connected to the core-engine through an established TCP protocol. They can send status messages and receive missions, like going to a specific charging station or waiting at a stop at for $p^{v}_{simTime}$ seconds. A vehicle executes every mission it receives from the core-engine. The vehicles are simulated concurrently following an actor model. Each vehicle is a different actor part of the actor system. When the vehicles web service receives an HTTP request to start the simulation with a given fleet size from the world-simulator, an actor is created for each vehicle, which announces its position to the core-engine through a TCP message and subscribes to the time topic. The vehicles start at equal distance of each others on the loop with the battery completely recharged and their position and battery level is then updated every $1000/rate$ milliseconds.  
@@ -366,8 +373,12 @@ $batteryCost$ is normalized between 0 and 1 with $min$ being the $batteryCost$ w
 \end{table}
 
 \section{Numerical Experiments}\label{experiments}
-The purpose of this section is to get insights as close as possible to real-life conditions on a 
-different scenarios that we run on our simulation framework described in section \label{framework} is to get insights a
+The purpose of this section is to get insights as close as possible to real-life conditions on a project which is undergoing in Mountain View, California. 
+Describe the loop
+Navya vehicles properties
+
+different scenarios that we run on our simulation framework described in section \ref{framework}.
+
 \subsection{Simulation Settings}
 tuning
 speed of actors

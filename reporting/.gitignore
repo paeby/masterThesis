@@ -1,0 +1,12 @@
+sbt-launch-*.jar
+logs
+project/project
+project/target
+target
+tmp
+dist
+.cache
+.*.swp
+.DS_Store
+.idea
+.history

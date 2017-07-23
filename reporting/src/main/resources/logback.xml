@@ -1,0 +1,46 @@
+<!-- removed: debug="true" -->
+<!-- logback will rescan this file to check if levels have changed -->
+<configuration scan="true" scanPeriod="30 seconds">
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSSZ} %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>./logs/reporting.log</file>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSSZ} %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <fileNamePattern>.logs/reporting.%i.log.zip</fileNamePattern>
+      <minIndex>1</minIndex>
+      <maxIndex>3</maxIndex>
+    </rollingPolicy>
+
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>5MB</maxFileSize>
+    </triggeringPolicy>
+  </appender>
+
+  <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashSocketAppender">
+    <host>${logstash.hostname:-localhost}</host>
+    <port>${logstash.port:-4560}</port>
+    <customFields>{ "service": "reporting", "env" : "${ENV:-dev}" }</customFields>
+  </appender>
+
+  <logger name="com.bestmile" level="${log.level.bestmile:-debug}" additivity="false">
+    <appender-ref ref="FILE" />
+    <appender-ref ref="STDOUT" />
+  </logger>
+  <logger name="com.zaxxer.hikari" level="WARN" />
+  <logger name="scala.slick.jdbc" level="WARN" />
+
+  <root level="WARN">
+    <appender-ref ref="STDOUT" />
+    <appender-ref ref="FILE" />
+    <appender-ref ref="LOGSTASH" />
+  </root>
+</configuration>
