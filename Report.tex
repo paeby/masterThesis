@@ -221,7 +221,7 @@ The circular line in this transportation system is a route which starts at a cer
 Each vehicle composing the fleet $v \in V$ moving on the circular closed line is characterized by a capacity $c^{v}$, a maximum charge $q^{v}$, a recharge rate $\alpha^{v}$, a battery consumption rate $\beta^{v}$ and a maximum speed $s^{v}$. The battery level of vehicle $v$ at the timestamp $t$ is $I^{v}_{t} \in [0, q^{v}]$. The battery change between the preceding timestamp and the current timestamp $t$ is given by $\delta^{v}_{t}$. The edge it is currently traversing is $e^{v}_{t}$ and the distance to the next vehicle in front of it on the loop is given by $next^{v}_{t}$. The occupancy of the vehicle is expressed as $o^{v}_{t} \in [0, c^{v}]$. The vehicle is travelling either at its maximum speed or at the limitation of the current edge. Its current speed is therefore max$\{s^{v}, speed^{e^{v}_{t}}\}$. When a vehicle is charging at a station the boolean variable $x^{v}_{t}$ is set to 1 and it can not carry any passengers $o^{v}_{t} = 0$. A vehicle entering a station at time $t$ might have to wait $wait^{v}_{t}$ seconds.
 
 \subsection{Bookings and Demand}\label{bookings}
-The set $B$ represents the users' bookings made during the service horizon. A booking $b_{i,j} \in B$ requests a trip from station $i$ to $j$ at time $t^{b}$ for a group of $n^{b}$ persons. If the booking has been satisfied, the boolean variable $D_{b}$ is set to 1 and we know that it has been executed by vehicle $v^{b} \in V$. The pickup time of booking $b$ at station $i$ is $p^{b}$ and drop-off time at station $j$ is $d^{b}$. The waiting time  $w^{b}$ equals $p^{b} - t^{b}$ and the journey time $\rho^{b}$ is $d^{b} - p^{b}$. We denote $B^{*}$ the set of bookings which have been satisfied, so the bookings for which $D_{b} = 1$. Moreover, we define the demand $dem_{t^{*}}$ the number of bookings which have been made between $t^{*}$ and $t^{*} + 1\text{h}$, so we have $dem_{t^{*}} = |B^{\#}|$, with $\forall b \in B^{\#}: t^{*} \leq t^{*b} < (t^{*}+1\text{h})$. $t{*}$ is a discrete hourly timestamp over the scheduling horizon, so we have $t^{*} \in T^{*}$ with $T^{*} = \{t* = 1\text{h} * k, k \in \mathbb{N} | 0 < t^{*} < H\}$.
+The set $B$ represents the users' bookings made during the service horizon. A booking $b_{i,j} \in B$ requests a trip from station $i$ to $j$ at time $t^{b}$ for a group of $n^{b}$ persons. If the booking has been satisfied, the boolean variable $D_{b}$ is set to 1 and we know that it has been executed by vehicle $v^{b} \in V$. The pickup time of booking $b$ at station $i$ is $p^{b}$ and drop-off time at station $j$ is $d^{b}$. The waiting time $w^{b}$ equals $p^{b} - t^{b}$ and the journey time $\rho^{b}$ is $d^{b} - p^{b}$. We denote $B^{*}$ the set of bookings which have been satisfied, so the bookings for which $D_{b} = 1$. Moreover, we define the demand $dem_{t^{*}}$ the number of bookings which have been made between $t^{*}$ and $t^{*} + 1\text{h}$, so we have $dem_{t^{*}} = |B^{\#}|$, with $\forall b \in B^{\#}: t^{*} \leq t^{*b} < (t^{*}+1\text{h})$. $t{*}$ is a discrete hourly timestamp over the scheduling horizon, so we have $t^{*} \in T^{*}$ with $T^{*} = \{t^{*} = 1\text{h} * k, k \in \mathbb{N} | 0 < t^{*} < H\}$.
 
 \subsection{Output Metrics}\label{metrics}
 At the end of the service horizon $H$, some metrics can be derived in order to evaluate the performance of the overall system dispatching the vehicles to serve the requests. 
@@ -233,7 +233,7 @@ The total battery cost for the entire system is therefore the sum of the battery
 $$batteryCost = \sum_{v \in V}battery^{v}$$
 \subsubsection*{Occupancy}
 The average occupancy of a vehicle $v$ over the scheduling horizon $T$ is given by:
-$$avgOccupancy = \frac{\sum_{t \in T}o^{v}_{t}}{|T|}$$
+$$avgOccupancy^{v} = \frac{\sum_{t \in T}o^{v}_{t}}{|T|}$$
 The average occupancy does not take into account of the time vehicles spend at charging stations and therefore can not carry any passenger. As explained in section \ref{pubtrans}, a common unit used in transportation  measurement is the load factor, which expresses the efficiency of a vehicle based on the kilometres travelled by passengers over the total kilometres that could have been driven considering its maximum capacity. In our case, as we are mainly interested in how the battery of the vehicles has efficiently been used, we define the passenger-battery measure: it is the battery that has been consumed by the vehicle during the passenger journey time. The passenger-battery for one vehicle is therefore the sum of the passenger-battery of the bookings it has satisfied. The seat-battery available represents the maximum possible passenger-battery if the vehicle would have been always full: it is the battery consumption of the vehicle times its maximum capacity. The vehicles' load factor is its passenger-battery over its seat-battery:
 $$loadFactor^{v} = \frac{\sum_{t \in T} \delta^{v}_{t} * (1-x^{v}_{t}) * o^{v}_{t}}{battery^{v} * c^{v}}$$
 We can compute the average load factor of the fleet as:
@@ -241,7 +241,7 @@ $$avgLoadFactor = \frac{\sum_{v \in V}loadFactor^{v}}{|V|}$$
 We denote the stability load factor the difference between the maximum load factor among the vehicles composing the fleet and the minimum one. The closer it is to 0 the better as it implies that all vehicles are used equivalently: $stabilityLoadFactor = \max_{v^{+} \in V}{loadFactor^{v^{+}}} -  \min_{v^{-} \in V}{loadFactor^{v^{-}}}$.
 \subsubsection*{Waiting Time}
 The average waiting time among the satisfied bookings is given by: 
-$$avgWaitingTime = \frac{\sum_{b \in B{*}}w^{b}}{|B^{*}|} $$
+$$avgWaitingTime = \frac{\sum_{b \in B^{*}}w^{b}}{|B^{*}|} $$
 The stability waiting time is the difference between the maximum waiting time and the minimum waiting time among the bookings:  $stabilityWaitingTime = \max_{b^{+} \in B^{*}}{w^{b^{+}}} -  \min_{b^{-} \in B^{*}}{w^{b^{-}}}$.
 \subsubsection*{Journey Time}
 The average journey time among the satisfied bookings is given by:
@@ -296,7 +296,7 @@ Even though the vehicles start at equal distance at the beginning of the schedul
 \setlength\itemsep{1pt}
 \item The ideal distance between each vehicle is given by $ideal = len / |V^{*}|$, $V^{*}$ being the set of active vehicles on the line with $V^{*}\in V$ and $\forall v \in V^{*}: x^{v}_{simTime} = 0$. 
 \item We compute the distance to the next vehicle on the line $next^{v}_{timTime}$. Let $ratio$ be the ratio between the ideal distance and the distance to the following car $next^{v}_{simTime} / ideal$.
-\end{itemize}o
+\end{itemize}
 It holds then that if $ratio < 1$ the next vehicle is too far so the vehicle needs to wait less than $ideal$ and otherwise the next vehicle is too close and it waits more as $ratio >1$. Moreover, the time a vehicle waits at a station is bounded from below by $waitMin$ and from above by $waitMax$ in order to avoid irrational values.
 
 \subsubsection{Dynamic Fleet Size}
@@ -304,7 +304,7 @@ A fixed fleet of vehicles always operating on the line might not be an optimal s
 
 Our strategy implies to decide how many vehicles should be active at each hour of the scheduling horizon based on the demand. In what follows we will first explain how the fleet is rescheduled when the number of vehicles needed on the line changes. We will then present the different approaches taken in our study to find a balance between the cost of the running vehicles and the quality of service offered to the passengers. 
 
-\paragraph{Rescheduling the Vehicles} When the fleet size has to be changed decisions must be taken in order to adapt the number of vehicles on the line in an efficient way. It implies activating or deactivating the appropriate vehicles and scheduling their next activities. The main idea resides in optimizing the time vehicles are not being used by recharging them. The vehicles will have to go to a charging station and it eliminates the problem of knowing where to pause them as they can not be waiting indefinitely at stops. There are two situations to handle: the fleet size has to be increased or decreased by $\Delta_{t*}$ vehicles, with $t^{*} \in T^{*}$. Scheduling events are created at each hour of the scheduling horizon in the Core-Engine application which handles rescheduling the vehicles.
+\paragraph{Rescheduling the Vehicles} When the fleet size has to be changed decisions must be taken in order to adapt the number of vehicles on the line in an efficient way. It implies activating or deactivating the appropriate vehicles and scheduling their next activities. The main idea resides in optimizing the time vehicles are not being used by recharging them. The vehicles will have to go to a charging station and it eliminates the problem of knowing where to pause them as they can not be waiting indefinitely at stops. There are two situations to handle: the fleet size has to be increased or decreased by $\Delta_{t^{*}}$ vehicles, with $t^{*} \in T^{*}$. Scheduling events are created at each hour of the scheduling horizon in the Core-Engine application which handles rescheduling the vehicles.
 
 \begin{itemize}
 \setlength\itemsep{1pt}
@@ -374,6 +374,8 @@ $batteryCost$ is normalized between 0 and 1 with $min$ being the $batteryCost$ w
 
 \section{Numerical Experiments}\label{experiments}
 The purpose of this section is to get insights as close as possible to real-life conditions on a project which is undergoing in Mountain View, California. 
+Same number of vehicles that they would have, like in sion they have only two vehicles.
+show what would be the gain of the network design
 Describe the loop
 Navya vehicles properties
 
@@ -382,6 +384,7 @@ different scenarios that we run on our simulation framework described in section
 \subsection{Simulation Settings}
 tuning
 speed of actors
+=> in order that when the time is accelerated it does not skip station but
 logs fetched from db
 
 \subsection{Graph}
