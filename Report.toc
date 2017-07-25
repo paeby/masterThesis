@@ -22,7 +22,7 @@
 \contentsline {paragraph}{Rescheduling the Vehicles}{14}
 \contentsline {paragraph}{Optimal Fleet Size}{15}
 \contentsline {section}{\numberline {5}Numerical Experiments}{18}
-\contentsline {subsection}{\numberline {5.1}Simulation Settings}{18}
+\contentsline {subsection}{\numberline {5.1}Simulation Settings}{19}
 \contentsline {subsection}{\numberline {5.2}Graph}{19}
 \contentsline {subsection}{\numberline {5.3}Optimal Headway}{19}
 \contentsline {subsection}{\numberline {5.4}Simulated Demand}{19}
