@@ -11,6 +11,7 @@
 \usepackage{amsfonts}
 \usepackage{lipsum}
 \usepackage{titlesec}
+\usepackage{subcaption}
 \titlespacing\section{0pt}{12pt plus 1pt minus 1pt}{0pt plus 2pt minus 2pt}
 \titlespacing\subsection{0pt}{5pt plus 1pt minus 1pt}{0pt plus 2pt minus 2pt}
 \titlespacing\subsubsection{0pt}{5pt plus 1pt minus 1pt}{0pt plus 2pt minus 2pt}
@@ -122,7 +123,7 @@ The scope of vehicle scheduling problems related to our specific case study can 
 \subsection{Public Transport}\label{pubtrans}
 Within the standard transit organization, policies and standards affect a lot the development of transport strategies and how people interact with the systems. The planning process of a fixed line bus transportation service is mainly composed of three different tasks: route planning and deciding service frequencies as well as the service timing. Route planning consists of defining a sequence of stops composing each route and how those routes are interconnected. Deciding service frequencies implies specifying the number of vehicles per unit time which need to pass a given route (often expressed in vehicles per hour). A common measure used to express the ideal distance between vehicles is the headway, the inverse of the frequency, in other word the fixed interval at which vehicles are coming at a station. The service frequencies set by the transport organization can be chosen based on different policies (see \cite{tcrp}): 
 \begin{enumerate}
-\item \textbf{Fixed headway}: the agency establishes a fixed interval ant time at which vehicles come to stations. It is convenient for customers as they have access to an exact schedule, but it is hard to keep the time between vehicles constant as it is vulnerable to external disturbances.
+\item \textbf{Fixed headway}: the agency establishes a fixed interval and time at which vehicles come to stations. It is convenient for customers as they have access to an exact schedule, but it is hard to keep the time between vehicles constant as it is vulnerable to external disturbances.
 \item \textbf{Demand-based headway}: in existing transport services, agencies can adapt the timetables based on the observed demand at the stations (number of passenger boardings/deboardings) in order to reach the desired passenger load in vehicles.
 \item \textbf{Performance-based headway}: the goal is to find the headway for which performance standards are optimized. Those costs are usually measured during a service period, for example a day. It may include the service productivity (e.g. the revenue per passenger per hour), the cost effectiveness of the service or the overall effectiveness (e.g. net subsidy per passenger). 
 \end{enumerate}
@@ -216,7 +217,7 @@ The circular line in this transportation system is a route which starts at a cer
   \centering
 \includegraphics[scale=0.7]{./images/loop.pdf}
 \caption{Example of a circular route}
-\label{fig:simulationFramework}
+\label{fig:route}
 \end{figure}
 
 \subsection{Vehicles}\label{vehicles}
@@ -255,7 +256,7 @@ At the end of the scheduling horizon, some bookings may not have been satisfied.
 $$completedBookingsRatio = \frac{|B^{*}|}{|B|}$$
 
 \section{Methodology}
-In order to evaluate the behaviour and performance of the system under various conditions with respect to the line configurations, the booking scenarios and the vehicles scheduling alternatives, we undertake analyses under laboratory conditions by simulating the operation of the system on the platform dispatching the vehicles. One of our main goal in the analysis we conduct on the line is to get measures as close as possible to real world conditions. In order to achieve this, a dynamic system is required which handles the time-dependent events of the system. In section \ref{framework} we describe the behaviour of the different interconnected services simulating the vehicles' behaviour reacting to external conditions and how the overall system is evaluated. In section \ref{scheduling} we present the variations of scheduling strategies used to dispatch the vehicles on the line. The parameters characterizing the simulation framework and the ones introduced in the scheduling strategy are summarized in table \ref{table:simparameters}. 
+In order to evaluate the behaviour and performance of the system under various conditions with respect to the line configurations, the booking scenarios and the vehicles scheduling alternatives, we undertake analyses under laboratory conditions by simulating the operation of the system on the platform dispatching the vehicles. One of our main goal in the analysis we conduct on the line is to get measures as close as possible to real world conditions. In order to achieve this, a dynamic system is required which handles the time-dependent events of the system. In section \ref{framework} we describe the behaviour of the different interconnected services simulating the vehicles' behaviour reacting to external conditions and how the overall system is evaluated. In section \ref{scheduling} we present the variations of scheduling strategies used to dispatch the vehicles on the line. The parameters characterizing the simulation framework and the ones introduced in the scheduling strategy are summarized in table \ref{table:simparametersused}. 
 
 \subsection{Simulation Framework}\label{framework}
 \setlength{\belowcaptionskip}{10pt}
@@ -385,14 +386,8 @@ show what would be the gain of the network design
 
 \ref{framework}.
 
-tel the criticallevelbattery: 0.3
-10 charging stations so they can always go
-describe battery model
-
-
-
 \subsection{Simulation Settings}\label{settings}
-The analysis of the different performance metrics under different scenarios makes sense only if the output metrics of the simulations are stable. We need therefore to find a trade-off between the speed at which simulations are run and the stability of the results. In fact, the framework runs on the company's software which is able to interact with real vehicles, which works perfectly in real-time. However some computations may influence the results when the time is accelerated on the different applications, especially because of the access to the various databases, the HTTP requests, the Kafka Topics and the complexity of the concurrent actor system simulating the vehicles. The multi-threaded Scala applications run on the same machine, a MacBook Pro 2.3 GHz Intel Core i7, with 6GB ram allocated to the Core-Engine application, 3GB to the Vehicles, 2GB to the World-Simulation and 2GB to the Reporting. 
+The analysis of the different performance metrics makes sense only if the output performance measures of the simulations are stable. We need therefore to find a trade-off between the speed at which simulations are run and the stability of the results. In fact, the framework runs on the company's software which is able to interact with real vehicles, which works perfectly in real-time. However some computations may influence the results when the time is accelerated on the different applications, especially because of the access to the various databases, the HTTP requests, the Kafka Topics and the complexity of the concurrent actor system simulating the vehicles. The multi-threaded Scala applications run on the same machine, a MacBook Pro 2.3 GHz Intel Core i7, with 6GB ram allocated to the Core-Engine application, 3GB to the Vehicles, 2GB to the World-Simulation and 2GB to the Reporting. 
 
 In order to assess the simulation framework stability, we run exactly the same scenario with different simulation parameters and choose the most appropriate ones with respect to the performance metrics. We want to find what simulation parameters output metrics as close as the ones simulated without accelerating the time, $r=1$.
 
@@ -426,27 +421,97 @@ Simulations are run over a scheduling horizon $H$ of one hour with a demand dens
   \hline  
 \end{tabular}
 }
-\caption{Used simulation framework's parameters }
-\label{table:simparameters}
+\caption{Simulation framework's parameters used}
+\label{table:simparametersused}
 \end{table}
 
 \subsection{Scenario Settings}
 In order to compare different scheduling strategies and different scenarios, we run all scenarios with the same type of vehicles on the same fixed line. In what follows all the parameters used for the simulation are detailed.
-\subsubsection{Vehicles}
+\subsubsection{Vehicles}\label{vparam}
 Each vehicle $v$ composing the fleet $V$ has a capacity $c^{v}$ = 10. The battery level varies from 0 to $q^{v} = 1$. The battery discharges, proportionally to its speed $s$ given in miles per hour, at each actor step of simulated duration $\delta = r * 0.33$ seconds by:
 $$((0.0261905 * s^{2} + 1.70238 * s + 95.3571) * s) * \Delta * \beta^{v}$$
 and similarly it recharges by $ \Delta * \alpha^{v}$.
 The homogeneous fleet has ratios $\alpha$ and $\beta$ set to 1 unless stated otherwise. As explained in section \ref{schedule}, vehicles finish their missions and go to charge if their battery level is under $minBatt$ = 0.3. Vehicles go at constant speed of 12.4 miles per hour as in cities with the current shuttle technologies and road settings it is not possible for them to go faster.
 \subsubsection{Graph}
-The fixed line is situated in Mountain View, California, with 32 stops situated at strategical points on the loop based on the types of area (accommodations, shopping centers, industry, etc). In current running autonomous transportation infrastructure, like for example in Sion for the project SmartShuttle, two vehicles are running on a fixed line and there is one depot where they can recharge. Currently it is reasonable to assume that all charging stations are centered at one place on the loop. We set therefore ten charging stations at the same place. The length TODO of the loop is of ... km.  
+The fixed line is situated in Mountain View, California, with 32 stops situated at strategical points on the loop based on the types of area (accommodations, shopping centres industry, etc). In current running autonomous transportation infrastructure, like for example in Sion for the project SmartShuttle, two vehicles are running on a fixed line and there is one depot where they can recharge. Currently it is reasonable to assume that all charging stations are centred at one place on the loop. We set therefore ten charging stations at the same place. The length TODO of the loop is of ... km.  
 TODO put image of graph
 
-\subsubsection{Simulated Demand}
-The goal of the simulations is to send realistic bookings in this specific loop over the scheduling horizon of one day in order to get meaningful metrics. As there is no available information of the demand distribution on this specific loop, other data can be analyzed and realistic bookings can be extrapolated from it. The simulated demand is estimated analyzing traffic information data of the area of study provided by HERE Maps. This data set provides real-time traffic flow tags for the main road segments in the USA. There is for example the free-flow (maximum speed allowed) over the average speed at each minute of the day for each segment and the estimated number of vehicles. 20\% of the total number of vehicles is considered as public transport. The data over one week from Monday to Friday is selected for analysis. Generalized additive model is used to predict the number of vehicles for every minute at each segment of the fixed loop. The change in number of vehicles between each segment is recorded in order to estimate the number of pick-up (when it increases) and drop-off (when it decreases). After providing a list of station for pick up or drop off named “list.of.trips”, we need to deside about other side of trip (drop off or pick up points). I have used a multinominal distribution with weights of zoning area ( residential; industrial, office) and correlation matrix values to assign stops of destination and pick up randomly.
+\subsubsection{Simulated Demand}\label{simdem}
+The goal of the simulations is to send realistic bookings in this specific loop over the scheduling horizon of one day in order to get meaningful metrics. As there is no available information of the demand distribution on this specific loop, other data can be analysed and realistic bookings can be extrapolated from it. The simulated demand is estimated analysing traffic information data of the area of study provided by HERE Maps. This data set provides real-time traffic flow tags for the main road segments in the USA. There is for example the free-flow (maximum speed allowed) over the average speed at each minute of the day for each segment as well as the estimated number of vehicles. 20\% of the total number of vehicles is considered as public transport. The data over one week from Monday to Friday is selected for analysis. Generalized additive model is used to predict the number of vehicles for every minute at each edge of the graph. The change in number of vehicles between each segment is recorded in order to estimate the number of pick-up (when it increases) and drop-off (when it decreases). In order to simulate bookings from one of the 32 stations to an other station, the correlation matrix of the number of vehicles between the segments is used with a multinomial distribution with weights of the zoning area (residential, industrial or office) to generate bookings from one station to an other for a week-day starting at midnight. The output is a list of 584 bookings with varying number of passengers $1 \leq n^{b} \leq 5$. The number of bookings generated every hour of the scheduling horizon of one day is represented in figure \ref{fig:demand}.
+TODO CHECK IF IT IS OK?
+
+\begin{figure}[h] 
+  \centering
+  \caption{Demand density $dem_{t}$ at each hour of a week-day}
+\includegraphics[scale=0.5]{./images/demand.pdf}
+\label{fig:demand}
+\end{figure}
 
 \subsection{Headway Experiments}
+As explained in section \ref{hw}, we adopt a strategy involving the vehicles to wait at mandatory stations during an adaptive stopping time based on the distance to the next vehicle on the loop. In order to analyse what is the impact on the transportation service, we compare the output of the simulation metrics when running with the dynamic waiting strategy or without. We analyse the results of the simulations with only mandatory stops or with only optional stops. The following strategies are therefore simulated:
+\begin{enumerate}
+\setlength\itemsep{1pt}
+\item \textbf{Constant $wait_t^{v}$}: every time a vehicle arrives at a station it waits 20 seconds, in other words $default= 20''$ and $ratio$ is always 1. 
+\item \textbf{Adaptive $wait_t^{v}$}: when a vehicle arrives at a station it waits $wait_t^{v} = default * ratio$, with $default = 20''$ and $ratio$ computed as explained in section \ref{hw}. The minimum waiting time $waitMin$ is $2''$ and the maximum waiting time $waitMax$ is $10'$.
+\item \textbf{Skipping Stops}: when a vehicle arrives at a station if it does not need to stop for passengers it can skip the stop and otherwise the strategy of point 2. is applied.
+\end{enumerate}
+We run the simulations over a scheduling horizon $H$ of one day, with the simulated bookings obtained as explained in section \ref{simdem}. The fleet is composed of 8 homogeneous vehicles always active, with the characteristics enumerated in section \ref{vparam}. 
 
+\begin{figure}
+\caption{Simulation state at $simTime$ = 6:00am}
+\makebox[\textwidth][c]{
+  \centering
+\begin{subfigure}[b]{0.435\textwidth}
+  \includegraphics[width=\linewidth]{./images/busbunching.pdf}
+  \caption{Constant $wait_t^{v}$}
+  \label{busbunching}
+\end{subfigure}
+\begin{subfigure}[b]{0.4\textwidth}
+  \includegraphics[width=\linewidth]{./images/spread.pdf}
+  \caption{Adaptive $wait_t^{v}$}
+  \label{adaptive}
+\end{subfigure}
+\begin{subfigure}[b]{0.4\textwidth}
+  \includegraphics[width=\linewidth]{./images/optionalstopsgroup.pdf}
+  \caption{Skipping Stops}
+  \label{skip}
+\end{subfigure}
+}
+\label{simustate}
+\end{figure}
+TODO add description of colors!
 
+The state of the fixed line at the same simulated time ($simTime$ = 6:00am) is shown in figure \ref{simustate}. As you can observe in figure \ref{busbunching}, when there is no particular strategy adopted to maintain the ideal distance between the vehicles, they end up in two distinct bus convoys of four shuttles each. It happens because the preceding shuttles can not take over the one picking up and dropping the passengers in the front. This phenomenon is illustrated in figure \ref{constanthw}: the average occupancy is higher over the entire day especially for one vehicle. In figure \ref{adaptiveload} we can see that adapting the stopping time at each station works well for maintaining an ideal distance between the shuttles. Until the end of the simulation no convoy is formed and the $loadFactor$ per vehicle is stable. In fact, the $loadFactorStability$ is 0.003 as opposed to 0.034 for the constant stopping time strategy. If we allow shuttles to skip stations, the distance between them is not really stable as the distance is not regulated every time they reach a station, but the $loadFactorStability =  0.006$ is still low.  The percentage change of the performance metrics of the second and third strategy relative to the constant stopping time is represented in figure \ref{hwcompare}. We can see that the battery consumption increases a lot if stops can be skipped as vehicles are never forced to stop when the demand is low. Moreover, vehicles wait on average $35''$ if the stops are mandatory and $25''$ if they are optional. The 
+
+\begin{figure}
+\caption{Average occupancy of each vehicle at each hour of the day}
+\makebox[\textwidth][c]{
+  \centering
+\begin{subfigure}[b]{0.445\textwidth}
+  \includegraphics[width=\linewidth]{./images/constanthw.png}
+  \caption{Constant $wait_t^{v}$}
+  \label{constant}
+\end{subfigure}
+\begin{subfigure}[b]{0.42\textwidth}
+  \includegraphics[width=\linewidth]{./images/hwmax10simu}
+  \caption{Adaptive $wait_t^{v}$}
+  \label{adaptiveload}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\textwidth}
+  \includegraphics[width=\linewidth]{./images/optionalstops}
+  \caption{Skipping Stops}
+  \label{skipload}
+\end{subfigure}
+}
+\label{simuload}
+\end{figure}
+
+\begin{figure}[h] 
+  \centering
+  \caption{Percentage change of the performance metrics relative to the constant stopping time strategy}
+\includegraphics[scale=0.7]{./images/headwayCompare.pdf}
+\label{hwcompare}
+\end{figure}
 
 \subsection{Generating Data}
 
