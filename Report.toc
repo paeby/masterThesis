@@ -31,8 +31,13 @@
 \contentsline {subsubsection}{\numberline {5.2.2}Graph}{20}
 \contentsline {subsubsection}{\numberline {5.2.3}Simulated Demand}{21}
 \contentsline {subsection}{\numberline {5.3}Headway Experiments}{21}
-\contentsline {subsection}{\numberline {5.4}Generating Data}{23}
-\contentsline {subsection}{\numberline {5.5}}{23}
-\contentsline {section}{\numberline {6}Conclusion}{23}
-\contentsline {subsection}{\numberline {6.1}Summary}{23}
-\contentsline {subsection}{\numberline {6.2}Future Work}{23}
+\contentsline {subsection}{\numberline {5.4}Dynamic Fleet Size Experiments}{23}
+\contentsline {subsubsection}{\numberline {5.4.1}Generating Data}{23}
+\contentsline {subsubsection}{\numberline {5.4.2}Fleet Size's Impact On Performance Metrics}{24}
+\contentsline {paragraph}{Average Performance Metrics}{24}
+\contentsline {paragraph}{}{24}
+\contentsline {paragraph}{Extreme Simulation Examples}{25}
+\contentsline {subsection}{\numberline {5.5}}{25}
+\contentsline {section}{\numberline {6}Conclusion}{25}
+\contentsline {subsection}{\numberline {6.1}Summary}{25}
+\contentsline {subsection}{\numberline {6.2}Future Work}{25}

@@ -3,6 +3,7 @@
 
 \documentclass[12pt,a4paper]{article}
 \usepackage[]{algorithm2e}
+\usepackage{tabularx}
 \usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
 \usepackage{epsfig}
@@ -12,6 +13,7 @@
 \usepackage{lipsum}
 \usepackage{titlesec}
 \usepackage{subcaption}
+\usepackage{booktabs}
 \titlespacing\section{0pt}{12pt plus 1pt minus 1pt}{0pt plus 2pt minus 2pt}
 \titlespacing\subsection{0pt}{5pt plus 1pt minus 1pt}{0pt plus 2pt minus 2pt}
 \titlespacing\subsubsection{0pt}{5pt plus 1pt minus 1pt}{0pt plus 2pt minus 2pt}
@@ -241,11 +243,12 @@ The average occupancy does not take into account the time vehicles spend at char
 $$loadFactor^{v} = \frac{\sum_{t \in T} \Delta^{v}_{t} * (1_{V^{\#}}(v,t)) * o^{v}_{t}}{battery^{v} * c^{v}}$$
 We can compute the average load factor of the fleet as:
 $$avgLoadFactor = \frac{\sum_{v \in V}loadFactor^{v}}{|V|}$$
+We measure the variance of the $loadFactor$ which expresses the stability of the occupancy among the vehicles composing the fleet. The closer it is to 0 the better as it implies that all vehicles are used equivalently: $stabilityLoadFacptr = \widehat{Var}(loadFactor)$.
 %We denote the stability load factor the difference between the maximum load factor among the vehicles composing the fleet and the minimum one. The closer it is to 0 the better as it implies that all vehicles are used equivalently: $stabilityLoadFactor = \max_{v^{+} \in V}{loadFactor^{v^{+}}} -  \min_{v^{-} \in V}{loadFactor^{v^{-}}}$.
 \subsubsection*{Waiting Time}
 The average waiting time among the satisfied bookings is given by: 
 $$avgWaitingTime = \frac{\sum_{b \in B^{*}}w^{b}}{|B^{*}|} $$
-We measure the variance of the waiting time as well which expresses the stability of the waiting time over all the bookings. As we want the waiting time to be as stable as possible we want to minimize $stabilityWaitingTime = \widehat{Var}(w)$.
+The variance of the waiting time as well which expresses the stability of the waiting time over all the bookings. As we want the waiting time to be as stable as possible we want to minimize $stabilityWaitingTime = \widehat{Var}(w)$.
 
 \subsubsection*{Journey Time}
 The average journey time among the satisfied bookings is given by:
@@ -276,7 +279,7 @@ The world-simulator is a web service which is used to start the simulation, send
 Vehicles are connected to the core-engine through an established TCP protocol. They can send status messages and receive missions, like going to a specific charging station or waiting at a stop at for $wait^{v}_{simTime}$ seconds. A vehicle executes every mission it receives from the core-engine. The vehicles are simulated concurrently following an actor model. Each vehicle is a different actor part of the actor system. When the vehicles web service receives an HTTP request to start the simulation with a given fleet size from the world-simulator, an actor is created for each vehicle, which announces its position to the core-engine through a TCP message and subscribes to the time topic. The vehicles start at equal distance of each others on the loop with the battery completely recharged and their position and battery level is then updated every $1000/rate$ milliseconds.  
 
 \subsubsection{Core-Engine}
-The core-engine application is a distributed system that combines and processes real-time information for coordinating and optimizing the fleet of autonomous vehicles. Several testing environment components are instantiated by the core-engine application: the map, the vehicles' configurations and fleet schedule through the day. The map is a GeoJSON file which is translated into the application to a directed graph with an edge between every stop and charging stations. The vehicles' configurations include all the parameters enumerated in section \ref{vehicles}. The core-engine handles the bookings it receives from the world-simulator, updates the edges' speed of the graph and sends the actions to be executed by the vehicles. When it receives the starting simulation time and ratio $r$ from the world-simulator, it publishes the updated time to the corresponding Kafka topic. The scheduler component manages the number of vehicles which need to be on service at different times during the day and sends corresponding missions to the vehicles. The positions and battery states received from the vehicles through the TCP connection are then published to the corresponding Kafka topics.  
+The core-engine application is a distributed system that combines and processes real-time information for coordinating and optimizing the fleet of autonomous vehicles. Several testing environment components are instantiated by the core-engine application: the map, the vehicles' configurations and fleet schedule through the day. The map is a GeoJSON file generated with QGIS, a software to create and edit geospatial information, which models the fixed line as segments of four meters. This file is then translated into the application to a directed graph with an edge between every stop and charging stations. The vehicles' configurations include all the parameters enumerated in section \ref{vehicles}. The core-engine handles the bookings it receives from the world-simulator, updates the edges' speed of the graph and sends the actions to be executed by the vehicles. When it receives the starting simulation time and ratio $r$ from the world-simulator, it publishes the updated time to the corresponding Kafka topic. The scheduler component manages the number of vehicles which need to be on service at different times during the day and sends corresponding missions to the vehicles. The positions and battery states received from the vehicles through the TCP connection are then published to the corresponding Kafka topics.  
 
 \subsubsection{Time Synchronization}
 The different time-dependent services use a $timesource$ controller which is a time simulator allowing the services to use a time behaving in a transformed way. Each $timesource$ has in addition to the ratio $r$ a $shift Duration$ which shifts the simulated time by a constant value and a $start Timestamp$ which is a  synchronization marker used to create multiple $timesources$ which are consistent with each others. $Timesources$ created at different time with the exact same ratio $r$, $start Timestamp$ and $shift Duration$ are perfectly synchronized as long as the system clocks of the running services are synced as well. In order to get the simulated time on the different services we can simply compute it with the following formula:
@@ -303,7 +306,7 @@ Even though the vehicles start at equal distance at the beginning of the schedul
 \end{itemize}
 It holds then that if $ratio < 1$ the next vehicle is too far so the vehicle needs to wait less than $ideal$ and otherwise the next vehicle is too close and it waits more as $ratio >1$. Moreover, the time a vehicle waits at a station is bounded from below by $waitMin$ and from above by $waitMax$ in order to avoid irrational values.
 
-\subsubsection{Dynamic Fleet Size}
+\subsubsection{Dynamic Fleet Size}\label{dynamic}
 A fixed fleet of vehicles always operating on the line might not be an optimal solution to offer a good customer level of service whilst optimizing the fleet costs. In fact, passenger demand differ through the day and it might be substantially more cost-effective and efficient to adapt the number of active vehicles during the scheduling horizon $H$. For example, if the demand density is low at certain times of the day then it does not make sense to have many vehicles active on the loop as some of them will not be used at all. On the other hand, if the demand is high and passengers are unable to board the first coming shuttle it would increase drastically the waiting time. Several questions arise concerning the exact strategy to adopt in order to define the minimal number of active vehicles needed based on the demand and the frequency at which fleet should be rescheduled. 
 
 Our strategy implies to decide how many vehicles should be active at each hour of the scheduling horizon based on the demand density. In what follows we will first explain how the fleet is rescheduled when the number of vehicles needed on the line changes. We will then present the different approaches taken in our study to find a balance between the cost of the running vehicles and the quality of service offered to the passengers. 
@@ -451,9 +454,12 @@ TODO CHECK IF IT IS OK?
 As explained in section \ref{hw}, we adopt a strategy involving the vehicles to wait at mandatory stations during an adaptive stopping time based on the distance to the next vehicle on the loop. In order to analyse what is the impact on the transportation service, we compare the output of the simulation metrics when running with the dynamic waiting strategy or without. We analyse the results of the simulations with only mandatory stops or with only optional stops. The following strategies are therefore simulated:
 \begin{enumerate}
 \setlength\itemsep{1pt}
-\item \textbf{Constant $wait_t^{v}$}: every time a vehicle arrives at a station it waits 20 seconds, in other words $default= 20''$ and $ratio$ is always 1. 
+\item \textbf{Constant $wait_t^{v}$}: every time a vehicle arrives at a station it waits 20 seconds, in other words $default= 20''$ and $ratio$ is always equal to 1. 
 \item \textbf{Adaptive $wait_t^{v}$}: when a vehicle arrives at a station it waits $wait_t^{v} = default * ratio$, with $default = 20''$ and $ratio$ computed as explained in section \ref{hw}. The minimum waiting time $waitMin$ is $2''$ and the maximum waiting time $waitMax$ is $10'$.
-\item \textbf{Skipping Stops}: when a vehicle arrives at a station if it does not need to stop for passengers it can skip the stop and otherwise the strategy of point 2. is applied.
+\begin{enumerate}
+\item \textbf{Mandatory stops} $\forall s \in S: M^{s} = 1$. The adaptive waiting time is computed each time a vehicle arrives at a station.
+\item \textbf{Optional stops} $\forall s \in S: M^{s} = 0$. When a vehicle arrives at a station if it does not need to stop for passengers it can skip the stop: $wait_t^{v} = 0$.
+\end{enumerate}
 \end{enumerate}
 We run the simulations over a scheduling horizon $H$ of one day, with the simulated bookings obtained as explained in section \ref{simdem}. The fleet is composed of 8 homogeneous vehicles always active, with the characteristics enumerated in section \ref{vparam}. 
 
@@ -468,12 +474,12 @@ We run the simulations over a scheduling horizon $H$ of one day, with the simula
 \end{subfigure}
 \begin{subfigure}[b]{0.4\textwidth}
   \includegraphics[width=\linewidth]{./images/spread.pdf}
-  \caption{Adaptive $wait_t^{v}$}
+  \caption{Adaptive $wait_t^{v}$, mand. stops}
   \label{adaptive}
 \end{subfigure}
 \begin{subfigure}[b]{0.4\textwidth}
   \includegraphics[width=\linewidth]{./images/optionalstopsgroup.pdf}
-  \caption{Skipping Stops}
+  \caption{Adaptive $wait_t^{v}$, optional stops}
   \label{skip}
 \end{subfigure}
 }
@@ -481,7 +487,7 @@ We run the simulations over a scheduling horizon $H$ of one day, with the simula
 \end{figure}
 TODO add description of colors!
 
-The state of the fixed line at the same simulated time ($simTime$ = 6:00am) is shown in figure \ref{simustate}. As you can observe in figure \ref{busbunching}, when there is no particular strategy adopted to maintain the ideal distance between the vehicles, they end up in two distinct bus convoys of four shuttles each. It happens because the preceding shuttles can not take over the one picking up and dropping the passengers in the front. This phenomenon is illustrated in figure \ref{constanthw}: the average occupancy is higher over the entire day especially for one vehicle. In figure \ref{adaptiveload} we can see that adapting the stopping time at each station works well for maintaining an ideal distance between the shuttles. Until the end of the simulation no convoy is formed and the $loadFactor$ per vehicle is stable. In fact, the $loadFactorStability$ is 0.003 as opposed to 0.034 for the constant stopping time strategy. If we allow shuttles to skip stations, the distance between them is not really stable as the distance is not regulated every time they reach a station, but the $loadFactorStability =  0.006$ is still low.  The percentage change of the performance metrics of the second and third strategy relative to the constant stopping time is represented in figure \ref{hwcompare}. We can see that the battery consumption increases a lot if stops can be skipped as vehicles are never forced to stop when the demand is low. Moreover, vehicles wait on average $35''$ if the stops are mandatory and $25''$ if they are optional. The 
+The state of the fixed line at the same simulated time ($simTime$ = 6:00am) is shown in figure \ref{simustate}. As you can observe in figure \ref{busbunching}, when there is no particular strategy adopted to maintain the ideal distance between the vehicles, they end up in two distinct bus convoys of four shuttles each. It happens because the preceding shuttles can not take over the one picking up and dropping the passengers in the front. This phenomenon is illustrated in figure \ref{constanthw}: the average occupancy is higher over the entire day especially for one vehicle. In figure \ref{adaptiveload} we can see that adapting the stopping time at each station works well for maintaining an ideal distance between the shuttles. Until the end of the simulation no convoy is formed and the $loadFactor$ per vehicle is stable. In fact, the $loadFactorStability$ is 0.003 as opposed to 0.034 for the constant stopping time strategy. If we allow shuttles to skip stations, the distance between them is not really stable as the distance is not regulated every time they reach a station, but the $loadFactorStability =  0.006$ is still low.  The percentage change of the performance metrics of adaptive waiting time strategy relative to the constant stopping time is represented in figure \ref{hwcompare}. We can see that the battery consumption increases a lot if stops can be skipped as vehicles are never forced to stop when the demand is low. Moreover, vehicles wait on average $35''$ if the stops are mandatory and $25''$ if they are optional. The $averageWaitingTime$ is 10 minutes if all stops are mandatory and 5 minutes if stops can be skipped. This has a substantial impact on the level of service offered to the passengers. However, less bookings are satisfied at the end of the day with only optional stops. This is probably due to the fact that vehicles do not always maintain the ideal distance between them. 
 
 \begin{figure}
 \caption{Average occupancy of each vehicle at each hour of the day}
@@ -494,12 +500,12 @@ The state of the fixed line at the same simulated time ($simTime$ = 6:00am) is s
 \end{subfigure}
 \begin{subfigure}[b]{0.42\textwidth}
   \includegraphics[width=\linewidth]{./images/hwmax10simu}
-  \caption{Adaptive $wait_t^{v}$}
+  \caption{Adaptive $wait_t^{v}$, mand. stops}
   \label{adaptiveload}
 \end{subfigure}
 \begin{subfigure}[b]{0.49\textwidth}
   \includegraphics[width=\linewidth]{./images/optionalstops}
-  \caption{Skipping Stops}
+  \caption{Adaptive $wait_t^{v}$, optional stops}
   \label{skipload}
 \end{subfigure}
 }
@@ -508,12 +514,57 @@ The state of the fixed line at the same simulated time ($simTime$ = 6:00am) is s
 
 \begin{figure}[h] 
   \centering
-  \caption{Percentage change of the performance metrics relative to the constant stopping time strategy}
-\includegraphics[scale=0.7]{./images/headwayCompare.pdf}
+  \caption{Percentage change of the adaptive waiting strategies' performance metrics relative to the constant stopping time strategy}
+\includegraphics[scale=0.5]{./images/headwayCompare.pdf}
 \label{hwcompare}
 \end{figure}
 
-\subsection{Generating Data}
+\subsection{Dynamic Fleet Size Experiments}
+In what follows we present the several stages conducted in our experimental analysis TODO write intro 
+say that we use adaptive wait with mandatory stops
+\subsubsection{Generating Data}\label{data}
+As explained in section \ref{dynamic}, in order to get insights about the impact of the number of vehicles with varying demand density on the performance metrics we need to run several simulations and gather all the data. As simulations are time-consuming, we need to choose which sampling $D$ of demand density we want to simulate. Based on the demand density frequency over the day which is plotted in figure \ref{demfreq}, we run simulations for $dem \in D = \{13, 15, 21, 23, 25, 27, 31, 36, 40, 46, 58\}$. For each demand density we generate a list of bookings at fixed interval $1h / dem$. Simulations are then run over one hour with varying the fleet size from $V^{-}=$2 vehicles to $V^{+}=$10 vehicles. For each simulation of varying demand density and fleet size the performance metrics are recorded. As the simulations are subject to some perturbation due to the accelerated time, we clean the data by replacing the values lower than the 5$^{th}$ quantiles and higher than the 95$^{th}$ quantiles.
+
+\begin{figure}[h] 
+  \centering
+  \caption{Demand density frequency over the simulated day}
+\includegraphics[scale=0.5]{./images/demand_freq.png}
+\label{demfreq}
+\end{figure}
+
+\subsubsection{Fleet Size's Impact On Performance Metrics}
+In this section we present the analysis of the simulations' output metrics in order to describe the relationships between the fleet size and the performance measures and how it varies with the demand density.
+
+\paragraph{Average Performance Metrics} 
+In figure \ref{averages} the performance metrics' averages over all demand densities $dem \in D$ at growing fleet size are represented. As expected, the $batteryCost$ and the $completedBookingsRatio$ increase proportionally to the fleet size whilst the $averageWaitingTime$ and the $averageLoadFactor$ decrease. The percentage changes of the different costs are enumerated in table \ref{averageschange}. As you can see, the average waiting time decreases from 16.8 minutes to 3.18 minutes which is really relevant to the quality of the transportation service. However, if it is costly to run the vehicles the change in battery consumption is weighty with ten vehicles and the vehicles are running with few people as the $avgLoadFactor$ is low.
+
+\begin{figure}[h] 
+  \centering
+  \caption{Performance metrics averages over all demand densities $dem \in D$ at growing fleet size.}
+\includegraphics[scale=0.5]{./images/vehicleimpact.pdf}
+\label{averages}
+\end{figure}
+
+
+\begin{table}[h]
+\caption{Percentage change between of average performance metrics when running simulations with two and ten vehicles.}
+\center
+    \begin{tabular}{|l|r|l|r|}
+      \toprule
+    & $|V|$=2 & $|V|$=10 & Percentage Change\\
+    \midrule
+    $batteryCost$ & 0.17 & 0.84 & 394\%\\
+    $avgWaitingTime$ & 16.8' & 3.18' & -80\% \\
+    $avgLoadFactor$ & 0.21 & 0.06 & -71\% \\
+    $completedBookingsRatio$ & 0.33 & 0.44 & 33\% \\
+    $avgJourneyTime$ & 27' & 20' & -26\% \\
+    \midrule
+    \end{tabular}
+    \label{averageschange}
+  \end{table}
+\paragraph{Performance Metrics Regarding the Demand Density and Fleet Size}
+
+\paragraph{Extreme Simulation Examples}
 
 \subsection{}
 \section{Conclusion}\label{conclusion}
