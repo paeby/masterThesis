@@ -536,7 +536,7 @@ As explained in section \ref{dynamic}, in order to get insights about the impact
 In this section we present the analysis of the simulations' output metrics in order to describe the relationships between the fleet size and the performance measures and how it varies with the demand density.
 
 \paragraph{Average Performance Metrics} 
-In figure \ref{averages} the performance metrics' averages over all demand densities $dem \in D$ at growing fleet size are represented. As expected, the $batteryCost$ and the $completedBookingsRatio$ increase proportionally to the fleet size whilst the $averageWaitingTime$ and the $averageLoadFactor$ decrease. The percentage changes of the different costs are enumerated in table \ref{averageschange}. As you can see, the average waiting time decreases from 16.8 minutes to 3.18 minutes which is really relevant to the quality of the transportation service. However, if it is costly to run the vehicles the change in battery consumption is weighty with ten vehicles and the vehicles are running with few people as the $avgLoadFactor$ is low.
+In figure \ref{averages} the performance metrics' averages over all demand densities $dem \in D$ at growing fleet size are represented. As expected, the $batteryCost$ and the $completedBookingsRatio$ increase proportionally to the fleet size whilst the $averageWaitingTime$ and the $averageLoadFactor$ decrease. The percentage changes of the different costs are enumerated in table \ref{averageschange}. As you can see, the average waiting time decreases from 16.8 minutes to 3.18 minutes which is really relevant to the quality of the transportation service. However, if it is costly to run the vehicles the change in battery consumption is weighty when the fleet size increases. Moreover the vehicles are running with few people as the $avgLoadFactor$ is low.
 
 \begin{figure}[h] 
   \centering
@@ -562,8 +562,29 @@ In figure \ref{averages} the performance metrics' averages over all demand densi
     \end{tabular}
     \label{averageschange}
   \end{table}
-\paragraph{Performance Metrics Regarding the Demand Density and Fleet Size}
-
+\paragraph{Performance Metrics Regarding to the Demand Density and the Fleet Size}
+\begin{figure}
+\caption{Simulations' output metrics with respect to the fleet size (x-axis) and the demand density (y-axis)}
+\makebox[\textwidth][c]{
+  \centering
+\begin{subfigure}[b]{0.452\textwidth}
+  \includegraphics[width=\linewidth]{./images/battery.png}
+  \caption{$batteryCost$}
+  \label{batterycost}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+  \includegraphics[width=\linewidth]{./images/waitingtime.png}
+  \caption{$averageWaitingTime$}
+  \label{wtcost}
+\end{subfigure}
+\begin{subfigure}[b]{0.458\textwidth}
+  \includegraphics[width=\linewidth]{./images/completed.png}
+  \caption{$completedBookingsRatio$}
+  \label{cbr}
+\end{subfigure}
+}
+\label{simustate}
+\end{figure}
 \paragraph{Extreme Simulation Examples}
 
 \subsection{}
