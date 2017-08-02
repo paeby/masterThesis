@@ -5,6 +5,8 @@
 \usepackage[]{algorithm2e}
 \usepackage{tabularx}
 \usepackage[T1]{fontenc}
+\usepackage{float}
+
 \usepackage[latin9]{inputenc}
 \usepackage{epsfig}
 \usepackage{enumitem}
@@ -528,7 +530,8 @@ As explained in section \ref{dynamic}, in order to get insights about the impact
 \begin{figure}[h] 
   \centering
   \caption{Demand density frequency over the simulated day}
-\includegraphics[scale=0.5]{./images/demand_freq.png}
+
+\includegraphics[scale=0.6]{./images/demand_freq.png}
 \label{demfreq}
 \end{figure}
 
@@ -536,7 +539,7 @@ As explained in section \ref{dynamic}, in order to get insights about the impact
 In this section we present the analysis of the simulations' output metrics in order to describe the relationships between the fleet size and the performance measures and how it varies with the demand density.
 
 \paragraph{Average Performance Metrics} 
-In figure \ref{averages} the performance metrics' averages over all demand densities $dem \in D$ at growing fleet size are represented. As expected, the $batteryCost$ and the $completedBookingsRatio$ increase proportionally to the fleet size whilst the $averageWaitingTime$ and the $averageLoadFactor$ decrease. The percentage changes of the different costs are enumerated in table \ref{averageschange}. As you can see, the average waiting time decreases from 16.8 minutes to 3.18 minutes which is really relevant to the quality of the transportation service. However, if it is costly to run the vehicles the change in battery consumption is weighty when the fleet size increases. Moreover the vehicles are running with few people as the $avgLoadFactor$ is low.
+In figure \ref{averages} the performance metrics' averages over all demand densities $dem \in D$ at growing fleet size are represented. As expected, the $batteryCost$ and the $completedBookingsRatio$ increase proportionally to the fleet size whilst the $averageWaitingTime$ and the $averageLoadFactor$ decrease. The percentage changes of the different costs are enumerated in table \ref{averageschange}. As you can see, the average waiting time decreases from 16.8 minutes to 3.18 minutes which is really relevant to the quality of the transportation service. However, if it is costly to run the vehicles the change in battery consumption is weighty when the fleet size increases and the vehicles are not used efficiently as the $avgLoadFactor$ is low.
 
 \begin{figure}[h] 
   \centering
@@ -562,9 +565,27 @@ In figure \ref{averages} the performance metrics' averages over all demand densi
     \end{tabular}
     \label{averageschange}
   \end{table}
-\paragraph{Performance Metrics Regarding to the Demand Density and the Fleet Size}
+  
+\paragraph{Demand Density and the Fleet Size's Impact on Performance Metrics}
+For each of the three measures $batteryCost$, $averageWaitingTime$ and $completedBookingsRatio$ we analyse the growth of the costs regarding the fleet size and the demand density:
+\begin{itemize}
+\item $batteryCost$: We suppose from figure \ref{batterycost} that the battery consumption grows linearly regarding the number of vehicles and that it is not dependent on the demand density. In fact, the correlation coefficient between $batteryCost$ and $|V|$ is 0.9 whilst between $batteryCost$ and $dem$ it is equal to -0.09. Moreover, we perform a linear regression with the explanatory factor being the fleet size $|V|$ and the dependent variable the $batteryCost$. We obtain a coefficient of determination $R^{2} = 0.88$, which means that it explains 88\% of the variance. We conclude that the energy cost grows linearly to the number of vehicles active on the line. 
+
+\item $averageWaitingTime$: From figure \ref{wtcost} we can see that the waiting time is not only dependent on the fleet size but on the demand density as well. In fact, the correlation between $averageWaitingTime$ and $|V|$ is -0.48 and with $dem$ it is equal to 0.24. We run therefore a linear regression with the explanatory factors being the fleet size $|V|$ and the demand density $dem$ and we obtain $R^{2}$ = 0.4. However, the average waiting time varies from different ranges between the different group of same demand density, affecting the regression which will fit a line on the average of those $averageWaitingTime$ values. In order to overcome this multicollinearity problem, we can add a dummy variable for each but one group of 9 instances (fleet size being between 2 and 10), a group being the instances with the same demand density $dem \in D$. We perform a linear regression with the predictors being $dem$, $|V|$ and the dummy variables and we obtain a better coefficient of determination $R^{2} = 0.53$. The normal probability plot of the linear regression which looks fairly straight is shown in figure \ref{probaplot}. However, we suppose from figure \ref{averages} that an exponential function could fit better the observed $averageWaitingTime$. We run a non-linear regression, fitting the $averageWaitingTime$ to the exponential function $a * e^{[b_{1},...,b_{|D|+2}]*[dem,|V|,dummyVar]}+c$ with the demand density, the fleet size and the dummy variables as predictors. We compare the residual sum of squares $RSS$ of both models on our datapoints. For the linear model we obtain a $RSS$ =   1709 and for the exponential model $RSS = 1331$. The $RSS$ of the exponential model is 22\% smaller than the $RSS$ of the linear model. The $averageWaitingTime$ decreases therefore exponentially as the number of vehicles increase.
+TODO put plot of the fit
+\begin{figure}[h] 
+  \centering
+  \caption{Linear regression residuals' probability plot for the function fit of the $averageWaitingTime$}
+\includegraphics[scale=0.4]{./images/probaplot.pdf}
+\label{probaplot}
+\end{figure}
+
+\item $completedBookingsRatio$: As opposed to the $batteryCost$ and $averageWaitingTime$ which have a higher correlation with the fleet size $|V|$ than the demand density $dem$, the $completedBookingsRatio$ has a correlation coefficient with the demand density (-0.39) which is more significant than with the fleet size (0.25). It is indeed normal as the ratio of completed bookings is higher if there are less bookings sent during the simulated hour. We run a linear regression with the demand density $dem$, the fleet size $|V|$ and the dummy variables as predictors and we obtain $R^{2} = 0.61$ and $RSS = 0.77$. If we fit the $completedBookingsRatio$ to the exponential function we obtain $RSS = 0.71$.
+
+\end{itemize}
+
 \begin{figure}
-\caption{Simulations' output metrics with respect to the fleet size (x-axis) and the demand density (y-axis)}
+\caption{Simulations' output metrics with respect to the fleet size $|V|$ (x-axis) and the demand density $dem$ (y-axis)}
 \makebox[\textwidth][c]{
   \centering
 \begin{subfigure}[b]{0.452\textwidth}
@@ -585,9 +606,62 @@ In figure \ref{averages} the performance metrics' averages over all demand densi
 }
 \label{simustate}
 \end{figure}
-\paragraph{Extreme Simulation Examples}
 
-\subsection{}
+
+  \begin{table}
+  \caption{Correlation coefficients between performance metrics and demand density and fleet size.}
+  \vspace{-1.5em}
+  \center
+    \begin{tabular}{|l|r|r|}
+     \toprule
+    Correlation Coeff.& $dem$ & $|V|$ \\
+    \midrule
+    $batteryCost$ & -0.09 & 0.9\\
+    $averageWaitingTime$ & 0.24 & -0.48\\
+    $completedBookingsRatio$ & -0.39 & 0.25 \\
+    $averageLoadFactor$ & 0.5 & -0.5\\
+    \midrule
+    \end{tabular}
+    \label{correlation}
+  \end{table}
+
+\paragraph{Extreme Simulation Examples}
+We to compare the fleet's behaviour and the performance metrics when the demand density is low to when it is high and how much the fleet size can actually improve the performance metrics in both cases. In figure \ref{extremesimu}. In both cases the average waiting time is drastically reduced when the fleet is composed of ten vehicles as opposed to two vehicles. In fact, it decreases from 14 minutes to 3 minutes when the demand density is low $dem=13$ and from 12 minutes to 5 minutes for the highest demand density $dem = 58$. On the other hand, the $completedBookingsRatio$ increases by 13\% for $dem = 13$ (0.61 to 0.69) whilst it increases more substantially by 65\% for $dem = 58$. Moreover, we can observe that it is not efficient to have ten active vehicles when the demand is low as only four vehicles are used over the hour (see figure \ref{dem13v10}). However, when the demand density is high the entire fleet is used over the hour (see figure \ref{dem58v10}). This validates the idea that a larger fleet size is relevant mostly when the demand is high but that there is no need to use all the fleet size when the demand is lower.
+\begin{figure}[]
+\caption{Average occupancy of each vehicles at each minute of the simulated hour for the combinations of $V^{-}, V^{+}, dem^{-}$ and $dem^{+}$.}
+%\makebox[\textwidth][c]{
+  \centering
+\begin{subfigure}[b]{0.48\textwidth}
+  \includegraphics[width=\linewidth]{./images/dem13v2}
+  \caption{$dem = 13, |V| = 2$\\ $averageWaitingTime = 14'$\\ $completedBookingsRatio = 0.61$ \\ $averageLoadFactor = 0.15$}
+  \label{dem13v2}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+  \includegraphics[width=\linewidth]{./images/dem13v10}
+  \caption{$dem = 13, |V| = 10$\\ $averageWaitingTime = 3'$\\ $completedBookingsRatio = 0.69$ \\ $averageLoadFactor = 0.03$}
+  \label{dem13v10}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+  \includegraphics[width=\linewidth]{./images/dem582v}
+  \caption{$dem = 58, |V| = 2$\\ $averageWaitingTime = 12'$\\ $completedBookingsRatio = 0.31$ \\ $averageLoadFactor = 0.27$}
+  \label{dem58v2}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.48\textwidth}
+  \includegraphics[width=\linewidth]{./images/dem58v10}
+  \caption{$dem = 58, |V| = 10$\\ $averageWaitingTime = 5'$\\ $completedBookingsRatio = 0.51$ \\ $averageLoadFactor = 0.15$}
+  \label{dem58v10}
+\end{subfigure}
+%}
+\label{extremesimu}
+\end{figure}
+
+\subsection{Comparison of Scheduling Strategies}
+
+\paragraph{First Strategy: Cost Function}
+
+\paragraph{Second Strategy: Maximum Average Waiting Time}
+
+\subsection{No battery? what?}
 \section{Conclusion}\label{conclusion}
 \subsection{Summary}\label{summary}
 \subsection{Future Work}\label{futurework}
