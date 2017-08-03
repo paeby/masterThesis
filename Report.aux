@@ -59,6 +59,7 @@
 \@writefile{toc}{\contentsline {paragraph}{Rescheduling the Vehicles}{15}}
 \@writefile{toc}{\contentsline {paragraph}{Optimal Fleet Size}{15}}
 \citation{ga}
+\newlabel{costfunction}{{1}{17}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Numerical Experiments}{17}}
 \newlabel{experiments}{{5}{17}}
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Simulation framework and scheduling parameters\relax }}{18}}
@@ -81,7 +82,8 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Demand density $dem_{t}$ at each hour of a week-day\relax }}{21}}
 \newlabel{fig:demand}{{4}{21}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Headway Experiments}{21}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Simulation state at $simTime$ = 6:00am\relax }}{22}}
+\newlabel{hwexperiments}{{5.3}{21}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Vehicles' positions on the fixed line at $simTime$ = 6:00am illustrating the space between vehicles. \relax }}{22}}
 \newlabel{busbunching}{{5a}{22}}
 \newlabel{sub@busbunching}{{a}{22}}
 \newlabel{adaptive}{{5b}{22}}
@@ -103,6 +105,7 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Percentage change of the adaptive waiting strategies' performance metrics relative to the constant stopping time strategy\relax }}{24}}
 \newlabel{hwcompare}{{7}{24}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.2}Fleet Size's Impact On Performance Metrics}{24}}
+\newlabel{impact}{{5.4.2}{24}}
 \@writefile{toc}{\contentsline {paragraph}{Average Performance Metrics}{24}}
 \@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Demand density frequency over the simulated day\relax }}{25}}
 \newlabel{demfreq}{{8}{25}}
@@ -111,7 +114,7 @@
 \@writefile{toc}{\contentsline {paragraph}{Demand Density and the Fleet Size's Impact on Performance Metrics}{25}}
 \@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Performance metrics averages over all demand densities $dem \in D$ at growing fleet size.\relax }}{26}}
 \newlabel{averages}{{9}{26}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Linear regression residuals' probability plot for the function fit of the $averageWaitingTime$\relax }}{27}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Linear regression residuals' probability plot for the function fit of the $avgWaitingTime$\relax }}{27}}
 \newlabel{probaplot}{{10}{27}}
 \@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Simulations' output metrics with respect to the fleet size $|V|$ (x-axis) and the demand density $dem$ (y-axis)\relax }}{27}}
 \newlabel{batterycost}{{11a}{27}}
@@ -122,25 +125,11 @@
 \newlabel{sub@cbr}{{c}{27}}
 \newlabel{simustate}{{11}{27}}
 \@writefile{toc}{\contentsline {paragraph}{Extreme Simulation Examples}{27}}
-\bibstyle{apalike}
-\bibdata{/Users/prisca/Documents/Final_Report/bibliography/bibliography}
-\bibcite{loadFactor}{{1}{2004}{{Adra et~al.}}{{}}}
-\bibcite{luts}{{2}{2016}{{Bongiovanni et~al.}}{{}}}
-\bibcite{hwadherence}{{3}{2016}{{Camps and Romeu}}{{}}}
-\bibcite{ga}{{4}{2001}{{Chakroborty et~al.}}{{}}}
-\bibcite{hybrid}{{5}{2010}{{Cort{\'{e}}s et~al.}}{{}}}
 \@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Correlation coefficients between performance metrics and demand density and fleet size.\relax }}{28}}
 \newlabel{correlation}{{5}{28}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Comparison of Scheduling Strategies}{28}}
 \@writefile{toc}{\contentsline {paragraph}{First Strategy: Cost Function}{28}}
 \@writefile{toc}{\contentsline {paragraph}{Second Strategy: Maximum Average Waiting Time}{28}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}No battery? what?}{28}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{28}}
-\newlabel{conclusion}{{6}{28}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Summary}{28}}
-\newlabel{summary}{{6.1}{28}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Future Work}{28}}
-\newlabel{futurework}{{6.2}{28}}
 \@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Average occupancy of each vehicles at each minute of the simulated hour for the combinations of $V^{-}, V^{+}, dem^{-}$ and $dem^{+}$.\relax }}{29}}
 \newlabel{dem13v2}{{12a}{29}}
 \newlabel{sub@dem13v2}{{a}{29}}
@@ -151,7 +140,30 @@
 \newlabel{dem58v10}{{12d}{29}}
 \newlabel{sub@dem58v10}{{d}{29}}
 \newlabel{extremesimu}{{12}{29}}
+\bibstyle{apalike}
+\bibdata{/Users/prisca/Documents/Final_Report/bibliography/bibliography}
+\bibcite{loadFactor}{{1}{2004}{{Adra et~al.}}{{}}}
+\bibcite{luts}{{2}{2016}{{Bongiovanni et~al.}}{{}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Dynamic fleet size at each hour of the day for the two strategies in function of the demand density divided by ten (for the sake of readability).\relax }}{30}}
+\newlabel{optfleet}{{13}{30}}
+\@writefile{toc}{\contentsline {paragraph}{Comparison of Performance Metrics}{30}}
+\@writefile{toc}{\contentsline {paragraph}{Battery Management}{30}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Layout}{30}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.6.1}Many charging}{30}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.6.2}Battery Consumption}{30}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.6.3}compare}{30}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{30}}
+\newlabel{conclusion}{{6}{30}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Summary}{30}}
+\newlabel{summary}{{6.1}{30}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Future Work}{30}}
+\newlabel{futurework}{{6.2}{30}}
+\bibcite{hwadherence}{{3}{2016}{{Camps and Romeu}}{{}}}
+\bibcite{ga}{{4}{2001}{{Chakroborty et~al.}}{{}}}
+\bibcite{hybrid}{{5}{2010}{{Cort{\'{e}}s et~al.}}{{}}}
 \bibcite{masterschedule}{{6}{2010}{{Crainic et~al.}}{{}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Percentage change of the scheduling strategies' performance metrics relative to the constant fleet of vehicles with mandatory stops.\relax }}{31}}
+\newlabel{compare}{{14}{31}}
 \bibcite{cooperation}{{7}{2011}{{Daganzo and Pilachowski}}{{}}}
 \bibcite{evaluation}{{8}{2008}{{Gabriel et~al.}}{{}}}
 \bibcite{information}{{9}{2015}{{He}}{{}}}
@@ -159,3 +171,15 @@
 \bibcite{tcrp}{{11}{1998}{{Pine et~al.}}{{}}}
 \bibcite{reliability}{{12}{2010}{{van Oort et~al.}}{{}}}
 \bibcite{selfadjusting}{{13}{2016}{{Zhao et~al.}}{{}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Simulations' output metrics with respect to the fleet size $|V|$ (x-axis) and the demand density $dem$ (y-axis)\relax }}{32}}
+\newlabel{batterycost}{{15a}{32}}
+\newlabel{sub@batterycost}{{a}{32}}
+\newlabel{wtcost}{{15b}{32}}
+\newlabel{sub@wtcost}{{b}{32}}
+\newlabel{cbr}{{15c}{32}}
+\newlabel{sub@cbr}{{c}{32}}
+\newlabel{sendtocharge}{{15}{32}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Percentage change of the scheduling strategies' performance metrics relative to the constant fleet of vehicles with mandatory stops.\relax }}{33}}
+\newlabel{manycharging}{{16}{33}}
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces Percentage change of the scheduling strategies' performance metrics relative to the constant fleet of vehicles with mandatory stops.\relax }}{33}}
+\newlabel{batterycompare}{{17}{33}}
