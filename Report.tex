@@ -6,7 +6,6 @@
 \usepackage{tabularx}
 \usepackage[T1]{fontenc}
 \usepackage{float}
-
 \usepackage[latin9]{inputenc}
 \usepackage{epsfig}
 \usepackage{enumitem}
@@ -23,6 +22,19 @@
 %\harvardparenthesis{none}
 %\harvardyearparenthesis{round}
 %\newcommand{\citeasnoun}[1]{\cite{#1}}
+
+\usepackage{titlesec}
+
+\setcounter{secnumdepth}{4}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+%\usepackage{euler,times}
+%\usepackage{euler,beton}	% RS comment out - normal text font
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing{\paragraph}
+{5pt}{5pt plus 1pt minus 1pt}{0pt plus 2pt minus 2pt}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
 %\usepackage{euler,times}
@@ -400,7 +412,7 @@ In order to assess the simulation framework stability, we run exactly the same s
 
 Simulations are run over a scheduling horizon $H$ of one hour with a demand density $dem_{0} = 27$ which corresponds to sending a booking every 2'13''. The fleet is composed of five homogeneous vehicles which operate on the same fixed line. When varying the simulation framework parameters, each simulation is run three times and the average performance metrics are reported. 
 
-\paragraph{Simulation Speed} In figure \ref{fig:stability} the $batteryCost$ and $completedBookingsRatio$ are reported for a sample of growing ratios $r$. For example $r = 24$ means simulating a day in one hour and $r=144$ is equivalent to ten minutes. As you can observe, with $r = 144$ the metrics are far from the real metrics. In fact, the system can not handle all computations and the vehicles' positions are not updated consistently. There is a percentage change with the real value (at $r$=1) of the $batteryCost$ of -19\% and for the $completedBookingsRatio$ of -41\%. However, when the time is accelerated 24 times performance metrics remain really close to the real values with a percentage change of -0.53\% for the $batteryCost$ and -4\% for the $completedBookingsRatio$. We choose therefore that running all simulations with a ratio $r=24$ is a reasonable trade-off between the stability of the metrics and the computation time.
+\subsubsection{Simulation Speed} In figure \ref{fig:stability} the $batteryCost$ and $completedBookingsRatio$ are reported for a sample of growing ratios $r$. For example $r = 24$ means simulating a day in one hour and $r=144$ is equivalent to ten minutes. As you can observe, with $r = 144$ the metrics are far from the real metrics. In fact, the system can not handle all computations and the vehicles' positions are not updated consistently. There is a percentage change with the real value (at $r$=1) of the $batteryCost$ of -19\% and for the $completedBookingsRatio$ of -41\%. However, when the time is accelerated 24 times performance metrics remain really close to the real values with a percentage change of -0.53\% for the $batteryCost$ and -4\% for the $completedBookingsRatio$. We choose therefore that running all simulations with a ratio $r=24$ is a reasonable trade-off between the stability of the metrics and the computation time.
 
 \begin{figure}[h] 
   \centering
@@ -410,9 +422,9 @@ Simulations are run over a scheduling horizon $H$ of one hour with a demand dens
 \label{fig:stability}
 \end{figure}
 
-\paragraph{Vehicles' Actor Speed} As explained in section \ref{simvehicles} the actors simulating the vehicles update their state (position and battery level) every 1000/$rate$ milliseconds. If $rate$ is too high the actor system end up with too many unhandled messages. On the other hand, if $rate$ is too small the vehicles skip stops. A good compromise is achieved with a $rate$ of 3.
+\subsubsection{Vehicles' Actor Speed} As explained in section \ref{simvehicles} the actors simulating the vehicles update their state (position and battery level) every 1000/$rate$ milliseconds. If $rate$ is too high the actor system end up with too many unhandled messages. On the other hand, if $rate$ is too small the vehicles skip stops. A good compromise is achieved with a $rate$ of 3.
 
-\paragraph{Time Consistency Between Applications} We need to assess if the Core-Engine application receives the bookings at the same time the World-Simulator application sends the booking through a REST API. In fact, there might be some delay as the World-Simulator checks every second if it needs to send bookings, so if there is a real-time delay of one second it can increase proportionally to the simulation ratio $r$. We compare the time at which the booking is supposed to be sent $simTime^{b}$ from the World-Simulator to the reported time in the logs from the Reporting application which populates its database at $sampleInterval$ of one second. We obtain that on average the difference is of 5 seconds and it never exceeds 55 seconds. It is totally acceptable as we run simulations over one day. Moreover, the vehicles' logs we get from the Reporting application are at regular $interval$ of 10 seconds.
+\subsubsection{Time Consistency Between Applications} We need to assess if the Core-Engine application receives the bookings at the same time the World-Simulator application sends the booking through a REST API. In fact, there might be some delay as the World-Simulator checks every second if it needs to send bookings, so if there is a real-time delay of one second it can increase proportionally to the simulation ratio $r$. We compare the time at which the booking is supposed to be sent $simTime^{b}$ from the World-Simulator to the reported time in the logs from the Reporting application which populates its database at $sampleInterval$ of one second. We obtain that on average the difference is of 5 seconds and it never exceeds 55 seconds. It is totally acceptable as we run simulations over one day. Moreover, the vehicles' logs we get from the Reporting application are at regular $interval$ of 10 seconds.
 
 \begin{table}
 \makebox[\textwidth][c]{
@@ -440,8 +452,14 @@ $$((0.0261905 * s^{2} + 1.70238 * s + 95.3571) * s) * \Delta * \beta^{v}$$
 and similarly it recharges by $ \Delta * \alpha^{v}$.
 The homogeneous fleet has ratios $\alpha$ and $\beta$ set to 1 unless stated otherwise. As explained in section \ref{schedule}, vehicles finish their missions and go to charge if their battery level is under $minBatt$ = 0.3. Vehicles go at constant speed of 12.4 miles per hour as in cities with the current shuttle technologies and road settings it is not possible for them to go faster.
 \subsubsection{Graph}
-The fixed line is situated in Mountain View, California, with 32 stops situated at strategical points on the loop based on the types of area (accommodations, shopping centres industry, etc). In current running autonomous transportation infrastructure, like for example in Sion for the project SmartShuttle, two vehicles are running on a fixed line and there is one depot where they can recharge. Currently it is reasonable to assume that all charging stations are centred at one place on the loop. We set therefore ten charging stations at the same place. The length TODO of the loop is of ... km.  
-TODO put image of graph
+The fixed line is situated in Mountain View, California, with 32 stops situated at strategical points on the loop based on the types of area (accommodations, shopping centres industry, etc). In current running autonomous transportation infrastructure, like for example in Sion for the project SmartShuttle, two vehicles are running on a fixed line and there is one depot where they can recharge. Currently it is reasonable to assume that all charging stations are centred at one place on the loop. We set therefore ten charging stations in the same area. The length TODO of the loop is of ... km.  
+\begin{figure}[h] 
+  \centering
+  \caption{Fixed loop with 32 stops and 10 battery stations in the same area.}
+\includegraphics[scale=0.5]{./images/graph}
+\label{graph}
+\end{figure}
+
 
 \subsubsection{Simulated Demand}\label{simdem}
 The goal of the simulations is to send realistic bookings in this specific loop over the scheduling horizon of one day in order to get meaningful metrics. As there is no available information of the demand distribution on this specific loop, other data can be analysed and realistic bookings can be extrapolated from it. The simulated demand is estimated analysing traffic information data of the area of study provided by HERE Maps. This data set provides real-time traffic flow tags for the main road segments in the USA. There is for example the free-flow (maximum speed allowed) over the average speed at each minute of the day for each segment as well as the estimated number of vehicles. 20\% of the total number of vehicles is considered as public transport. The data over one week from Monday to Friday is selected for analysis. Generalized additive model is used to predict the number of vehicles for every minute at each edge of the graph. The change in number of vehicles between each segment is recorded in order to estimate the number of pick-up (when it increases) and drop-off (when it decreases). In order to simulate bookings from one of the 32 stations to an other station, the correlation matrix of the number of vehicles between the segments is used with a multinomial distribution with weights of the zoning area (residential, industrial or office) to generate bookings from one station to an other for a week-day starting at midnight. The output is a list of 584 bookings with varying number of passengers $1 \leq n^{b} \leq 5$. The number of bookings generated every hour of the scheduling horizon of one day is represented in figure \ref{fig:demand}.
@@ -657,7 +675,7 @@ We to compare the fleet's behaviour and the performance metrics when the demand 
 \label{extremesimu}
 \end{figure}
 
-\subsection{Comparison of Scheduling Strategies}
+\subsubsection{Comparison of Scheduling Strategies}
 In this section we describe for both dynamic fleet size strategies presented in section \ref{dynamic} what is the output for the fleet size based on the demand density and what are the advantages and disadvantages of those strategies compared to a constant fleet size by analysing the results of the simulations.
 \paragraph{First Strategy: Cost Function}
 We compute for each $dem \in D =  \{13, 15, 21, 23,$ $25, 27, 31, 36, 40, 46, 58\}$ what is the optimal fleet size $|V^{°}|$ which minimizes the cost function (\ref{costfunction}). We then run a linear regression with the demand density $dem$ as predictors and the optimal fleet size $|V^{°}|$ as dependent variable. We obtain $R^{2} = 0.82$ and we use this linear function which grows from 3 to 8 vehicles to determine at each time of the day what is the optimal fleet size. The adaptive fleet size through the day is shown in figure \ref{optfleet}.
@@ -673,7 +691,8 @@ We recall that this strategy implies finding the function of the average waiting
 \end{figure}
 
 \paragraph{Comparison of Performance Metrics}
-We run the simulations with adapting the fleet size over the scheduling horizon for both strategies. We use the same graph and vehicles' sett  As for both of them the maximum optimal fleet size is 8, we compare those strategies with 
+We run the simulations with adapting the fleet size over the scheduling horizon for both strategies. We use the same graph and vehicles' settings as the ones described in section \ref{hwexperiments} with the adaptive waiting time and only mandatory stops. For both of them the maximum optimal fleet size is 8, so we compare those strategies with a constant fleet size of 8 vehicles. The figure \ref{strategyCompare} illustrates the percentage change of the scheduling  As expected, the battery consumption is lower (14.82 instead of 16.58, as opposed to 16.62 for constant 8 vehicles) for the first strategy as it varies between 3 to 8 vehicles instead of 6 to 8. The $batteryCost$ is therefore only improved by 0.24\% for the second strategy compared to a fixed fleet of vehicles, however the quality of the service offered to the passenger is better. In fact, for the second strategy each booking waits on average 7 minutes compared to 8 minutes for the first strategy and 10 minutes for the constant fleet size. Moreover, the stability of the waiting time is improved as the variance of the waiting times over the completed bookings $waitingStability$ decreases from 307 for the constant fleet size to 91 for the second strategy and 59 for the first one. The cost function strategy has therefore a better $waitingStability$ but a longer $avgWaitingTime$ than the maximum waiting time strategy. However, if we compare the ratio of completed bookings which have a smaller waiting time than 6 minutes over the total number of completed bookings then the second strategy is better than the first one (0.5 instead of 0.48). The $avgLoadFactor$ of the second strategy is improved from 
+
 \begin{figure}[h] 
   \centering
   \caption{Percentage change of the scheduling strategies' performance metrics relative to the constant fleet of vehicles with mandatory stops.}
@@ -681,10 +700,17 @@ We run the simulations with adapting the fleet size over the scheduling horizon 
 \label{compare}
 \end{figure}
 
-\paragraph{Battery Management}
+\paragraph{Comparison Between Waiting Time and Charging Vehicles}
+In order to get insights 
+plots that help me judging whether the moment a vehicle was sent to charge was appropriate, compared to the increase in waiting time it generated.
+
+Draw a plot that  shows the number of active vehicles over the day (or the number of charging vehicles)
+and the average waiting time per unit of time over the day
 
 \begin{figure}
-\caption{Simulations' output metrics with respect to the fleet size $|V|$ (x-axis) and the demand density $dem$ (y-axis)}
+\caption{Number of charging vehicles on the line and hourly average waiting time (normalized between and the fleet size).}
+
+\label{compare}
 \makebox[\textwidth][c]{
   \centering
 \begin{subfigure}[b]{0.452\textwidth}
@@ -703,6 +729,11 @@ We run the simulations with adapting the fleet size over the scheduling horizon 
   \label{cbr}
 \end{subfigure}
 }
+\begin{center}
+\vspace{-0.5em}
+\includegraphics[scale=0.35]{./images/labels}
+\end{center}
+
 \label{sendtocharge}
 \end{figure}
 
