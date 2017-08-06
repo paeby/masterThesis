@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.9.28)  5 AUG 2017 19:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.9.28)  6 AUG 2017 16:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1432,24 +1432,69 @@ File: ./images/labels.png Graphic file (type png)
 Package pdftex.def Info: ./images/labels.png used on input line 872.
 (pdftex.def)             Requested size: 191.81949pt x 26.70013pt.
 
-<./images/manycharging.png, id=371, 476.78125pt x 445.665pt>
+
+Package natbib Warning: Citation `ethz' on page 37 undefined on input line 878.
+
+
+[37 <./images/charge.png> <./images/charge1.png> <./images/charge2.png> <./imag
+es/labels.png>]
+
+Package natbib Warning: Citation `ethz' on page 38 undefined on input line 882.
+
+
+
+Package natbib Warning: Citation `ethz' on page 38 undefined on input line 882.
+
+
+<./images/passengerperkmcost.png, id=379, 771.88374pt x 304.13625pt>
+File: ./images/passengerperkmcost.png Graphic file (type png)
+
+<use ./images/passengerperkmcost.png>
+Package pdftex.def Info: ./images/passengerperkmcost.png used on input line 883
+.
+(pdftex.def)             Requested size: 385.94092pt x 152.06775pt.
+
+
+Package natbib Warning: Citation `nctr' on page 38 undefined on input line 892.
+
+
+
+Overfull \hbox (84.40382pt too wide) in paragraph at lines 892--893
+\T1/lmr/m/n/12 https://avt.inl.gov/sites/default/files/pdf/evse/EvatranWireless
+ChargingFactsheetAug2013.pdf)
+ []
+
+[38 <./images/passengerperkmcost.png>]
+<./images/manycharging.png, id=384, 476.78125pt x 445.665pt>
 File: ./images/manycharging.png Graphic file (type png)
 
 <use ./images/manycharging.png>
-Package pdftex.def Info: ./images/manycharging.png used on input line 886.
+Package pdftex.def Info: ./images/manycharging.png used on input line 897.
 (pdftex.def)             Requested size: 238.39003pt x 222.83195pt.
 
+<./images/spreadcharging.pdf, id=385, 845.0471pt x 374.0115pt>
+File: ./images/spreadcharging.pdf Graphic file (type pdf)
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+<use ./images/spreadcharging.pdf>
+Package pdftex.def Info: ./images/spreadcharging.pdf used on input line 904.
+(pdftex.def)             Requested size: 422.52252pt x 187.0053pt.
 
-<./images/batteryCompare.pdf, id=372, 734.67412pt x 517.50371pt>
+Overfull \hbox (12.91708pt too wide) in paragraph at lines 904--906
+ [][] 
+ []
+
+
+Package natbib Warning: Citation `nctr' on page 39 undefined on input line 912.
+
+
+<./images/batteryCompare.pdf, id=386, 734.67412pt x 517.50371pt>
 File: ./images/batteryCompare.pdf Graphic file (type pdf)
 
 <use ./images/batteryCompare.pdf>
-Package pdftex.def Info: ./images/batteryCompare.pdf used on input line 896.
+Package pdftex.def Info: ./images/batteryCompare.pdf used on input line 917.
 (pdftex.def)             Requested size: 440.80786pt x 310.50462pt.
 
-Overfull \hbox (31.20242pt too wide) in paragraph at lines 896--898
+Overfull \hbox (31.20242pt too wide) in paragraph at lines 917--919
  [][] 
  []
 
@@ -1457,9 +1502,15 @@ Overfull \hbox (31.20242pt too wide) in paragraph at lines 896--898
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 PGFPlots: reading {avg_value.csv}
-(./Report.bbl [37 <./images/charge.png> <./images/charge1.png> <./images/charge
-2.png> <./images/labels.png>] [38] [39 <./images/manycharging.png>] [40 <./imag
-es/batteryCompare.pdf>]) [41] (./Report.aux)
+[39 <./images/manycharging.png>] [40] [41 <./images/spreadcharging.pdf, page is
+ rotated 270 degrees>] (./Report.bbl [42 <./images/batteryCompare.pdf>]
+[43
+
+])
+
+Package natbib Warning: There were undefined citations.
+
+[44] (./Report.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1472,13 +1523,13 @@ LaTeX Warning: There were multiply-defined labels.
 ### simple group (level 1) entered at line 1061 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 27972 strings out of 493014
- 677182 string characters out of 6133351
+ 27988 strings out of 493014
+ 677554 string characters out of 6133351
  966097 words of memory out of 5000000
- 30929 multiletter control sequences out of 15000+600000
+ 30943 multiletter control sequences out of 15000+600000
  61534 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 68i,14n,85p,2153b,24490s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 68i,14n,85p,2258b,24490s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-ec.en
 c}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/lo
 cal/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texliv
@@ -1501,10 +1552,10 @@ pe1/public/lm/lmsy6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/
 lm/lmsy8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmtt10.p
 fb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm
 10.pfb>
-Output written on Report.pdf (41 pages, 3117193 bytes).
+Output written on Report.pdf (44 pages, 3309823 bytes).
 PDF statistics:
- 510 PDF objects out of 1000 (max. 8388607)
- 287 compressed objects within 3 object streams
+ 532 PDF objects out of 1000 (max. 8388607)
+ 301 compressed objects within 4 object streams
  0 named destinations out of 1000 (max. 500000)
- 173 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 183 words of extra memory for PDF output out of 10000 (max. 10000000)
 

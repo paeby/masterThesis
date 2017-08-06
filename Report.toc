@@ -43,10 +43,10 @@
 \contentsline {paragraph}{\numberline {5.4.3.3}Comparison of Performance Metrics}{35}
 \contentsline {paragraph}{\numberline {5.4.3.4}Comparison Between Waiting Time and Charging Vehicles}{35}
 \contentsline {paragraph}{\numberline {5.4.3.5}Choice of Scheduling Strategy}{37}
-\contentsline {subsection}{\numberline {5.5}Layout}{39}
-\contentsline {subsubsection}{\numberline {5.5.1}Many charging}{39}
+\contentsline {subsection}{\numberline {5.5}Further Scenario Experiments}{38}
+\contentsline {subsubsection}{\numberline {5.5.1}Autonomous Charging Stations}{38}
 \contentsline {subsubsection}{\numberline {5.5.2}Battery Consumption}{39}
-\contentsline {subsubsection}{\numberline {5.5.3}compare}{39}
-\contentsline {section}{\numberline {6}Conclusion}{39}
-\contentsline {subsection}{\numberline {6.1}Summary}{39}
-\contentsline {subsection}{\numberline {6.2}Future Work}{39}
+\contentsline {subsubsection}{\numberline {5.5.3}compare}{41}
+\contentsline {section}{\numberline {6}Conclusion}{41}
+\contentsline {subsection}{\numberline {6.1}Summary}{41}
+\contentsline {subsection}{\numberline {6.2}Future Work}{41}

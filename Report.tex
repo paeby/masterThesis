@@ -341,7 +341,7 @@ In this section we formulate the mathematical model describing the autonomous ve
   $d^{b}$ & Drop-off timestamp of booking $b$ \\
   $w^{b}$ & Waiting time of booking $b$ \\
   $\rho^{b}$ & Journey time of booking $b$ \\
-  $dem_{t^{*}}$ & Demand density, number of bookings made between $t^{*}$ and $t^{*} + 1\text{h}$\\
+  $dem_{t^{*}}$ & Demand density, bookings made between $t^{*}$ and $t^{*} + 1\text{h}$\\
   $len$ & Total length of the circular route \\
 
   $A^{s}, s \in C$ & 1 if $s$ is an available charging station, 0 otherwise \\
@@ -875,19 +875,40 @@ In order to judge whether the moment a vehicle has been sent to charge was appro
 \end{figure}
 
 \paragraph{Choice of Scheduling Strategy}
-Based on the analysis conducted on the performance metrics of the different scheduling techniques, we can come up with some general advice on which strategy to adopt based on the operator costs' concerns. In figure \ref{compare} we can see the improvements of the three different scheduling strategies compared to the constant fleet size. We can conclude that if the fleet operational cost is not a concern, for example because the electricity cost is low or the maintenance cost , and that the emphasis is put in the quality of service on the customer's side, then we can recommend to consider having optional stops with as many active vehicles as possible. Moreover, if the transportation company owns many vehicles, it might be possible to hold a part of the fleet at the depot and to activate them to replace the vehicles operating on the line which need to be sent to the charging stations. However, if the operational cost of vehicles is high, it can be as well because the batteries' usage
-\subsection{Layout}
-
-\subsubsection{Many charging}
-\begin{figure}[h] 
+Based on the analysis conducted on the performance metrics of the different scheduling techniques, we can come up with some general advice on which strategy to adopt based on the operator costs' concerns. In fact, the different autonomous models have not the same operating cost: the Institute for Transport Planning and Systems, Swiss Federal Institute of Technology Zürich, conducted a cost-based analysis of autonomous mobility services (see \cite{ethz}). They present a detailed cost estimation for standard transportation systems and future transport modes of automated vehicles. For example, the cost per passenger-kilometer (the average total cost per vehicle and day divided by average passenger kilometers per vehicle and day) varies in function of the vehicle size ans passenger demand. This is illustrated in figure \ref{passengerkm}. They consider the depreciation, maintenance, cleaning, tires and fuel costs. It might therefore be the case that the operator puts the priority in the customer's level of service as it brings more value than spending a little bit more on the operating cost. In figure \ref{compare} we can see the improvements of the three different scheduling strategies compared to the constant fleet size. We can conclude that if the fleet operating cost is not a concern we can recommend to consider having optional stops with as many active vehicles as possible. Moreover, if the transportation company owns many vehicles, it might be possible to hold a part of the fleet at the depot and to activate them to replace the vehicles operating on the line which need to be sent to the charging stations. However, if the operating cost of vehicles is high and need to be considered, then it is really valuable to use the adaptive fleet size strategies which reduces the battery consumption (and therefore the kilometers traveled). Moreover, if the operator owns only few vehicles and that the moment to send vehicles to charge is critical as it reduced considerably the fleet size then those strategies are efficient. The first strategy is the best one considering the battery cost and the second one offers a good balance between the level of service offered to the customers and the operating cost.
+ 
+ \begin{figure}[h] 
   \centering
-  \caption{Percentage change of the scheduling strategies' performance metrics relative to the constant fleet of vehicles with mandatory stops.}
+  \caption{Graph illustrating the prices per passenger-km versus number of passengers for traditional and autonomous transit systems (\cite{ethz}).}
+\includegraphics[scale=0.5]{./images/passengerperkmcost}
+\label{passengerkm}
+\end{figure}
+
+
+\subsection{Further Scenario Experiments}
+All the simulations have been run with exactly the same graph and vehicles configurations. However, it is in the best interest of the operator to know what kind of planning decisions can be made in order to improve the system. As for any transportation service, there are some compromises to take a priori concerning the overall money spent on the fixed line design and vehicles, allowing a reasonable return on investment. We run therefore two additional simulations changing the charging station places in section \ref{spreadcharging} and the vehicles' battery consumption model in section \ref{batterycons}.
+
+\subsubsection{Autonomous Charging Stations}\label{spreadcharging}
+In current cities where vehicles are operating, the charging stations are located all at the same place. In fact, they are at the depot where shuttles are stored and an employee needs to manually put them on charge. The National Center for Transit Research (NCTR), University of South Florida, published a report summarizing the state of public transportation vehicle automation and the characteristics of the latest two autonomous electric shuttles (see \cite{nctr}). Each charging station costs 20'000 Euros (22'558 USD) whilst each vehicle cost approximately 200'000 to 220'000 Euros. However, some new technologies are emerging in this sector which do not imply any human help. For example Plugless offers an autonomous wireless charging station, for the same charging power (3.3kW, see https://avt.inl.gov/sites/default/files/pdf/evse/EvatranWirelessChargingFactsheetAug2013.pdf) which cost 5'999 USD. We can therefore envision a future system making use of these new technologies. It would be a line with autonomous charging stations spread along the loop instead of one single depot where they need to go to charge. In order to measure how it would ameliorate the transportation system, we change the graph by placing 13 charging on the loop. We run simulations for a constant fleet size of 8 vehicles and only mandatory stops and compare it to the scenario with the charging stations at one place. The improvements can be visualized in figure \ref{batterycompare}. The $batteryCost$ drops from 16.62 to 14.25 as vehicles do not need to stop operating and travel long distances to the single charging station point. The $avgWaitingTime$ is improved as well from 10 minutes to 8 minutes and especially the completed bookings ratio which have a waiting time under 6 minutes grows from 0.47 to 0.56. You can observe on figure \ref{spread} that the waiting time increases again when vehicles need to go to charge as it happens at the same time when they run low on battery so we could even obtain better results if a dynamic fleet size scheduling strategy is used.
+
+\begin{figure}
+  \centering
+  \caption{Fixed line scneario with spread autonomous charging stations.}
 \includegraphics[scale=0.5]{./images/manycharging}
 \label{manycharging}
 \end{figure}
 
-\subsubsection{Battery Consumption}
+\begin{figure}
+  \centering
+ \caption{Number of charging vehicles on the line and hourly average waiting time (normalized between 0 and the fleet size) over the simulated day for a line with spread charging stations.}
+\includegraphics[scale=0.5]{./images/spreadcharging.pdf}
+\label{spread}
+\end{figure}
 
+
+\subsubsection{Battery Consumption}\label{batterycons}
+The different shuttle models available today on the market have different battery performances. In fact, as detailed in the NCTR report (\cite{nctr}) mention the difference between autonomous shuttles of two different manufacturers: EasyMile and NAVYA. The latest model EZ10 from the French company EasyMile has a an autonomy up to 14 hours of operation, whilst the ARMA electric bus from an other French company NAVYA has an autonomy ranging from 5 to 12 hours, depending on the charging system and the battery capacity. 
+the National Center for Transit Research, University of South Florida, published a report summarizing the state of public transportation vehicle automation and the characteristics of the latest two autonomous electric shuttles (see \cite{nctr}). There 
 \subsubsection{compare}
 \begin{figure}[h] 
   \centering
@@ -895,6 +916,7 @@ Based on the analysis conducted on the performance metrics of the different sche
 \includegraphics[scale=0.6]{./images/batteryCompare.pdf}
 \label{batterycompare}
 \end{figure}
+
 \begin{sidewaystable}
 \center
 \caption{bla}
@@ -915,10 +937,12 @@ display columns/0/.style={string type,column name={}}
 ]
 {avg_value.csv}
 \end{sidewaystable}
+
 \section{Conclusion}\label{conclusion}
 \subsection{Summary}\label{summary}
 \subsection{Future Work}\label{futurework}
 
+\newpage
 \bibliographystyle{apalike}
 \bibliography{/Users/prisca/Documents/Final_Report/bibliography/bibliography}
 
