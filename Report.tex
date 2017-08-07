@@ -576,7 +576,9 @@ Simulations are run over a scheduling horizon $H$ of one hour with a demand dens
 In order to compare different scheduling strategies and different scenarios, we run all scenarios with the same type of vehicles on the same fixed line. In what follows all the parameters used for the simulation are detailed.
 \subsubsection{Vehicles}\label{vparam}
 Each vehicle $v$ composing the fleet $V$ has a capacity $c^{v}$ = 10. The battery level varies from 0 to $q^{v} = 1$. The battery discharges, proportionally to its speed $s$ given in miles per hour, at each actor step of simulated duration $\delta = r * 0.33$ seconds by:
-$$((0.0261905 * s^{2} + 1.70238 * s + 95.3571) * s) * \Delta * \beta^{v}$$
+\begin{equation} \label{vehicleequation}
+((0.0261905 * s^{2} + 1.70238 * s + 95.3571) * s) * \Delta * \beta^{v}
+\end{equation}
 and similarly it recharges by $ \Delta * \alpha^{v}$.
 The homogeneous fleet has ratios $\alpha$ and $\beta$ set to 1 unless stated otherwise. As explained in section \ref{schedule}, vehicles finish their missions and go to charge if their battery level is under $minBatt$ = 0.3. Vehicles go at constant speed of 12.4 miles per hour as in cities with the current shuttle technologies and road settings it is not possible for them to go faster.
 \subsubsection{Graph}
@@ -907,8 +909,8 @@ In current cities where vehicles are operating, the charging stations are locate
 
 
 \subsubsection{Battery Consumption}\label{batterycons}
-The different shuttle models available today on the market have different battery performances. In fact, as detailed in the NCTR report (\cite{nctr}) mention the difference between autonomous shuttles of two different manufacturers: EasyMile and NAVYA. The latest model EZ10 from the French company EasyMile has a an autonomy up to 14 hours of operation, whilst the ARMA electric bus from an other French company NAVYA has an autonomy ranging from 5 to 12 hours, depending on the charging system and the battery capacity. 
-the National Center for Transit Research, University of South Florida, published a report summarizing the state of public transportation vehicle automation and the characteristics of the latest two autonomous electric shuttles (see \cite{nctr}). There 
+The different shuttle models available today on the market have different battery performances. In fact, as detailed in the NCTR report (\cite{nctr}) mention the difference between autonomous shuttles of two different manufacturers: EasyMile and NAVYA. The latest model EZ10 from the French company EasyMile has a an autonomy up to 14 hours of operation, whilst the ARMA electric bus from an other French company NAVYA has an autonomy ranging from 5 to 12 hours, depending on the charging system and the battery capacity. Operators are faced to choose one model or the other and will always be confronted to a growing offer as other manufacturers are currently developing new autonomous electric shuttles. It is therefore important for them to know what kind of benefits a better battery can bring to the overall system's performance. We modify the discharging ratio $\beta$ which was equal to 1 to 0.65, the battery consumption equation \ref{vehicleequation} decrease
+
 \subsubsection{compare}
 \begin{figure}[h] 
   \centering

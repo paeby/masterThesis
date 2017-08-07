@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.9.28)  6 AUG 2017 16:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.9.28)  7 AUG 2017 07:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1189,7 +1189,7 @@ Package pdftex.def Info: ./images/stability.pdf used on input line 549.
 <./images/graph.png, id=149, 363.3575pt x 385.44pt>
 File: ./images/graph.png Graphic file (type png)
  <use ./images/graph.png>
-Package pdftex.def Info: ./images/graph.png used on input line 587.
+Package pdftex.def Info: ./images/graph.png used on input line 589.
 (pdftex.def)             Requested size: 181.6783pt x 192.71953pt.
 
 
@@ -1199,7 +1199,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: ./images/demand.pdf Graphic file (type pdf)
 
 <use ./images/demand.pdf>
-Package pdftex.def Info: ./images/demand.pdf used on input line 599.
+Package pdftex.def Info: ./images/demand.pdf used on input line 601.
 (pdftex.def)             Requested size: 337.92195pt x 259.52405pt.
 
 
@@ -1209,56 +1209,56 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: ./images/busbunching.pdf Graphic file (type pdf)
 
 <use ./images/busbunching.pdf>
-Package pdftex.def Info: ./images/busbunching.pdf used on input line 635.
+Package pdftex.def Info: ./images/busbunching.pdf used on input line 637.
 (pdftex.def)             Requested size: 178.17735pt x 128.91774pt.
 
 <./images/spread.pdf, id=156, 534.80411pt x 421.84973pt>
 File: ./images/spread.pdf Graphic file (type pdf)
 
 <use ./images/spread.pdf>
-Package pdftex.def Info: ./images/spread.pdf used on input line 635.
+Package pdftex.def Info: ./images/spread.pdf used on input line 637.
 (pdftex.def)             Requested size: 163.83966pt x 129.23364pt.
 
 <./images/optionalstopsgroup.pdf, id=157, 532.49893pt x 418.77625pt>
 File: ./images/optionalstopsgroup.pdf Graphic file (type pdf)
 
 <use ./images/optionalstopsgroup.pdf>
-Package pdftex.def Info: ./images/optionalstopsgroup.pdf used on input line 635
+Package pdftex.def Info: ./images/optionalstopsgroup.pdf used on input line 637
 .
 (pdftex.def)             Requested size: 163.83966pt x 128.848pt.
  [24 <./images/graph.png>]
 
-LaTeX Warning: Reference `constanthw' on page 25 undefined on input line 640.
+LaTeX Warning: Reference `constanthw' on page 25 undefined on input line 642.
 
 <./images/constanthw.png, id=162, 811.5921pt x 597.6729pt>
 File: ./images/constanthw.png Graphic file (type png)
 
 <use ./images/constanthw.png>
-Package pdftex.def Info: ./images/constanthw.png used on input line 661.
+Package pdftex.def Info: ./images/constanthw.png used on input line 663.
 (pdftex.def)             Requested size: 182.27742pt x 134.23347pt.
 
 <./images/hwmax10simu.png, id=163, 544.0325pt x 422.57875pt>
 File: ./images/hwmax10simu.png Graphic file (type png)
 
 <use ./images/hwmax10simu.png>
-Package pdftex.def Info: ./images/hwmax10simu.png used on input line 661.
+Package pdftex.def Info: ./images/hwmax10simu.png used on input line 663.
 (pdftex.def)             Requested size: 172.03352pt x 133.62885pt.
 
 <./images/optionalstops.pdf, id=164, 597.50786pt x 393.08989pt>
 File: ./images/optionalstops.pdf Graphic file (type pdf)
 
 <use ./images/optionalstops.pdf>
-Package pdftex.def Info: ./images/optionalstops.pdf used on input line 661.
+Package pdftex.def Info: ./images/optionalstops.pdf used on input line 663.
 (pdftex.def)             Requested size: 200.70891pt x 132.0413pt.
  [25 <./images/demand.pdf, page is rotated 90 degrees>] <./images/headwayCompar
 e.pdf, id=181, 845.04686pt x 597.50786pt>
 File: ./images/headwayCompare.pdf Graphic file (type pdf)
 
 <use ./images/headwayCompare.pdf>
-Package pdftex.def Info: ./images/headwayCompare.pdf used on input line 668.
+Package pdftex.def Info: ./images/headwayCompare.pdf used on input line 670.
 (pdftex.def)             Requested size: 422.5224pt x 298.75319pt.
 
-Overfull \hbox (12.91696pt too wide) in paragraph at lines 668--670
+Overfull \hbox (12.91696pt too wide) in paragraph at lines 670--672
  [][] 
  []
 
@@ -1266,7 +1266,7 @@ Overfull \hbox (12.91696pt too wide) in paragraph at lines 668--670
 File: ./images/demand_freq.png Graphic file (type png)
 
 <use ./images/demand_freq.png>
-Package pdftex.def Info: ./images/demand_freq.png used on input line 682.
+Package pdftex.def Info: ./images/demand_freq.png used on input line 684.
 (pdftex.def)             Requested size: 317.3882pt x 230.66351pt.
  [26 <./images/busbunching.pdf> <./images/spread.pdf> <./images/optionalstopsgr
 oup.pdf>] [27]
@@ -1274,31 +1274,31 @@ oup.pdf>] [27]
 File: ./images/vehicleimpact.pdf Graphic file (type pdf)
 
 <use ./images/vehicleimpact.pdf>
-Package pdftex.def Info: ./images/vehicleimpact.pdf used on input line 710.
+Package pdftex.def Info: ./images/vehicleimpact.pdf used on input line 712.
 (pdftex.def)             Requested size: 311.57759pt x 247.41795pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Overfull \hbox (75.33344pt too wide) in paragraph at lines 733--735
+Overfull \hbox (75.33344pt too wide) in paragraph at lines 735--737
 []\T1/lmr/m/n/12 For each of the three mea-sures $\OML/lmm/m/it/12 batteryCost$
 \T1/lmr/m/n/12 , $\OML/lmm/m/it/12 avgWaitingTime$ \T1/lmr/m/n/12 and $\OML/lmm
 /m/it/12 completedBookingsRatio$
  []
 
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 735.
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 737.
 [28] [29 <./images/constanthw.png> <./images/hwmax10simu.png> <./images/optiona
 lstops.pdf> <./images/headwayCompare.pdf, page is rotated 270 degrees>]
 <./images/probaplot.pdf, id=258, 462.52798pt x 317.98799pt>
 File: ./images/probaplot.pdf Graphic file (type pdf)
 
 <use ./images/probaplot.pdf>
-Package pdftex.def Info: ./images/probaplot.pdf used on input line 742.
+Package pdftex.def Info: ./images/probaplot.pdf used on input line 744.
 (pdftex.def)             Requested size: 185.0079pt x 127.19293pt.
  [30 <./images/demand_freq.png>]
-Overfull \hbox (27.25516pt too wide) in paragraph at lines 746--747
+Overfull \hbox (27.25516pt too wide) in paragraph at lines 748--749
 []$\OML/lmm/m/it/12 completedBookingsRatio$\T1/lmr/m/n/12 : As op-posed to the 
 $\OML/lmm/m/it/12 batteryCost$ \T1/lmr/m/n/12 and $\OML/lmm/m/it/12 avgWaitingT
 ime$
@@ -1309,76 +1309,76 @@ ime$
 File: ./images/battery.png Graphic file (type png)
 
 <use ./images/battery.png>
-Package pdftex.def Info: ./images/battery.png used on input line 769.
+Package pdftex.def Info: ./images/battery.png used on input line 771.
 (pdftex.def)             Requested size: 185.13995pt x 162.70512pt.
 
 <./images/waitingtime.png, id=282, 619.31375pt x 546.04pt>
 File: ./images/waitingtime.png Graphic file (type png)
 
 <use ./images/waitingtime.png>
-Package pdftex.def Info: ./images/waitingtime.png used on input line 769.
+Package pdftex.def Info: ./images/waitingtime.png used on input line 771.
 (pdftex.def)             Requested size: 184.32118pt x 162.51349pt.
 
 <./images/completed.png, id=283, 629.35126pt x 547.04375pt>
 File: ./images/completed.png Graphic file (type png)
 
 <use ./images/completed.png>
-Package pdftex.def Info: ./images/completed.png used on input line 769.
+Package pdftex.def Info: ./images/completed.png used on input line 771.
 (pdftex.def)             Requested size: 187.59624pt x 163.06264pt.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 793.
+               Default added (so using `tbp') on input line 795.
 
 <./images/dem13v2.png, id=284, 658.46pt x 510.90875pt>
 File: ./images/dem13v2.png Graphic file (type png)
 
 <use ./images/dem13v2.png>
-Package pdftex.def Info: ./images/dem13v2.png used on input line 798.
+Package pdftex.def Info: ./images/dem13v2.png used on input line 800.
 (pdftex.def)             Requested size: 196.60886pt x 152.54878pt.
 
 <./images/dem13v10.png, id=285, 650.43pt x 505.89pt>
 File: ./images/dem13v10.png Graphic file (type png)
 
 <use ./images/dem13v10.png>
-Package pdftex.def Info: ./images/dem13v10.png used on input line 803.
+Package pdftex.def Info: ./images/dem13v10.png used on input line 805.
 (pdftex.def)             Requested size: 196.60886pt x 152.91833pt.
 
 <./images/dem582v.png, id=286, 656.4525pt x 505.89pt>
 File: ./images/dem582v.png Graphic file (type png)
 
 <use ./images/dem582v.png>
-Package pdftex.def Info: ./images/dem582v.png used on input line 808.
+Package pdftex.def Info: ./images/dem582v.png used on input line 810.
 (pdftex.def)             Requested size: 196.60886pt x 151.51343pt.
 
 <./images/dem58v10.png, id=287, 655.44875pt x 499.8675pt>
 File: ./images/dem58v10.png Graphic file (type png)
 
 <use ./images/dem58v10.png>
-Package pdftex.def Info: ./images/dem58v10.png used on input line 813.
+Package pdftex.def Info: ./images/dem58v10.png used on input line 815.
 (pdftex.def)             Requested size: 196.60886pt x 149.93852pt.
  [32 <./images/battery.png> <./images/waitingtime.png> <./images/completed.png>
 ]
 
-LaTeX Warning: Command \^ invalid in math mode on input line 824.
+LaTeX Warning: Command \^ invalid in math mode on input line 826.
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 824.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 826.
 
 
-LaTeX Warning: Command \^ invalid in math mode on input line 824.
+LaTeX Warning: Command \^ invalid in math mode on input line 826.
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 824.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 826.
 
 
-LaTeX Warning: Reference `optFleet' on page 33 undefined on input line 827.
+LaTeX Warning: Reference `optFleet' on page 33 undefined on input line 829.
 
 <./images/optimalFleet.pdf, id=294, 960.46953pt x 488.14119pt>
 File: ./images/optimalFleet.pdf Graphic file (type pdf)
 
 <use ./images/optimalFleet.pdf>
-Package pdftex.def Info: ./images/optimalFleet.pdf used on input line 832.
+Package pdftex.def Info: ./images/optimalFleet.pdf used on input line 834.
 (pdftex.def)             Requested size: 384.181pt x 195.253pt.
 
 
@@ -1386,7 +1386,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 LaTeX Warning: Reference `strategyCompare' on page 33 undefined on input line 8
-37.
+39.
 
 [33] [34 <./images/dem13v2.png> <./images/dem13v10.png> <./images/dem582v.png> 
 <./images/dem58v10.png>]
@@ -1394,10 +1394,10 @@ LaTeX Warning: Reference `strategyCompare' on page 33 undefined on input line 8
 File: ./images/strategyCompare.pdf Graphic file (type pdf)
 
 <use ./images/strategyCompare.pdf>
-Package pdftex.def Info: ./images/strategyCompare.pdf used on input line 842.
+Package pdftex.def Info: ./images/strategyCompare.pdf used on input line 844.
 (pdftex.def)             Requested size: 507.03203pt x 358.50748pt.
 
-Overfull \hbox (97.42659pt too wide) in paragraph at lines 842--844
+Overfull \hbox (97.42659pt too wide) in paragraph at lines 844--846
  [][] 
  []
 
@@ -1409,57 +1409,57 @@ ated 270 degrees>] <./images/charge.png, id=367, 958.58125pt x 741.77126pt>
 File: ./images/charge.png Graphic file (type png)
 
 <use ./images/charge.png>
-Package pdftex.def Info: ./images/charge.png used on input line 869.
+Package pdftex.def Info: ./images/charge.png used on input line 871.
 (pdftex.def)             Requested size: 185.13995pt x 143.25829pt.
 
 <./images/charge1.png, id=368, 977.6525pt x 757.83125pt>
 File: ./images/charge1.png Graphic file (type png)
 
 <use ./images/charge1.png>
-Package pdftex.def Info: ./images/charge1.png used on input line 869.
+Package pdftex.def Info: ./images/charge1.png used on input line 871.
 (pdftex.def)             Requested size: 184.32118pt x 142.86777pt.
 
 <./images/charge2.png, id=369, 809.0225pt x 630.355pt>
 File: ./images/charge2.png Graphic file (type png)
 
 <use ./images/charge2.png>
-Package pdftex.def Info: ./images/charge2.png used on input line 869.
+Package pdftex.def Info: ./images/charge2.png used on input line 871.
 (pdftex.def)             Requested size: 187.59624pt x 146.16167pt.
 
 <./images/labels.png, id=370, 548.0475pt x 76.285pt>
 File: ./images/labels.png Graphic file (type png)
  <use ./images/labels.png>
-Package pdftex.def Info: ./images/labels.png used on input line 872.
+Package pdftex.def Info: ./images/labels.png used on input line 874.
 (pdftex.def)             Requested size: 191.81949pt x 26.70013pt.
 
 
-Package natbib Warning: Citation `ethz' on page 37 undefined on input line 878.
+Package natbib Warning: Citation `ethz' on page 37 undefined on input line 880.
 
 
 [37 <./images/charge.png> <./images/charge1.png> <./images/charge2.png> <./imag
 es/labels.png>]
 
-Package natbib Warning: Citation `ethz' on page 38 undefined on input line 882.
+Package natbib Warning: Citation `ethz' on page 38 undefined on input line 884.
 
 
 
-Package natbib Warning: Citation `ethz' on page 38 undefined on input line 882.
+Package natbib Warning: Citation `ethz' on page 38 undefined on input line 884.
 
 
 <./images/passengerperkmcost.png, id=379, 771.88374pt x 304.13625pt>
 File: ./images/passengerperkmcost.png Graphic file (type png)
 
 <use ./images/passengerperkmcost.png>
-Package pdftex.def Info: ./images/passengerperkmcost.png used on input line 883
+Package pdftex.def Info: ./images/passengerperkmcost.png used on input line 885
 .
 (pdftex.def)             Requested size: 385.94092pt x 152.06775pt.
 
 
-Package natbib Warning: Citation `nctr' on page 38 undefined on input line 892.
+Package natbib Warning: Citation `nctr' on page 38 undefined on input line 894.
 
 
 
-Overfull \hbox (84.40382pt too wide) in paragraph at lines 892--893
+Overfull \hbox (84.40382pt too wide) in paragraph at lines 894--895
 \T1/lmr/m/n/12 https://avt.inl.gov/sites/default/files/pdf/evse/EvatranWireless
 ChargingFactsheetAug2013.pdf)
  []
@@ -1469,17 +1469,17 @@ ChargingFactsheetAug2013.pdf)
 File: ./images/manycharging.png Graphic file (type png)
 
 <use ./images/manycharging.png>
-Package pdftex.def Info: ./images/manycharging.png used on input line 897.
+Package pdftex.def Info: ./images/manycharging.png used on input line 899.
 (pdftex.def)             Requested size: 238.39003pt x 222.83195pt.
 
 <./images/spreadcharging.pdf, id=385, 845.0471pt x 374.0115pt>
 File: ./images/spreadcharging.pdf Graphic file (type pdf)
 
 <use ./images/spreadcharging.pdf>
-Package pdftex.def Info: ./images/spreadcharging.pdf used on input line 904.
+Package pdftex.def Info: ./images/spreadcharging.pdf used on input line 906.
 (pdftex.def)             Requested size: 422.52252pt x 187.0053pt.
 
-Overfull \hbox (12.91708pt too wide) in paragraph at lines 904--906
+Overfull \hbox (12.91708pt too wide) in paragraph at lines 906--908
  [][] 
  []
 
@@ -1487,14 +1487,15 @@ Overfull \hbox (12.91708pt too wide) in paragraph at lines 904--906
 Package natbib Warning: Citation `nctr' on page 39 undefined on input line 912.
 
 
-<./images/batteryCompare.pdf, id=386, 734.67412pt x 517.50371pt>
+[39 <./images/manycharging.png>]
+<./images/batteryCompare.pdf, id=390, 734.67412pt x 517.50371pt>
 File: ./images/batteryCompare.pdf Graphic file (type pdf)
 
 <use ./images/batteryCompare.pdf>
-Package pdftex.def Info: ./images/batteryCompare.pdf used on input line 917.
+Package pdftex.def Info: ./images/batteryCompare.pdf used on input line 918.
 (pdftex.def)             Requested size: 440.80786pt x 310.50462pt.
 
-Overfull \hbox (31.20242pt too wide) in paragraph at lines 917--919
+Overfull \hbox (31.20242pt too wide) in paragraph at lines 918--920
  [][] 
  []
 
@@ -1502,9 +1503,8 @@ Overfull \hbox (31.20242pt too wide) in paragraph at lines 917--919
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 PGFPlots: reading {avg_value.csv}
-[39 <./images/manycharging.png>] [40] [41 <./images/spreadcharging.pdf, page is
- rotated 270 degrees>] (./Report.bbl [42 <./images/batteryCompare.pdf>]
-[43
+[40 <./images/spreadcharging.pdf, page is rotated 270 degrees>] [41]
+(./Report.bbl [42 <./images/batteryCompare.pdf>] [43
 
 ])
 
@@ -1523,10 +1523,10 @@ LaTeX Warning: There were multiply-defined labels.
 ### simple group (level 1) entered at line 1061 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 27988 strings out of 493014
- 677554 string characters out of 6133351
- 966097 words of memory out of 5000000
- 30943 multiletter control sequences out of 15000+600000
+ 27989 strings out of 493014
+ 677571 string characters out of 6133351
+ 966096 words of memory out of 5000000
+ 30944 multiletter control sequences out of 15000+600000
  61534 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  68i,14n,85p,2258b,24490s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1552,7 +1552,7 @@ pe1/public/lm/lmsy6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/
 lm/lmsy8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmtt10.p
 fb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm
 10.pfb>
-Output written on Report.pdf (44 pages, 3309823 bytes).
+Output written on Report.pdf (44 pages, 3312540 bytes).
 PDF statistics:
  532 PDF objects out of 1000 (max. 8388607)
  301 compressed objects within 4 object streams
