@@ -60,11 +60,27 @@ Li, Y., Wang, J., and Chen, J. (2007).
 \newblock California PATH working paper. California PATH Program, Institute of
   Transportation Studies, University of California at Berkeley.
 
+\bibitem[Patrick~Boesch, 2017]{ethz}
+Patrick~Boesch, Felix~Becker, H.~B. (2017).
+\newblock Cost-based analysis of autonomous mobility services.
+\newblock Technical Report 1225, Institute for Transport Planning and Systems
+  (IVT), ETH Zurich.
+
+\bibitem[Pessaro, 2016]{nctr}
+Pessaro, B. (2016).
+\newblock Evaluation of automated vehicle technology in transit.
+\newblock Technical report, National Center for Transit Research, Center for
+  Urban Transportation Research (CUTR), University of South Florida.
+
 \bibitem[Pine et~al., 1998]{tcrp}
 Pine, R., Niemeyer, J., and Chisholm, R. (1998).
 \newblock {\em Transit Scheduling: Basic and Advanced Manuals}.
 \newblock Report (Transit Cooperative Research Program). National Academy
   Press.
+
+\bibitem[Plugless, 2017]{plugless}
+Plugless (2017).
+\newblock Tech specs plugless gen 1 system.
 
 \bibitem[van Oort et~al., 2010]{reliability}
 van Oort, N., Wilson, N., and van Nes, R. (2010).
