@@ -1,51 +1,56 @@
-\contentsline {section}{\numberline {1}Introduction}{4}
-\contentsline {section}{\numberline {2}Related Literature}{5}
-\contentsline {subsection}{\numberline {2.1}Public transport}{5}
-\contentsline {subsection}{\numberline {2.2}Demand-adaptive transit systems}{7}
-\contentsline {subsection}{\numberline {2.3}Vehicles assignment to routes}{7}
-\contentsline {section}{\numberline {3}Problem Formulation}{9}
-\contentsline {subsection}{\numberline {3.1}Circular Route}{9}
-\contentsline {subsection}{\numberline {3.2}Vehicles}{9}
-\contentsline {subsection}{\numberline {3.3}Bookings and Demand}{11}
-\contentsline {subsection}{\numberline {3.4}Output Metrics}{11}
-\contentsline {section}{\numberline {4}Methodology}{13}
-\contentsline {subsection}{\numberline {4.1}Simulation Framework}{13}
-\contentsline {subsubsection}{\numberline {4.1.1}World-Simulator}{13}
-\contentsline {subsubsection}{\numberline {4.1.2}Simulated Vehicles}{14}
-\contentsline {subsubsection}{\numberline {4.1.3}Core-Engine}{14}
-\contentsline {subsubsection}{\numberline {4.1.4}Time Synchronization}{14}
-\contentsline {subsubsection}{\numberline {4.1.5}Reported Metrics}{15}
-\contentsline {subsection}{\numberline {4.2}Scheduling}{15}
-\contentsline {subsubsection}{\numberline {4.2.1}Vehicles' Activities Schedule}{15}
-\contentsline {subsubsection}{\numberline {4.2.2}Headway}{16}
-\contentsline {subsubsection}{\numberline {4.2.3}Dynamic Fleet Size}{16}
-\contentsline {paragraph}{\numberline {4.2.3.1}Rescheduling the Vehicles}{17}
-\contentsline {paragraph}{\numberline {4.2.3.2}Optimal Fleet Size}{17}
-\contentsline {section}{\numberline {5}Numerical Experiments}{21}
-\contentsline {subsection}{\numberline {5.1}Simulation Settings}{21}
-\contentsline {subsubsection}{\numberline {5.1.1}Simulation Speed}{21}
-\contentsline {subsubsection}{\numberline {5.1.2}Vehicles' Actor Speed}{22}
-\contentsline {subsubsection}{\numberline {5.1.3}Time Consistency Between Applications}{22}
-\contentsline {subsection}{\numberline {5.2}Scenario Settings}{22}
-\contentsline {subsubsection}{\numberline {5.2.1}Vehicles}{23}
-\contentsline {subsubsection}{\numberline {5.2.2}Graph}{23}
-\contentsline {subsubsection}{\numberline {5.2.3}Simulated Demand}{23}
-\contentsline {subsection}{\numberline {5.3}Headway Experiments}{24}
-\contentsline {subsection}{\numberline {5.4}Dynamic Fleet Size Experiments}{27}
-\contentsline {subsubsection}{\numberline {5.4.1}Generating Data}{27}
-\contentsline {subsubsection}{\numberline {5.4.2}Fleet Size's Impact On Performance Metrics}{30}
-\contentsline {paragraph}{\numberline {5.4.2.1}Average Performance Metrics}{30}
-\contentsline {paragraph}{\numberline {5.4.2.2}Demand Density and the Fleet Size's Impact on Performance Metrics}{31}
-\contentsline {paragraph}{\numberline {5.4.2.3}Extreme Simulation Examples}{33}
-\contentsline {subsubsection}{\numberline {5.4.3}Comparison of Scheduling Strategies}{33}
-\contentsline {paragraph}{\numberline {5.4.3.1}First Strategy: Cost Function}{36}
-\contentsline {paragraph}{\numberline {5.4.3.2}Second Strategy: Maximum Average Waiting Time}{36}
-\contentsline {paragraph}{\numberline {5.4.3.3}Comparison of Performance Metrics}{36}
-\contentsline {paragraph}{\numberline {5.4.3.4}Comparison Between Waiting Time and Charging Vehicles}{37}
-\contentsline {paragraph}{\numberline {5.4.3.5}Choice of Scheduling Strategy}{38}
-\contentsline {subsection}{\numberline {5.5}Further Scenario Experiments}{40}
-\contentsline {subsubsection}{\numberline {5.5.1}Autonomous Charging Stations}{40}
-\contentsline {subsubsection}{\numberline {5.5.2}Battery Consumption}{42}
-\contentsline {section}{\numberline {6}Conclusion}{45}
-\contentsline {subsection}{\numberline {6.1}Summary}{45}
-\contentsline {subsection}{\numberline {6.2}Future Work}{45}
+\contentsline {section}{\numberline {1}Introduction}{5}
+\contentsline {section}{\numberline {2}Related literature}{6}
+\contentsline {subsection}{\numberline {2.1}Public transport}{6}
+\contentsline {subsection}{\numberline {2.2}Demand-adaptive transit systems}{8}
+\contentsline {subsection}{\numberline {2.3}Vehicles assignment to routes}{8}
+\contentsline {section}{\numberline {3}Problem formulation}{10}
+\contentsline {subsection}{\numberline {3.1}Circular Route}{10}
+\contentsline {subsection}{\numberline {3.2}Vehicles}{10}
+\contentsline {subsection}{\numberline {3.3}Bookings and demand}{12}
+\contentsline {subsection}{\numberline {3.4}Output metrics}{12}
+\contentsline {subsubsection}{\numberline {3.4.1}Battery}{12}
+\contentsline {subsubsection}{\numberline {3.4.2}Occupancy}{12}
+\contentsline {subsubsection}{\numberline {3.4.3}Waiting time}{13}
+\contentsline {subsubsection}{\numberline {3.4.4}Journey time}{13}
+\contentsline {subsubsection}{\numberline {3.4.5}Completed bookings ratio}{13}
+\contentsline {section}{\numberline {4}Methodology}{14}
+\contentsline {subsection}{\numberline {4.1}Simulation framework}{14}
+\contentsline {subsubsection}{\numberline {4.1.1}World-Simulator}{14}
+\contentsline {subsubsection}{\numberline {4.1.2}Simulated vehicles}{15}
+\contentsline {subsubsection}{\numberline {4.1.3}Core-Engine}{15}
+\contentsline {subsubsection}{\numberline {4.1.4}Time synchronization}{15}
+\contentsline {subsubsection}{\numberline {4.1.5}Reported metrics}{16}
+\contentsline {subsection}{\numberline {4.2}Scheduling}{16}
+\contentsline {subsubsection}{\numberline {4.2.1}Scheduling the activities of vehicles}{17}
+\contentsline {subsubsection}{\numberline {4.2.2}Headway}{17}
+\contentsline {subsubsection}{\numberline {4.2.3}Dynamic fleet size}{18}
+\contentsline {paragraph}{\numberline {4.2.3.1}Rescheduling the vehicles}{18}
+\contentsline {paragraph}{\numberline {4.2.3.2}Optimal fleet size}{19}
+\contentsline {section}{\numberline {5}Numerical experiments}{23}
+\contentsline {subsection}{\numberline {5.1}Simulation settings}{23}
+\contentsline {subsubsection}{\numberline {5.1.1}Simulation speed}{23}
+\contentsline {subsubsection}{\numberline {5.1.2}Vehicles' actor speed}{24}
+\contentsline {subsubsection}{\numberline {5.1.3}Time consistency between applications}{24}
+\contentsline {subsection}{\numberline {5.2}Scenario settings}{25}
+\contentsline {subsubsection}{\numberline {5.2.1}Vehicles}{25}
+\contentsline {subsubsection}{\numberline {5.2.2}Fixed loop graph}{25}
+\contentsline {subsubsection}{\numberline {5.2.3}Simulated demand}{25}
+\contentsline {subsection}{\numberline {5.3}Headway experiments}{26}
+\contentsline {subsection}{\numberline {5.4}Dynamic fleet size experiments}{29}
+\contentsline {subsubsection}{\numberline {5.4.1}Generating Data}{29}
+\contentsline {subsubsection}{\numberline {5.4.2}Fleet Size's Impact On Performance Metrics}{32}
+\contentsline {paragraph}{\numberline {5.4.2.1}Average Performance Metrics}{33}
+\contentsline {paragraph}{\numberline {5.4.2.2}Demand Density and the Fleet Size's Impact on Performance Metrics}{34}
+\contentsline {paragraph}{\numberline {5.4.2.3}Extreme Simulation Examples}{35}
+\contentsline {subsubsection}{\numberline {5.4.3}Comparison of Scheduling Strategies}{37}
+\contentsline {paragraph}{\numberline {5.4.3.1}First Strategy: Cost Function}{37}
+\contentsline {paragraph}{\numberline {5.4.3.2}Second Strategy: Maximum Average Waiting Time}{37}
+\contentsline {paragraph}{\numberline {5.4.3.3}Comparison of Performance Metrics}{37}
+\contentsline {paragraph}{\numberline {5.4.3.4}Comparison Between Waiting Time and Charging Vehicles}{39}
+\contentsline {subsection}{\numberline {5.5}Choice of scheduling strategy}{40}
+\contentsline {subsection}{\numberline {5.6}Further Scenario Experiments}{42}
+\contentsline {subsubsection}{\numberline {5.6.1}Autonomous Charging Stations}{43}
+\contentsline {subsubsection}{\numberline {5.6.2}Battery Consumption}{43}
+\contentsline {section}{\numberline {6}Conclusion}{47}
+\contentsline {subsection}{\numberline {6.1}Summary}{47}
+\contentsline {subsection}{\numberline {6.2}Future Work}{47}
