@@ -39,7 +39,7 @@
 \contentsline {subsection}{\numberline {5.4}Dynamic fleet size experiments}{29}
 \contentsline {subsubsection}{\numberline {5.4.1}Generating data}{29}
 \contentsline {subsubsection}{\numberline {5.4.2}Fleet Size's Impact On Performance Metrics}{32}
-\contentsline {paragraph}{\numberline {5.4.2.1}Average Performance Metrics}{32}
+\contentsline {paragraph}{\numberline {5.4.2.1}Average Performance Metrics}{33}
 \contentsline {paragraph}{\numberline {5.4.2.2}Demand Density and the Fleet Size's Impact on Performance Metrics}{34}
 \contentsline {paragraph}{\numberline {5.4.2.3}Extreme Simulation Examples}{35}
 \contentsline {subsubsection}{\numberline {5.4.3}Comparison of Scheduling Strategies}{37}

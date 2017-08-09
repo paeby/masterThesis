@@ -1,6 +1,3 @@
-% RS comment and modifications 08/01/2014 
-
-
 \documentclass[12pt,a4paper]{article}
 \usepackage[]{algorithm2e}
 \usepackage{tabularx}
@@ -19,24 +16,14 @@
 \usepackage{tabularx}
     \newcolumntype{L}{>{\raggedright\arraybackslash}X}
     \usepackage{ragged2e}
-%\usepackage[dcucite,abbr]{harvard}
-%\harvardparenthesis{none}
-%\harvardyearparenthesis{round}
-%\newcommand{\citeasnoun}[1]{\cite{#1}}
 \usepackage{rotating}
 \usepackage{tikz}
-
 \newcommand{\Mypm}{\mathbin{\tikz [x=1.4ex,y=1.4ex,line width=.1ex] \draw (0.0,0) -- (1.0,0) (0.5,0.08) -- (0.5,0.92) (0.0,0.5) -- (1.0,0.5);}}%
-
 \usepackage{changepage}
 \usepackage{csvsimple,longtable,booktabs}
 \setcounter{secnumdepth}{4}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
-%\usepackage{euler,times}
-%\usepackage{euler,beton}	% RS comment out - normal text font
-
 \usepackage{lmodern}
-
+\usepackage[authoryear]{natbib} 
 
 % load titlesec
 \usepackage[compact]{titlesec}
@@ -46,29 +33,18 @@
 \titlespacing\subsection{0pt}{5pt plus 1pt minus 1pt}{0pt plus 2pt minus 2pt}
 \titlespacing\subsubsection{0pt}{5pt plus 1pt minus 1pt}{0pt plus 2pt minus 2pt}
 
+\usepackage{pgfplotstable,booktabs}
+
 \titleformat{\paragraph}
 {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
 \titlespacing{\paragraph}
 {5pt}{5pt plus 1pt minus 1pt}{0pt plus 2pt minus 2pt}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+% --- FOR EULER FONT
 %\usepackage{euler,times}
 %\usepackage{euler,beton}	% RS comment out - normal text font
 
 \usepackage[margin=1.3in]{geometry} % RS addition
-
-% \newcommand{\footnoteremember}[2]{	% RS comment out - more simple affiliation
-% \footnote{#2}
-%   \newcounter{#1}
-%   \setcounter{#1}{\value{footnote}}
-% } 
-% \newcommand{\footnoterecall}[1]{
-% \footnotemark[\value{#1}]
-% } 
-
-\usepackage{pgfplotstable,booktabs}
-
 
 \begin{filecontents*}{avg_value.csv}
 Strategy,batteryCost,avgWaitingTime,maxWaitingTime,minWaitingTime,stabilityWaitingTime,averageOccupancy,averageloadFactor,maxloadFactor,minloadFactor,completedBookingsRatio, ba
@@ -81,7 +57,7 @@ Spread Charging Stations,14.25,8,59,0,101,2.97,0.31,0.51,0.08,0.81,0.56
 Battery Consuming Less,10.29,5,54,0,52,2.34,0.24,0.27,0.19,0.86,0.63
 \end{filecontents*}
 
-
+ % CSV DATA
 \begin{filecontents*}{values2.csv}
 dem,|V|,batteryCost,avgWaitingTime,completedBookingsRatio
 13,2,0.21,14,0.62
@@ -185,7 +161,7 @@ dem,|V|,batteryCost,avgWaitingTime,completedBookingsRatio
 58,10,0.93,5,0.52
 \end{filecontents*}
 
-\usepackage[authoryear]{natbib} % package to use Harwad style for reference http://www.andy-roberts.net/writing/latex/bibliographies
+
 
 \begin{document}
 
@@ -317,7 +293,7 @@ The importance of demand generation in step 1) differs from one system to the ot
 Several aspects of our autonomous vehicles scheduling problem can relate to the literature subjects listed in this section. However, no mathematical formulation describes exactly all the constraints to consider for an autonomous electric fleet of vehicles with dynamic bookings on a closed circular line. Optimization formulations simplify many real-world constraints (e.g. schedule when to send vehicles to charge, what are the exact bookings, etc.) based on the parameters to optimized (e.g. headway, satisfy on-demand bookings, optimal fleet size, etc.). We need therefore too combine some specificity of fixed line and on-demand transportation formulations with an additional battery scheduling component.  
 
 \section{Problem formulation}
-In this section we formulate our mathematical model describing the autonomous vehicles circular line transit. All the variables are listed in Table \ref{table:parameters}. In addition to traditional bus lines descriptions, we introduce the concept of battery stations and we include dynamic bookings from one station to an other station on the loop. We will see in Section \ref{metrics} that we have access to discrete information about the state of vehicles and bookings during the simulations at regular $\text{interval}$. To formalize the timestamps at which simulated states are available during the service horizon time $H$, we denote a discrete timestamp $t$ which takes values between $[0, H]$ at fixed sampling $\text{interval}$. In other word, if the scheduling horizon $H$ is equal to one day we can have for example access to information every second (i.e. $\text{interval} = 1$ second). We have then the set of timestamps $T =\{t = \text{interval} \cdot k:  0 < t < H, k \in \mathbb{N}\}$.
+In this section we formulate our mathematical model describing the autonomous vehicles circular line transit. All the variables are listed in Table \ref{table:parameters}. In addition to traditional bus lines descriptions, we introduce the concept of battery stations and we include dynamic bookings from one station to an other station on the loop. We will see in Section \ref{metrics} that we have access to discrete information about the state of vehicles and bookings during the simulations at regular $\text{interval}$. To formalize the timestamps at which simulated states are available during the service horizon time $H$, we denote a discrete timestamp $t$ which takes values between $[0, H]$ at fixed sampling $\text{interval}$. In other word, if the scheduling horizon $H$ is equal to one day we can have for example access to information every second (i.e. $\text{interval} = 1$ second). We have then the set of timestamps $T :=\{t = \text{interval} \cdot k:  0 < t < H, k \in \mathbb{N}\}$.
 \newcolumntype{Y}{>{\RaggedRight\arraybackslash}X} 
 \begin{table}
   \centering
@@ -384,7 +360,7 @@ The fixed line in this transportation system is a closed simple loop. The route 
 Each vehicle $v \in V$ composing the fleet  moving on the circular closed line is characterized by a capacity $c^{v}$, a maximum speed $s^{v}$, a maximum charge $q^{v}$, a recharge rate $\alpha^{v}$ and a battery consumption rate $\beta^{v}$. The battery level of vehicle $v$ at the timestamp $t$ is $\text{batt}^{v}_{t} \in [0, q^{v}]$. For a given timestamp $t$ we let $\Delta^{v}_{t} = \text{batt}^{v}_{t} - \text{batt}^{v}_{t-1}$. The edge the vehicle $v$ is currently traversing is $e^{v}_{t}$ and the distance to the next vehicle in front of it on the loop is given by $\text{next}^{v}_{t}$. The occupancy of the vehicle is expressed as $o^{v}_{t} \in \{0, c^{v}\}$. The vehicle is travelling either at its maximum speed or at the limitation of the current edge. Its current speed is therefore max$\{s^{v}, \text{speed}^{e^{v}_{t}}\}$. When a vehicle is charging at a station $1_{V^{\#}_{t}}(v) = 0$ and it cannot carry any passengers (i.e. $o^{v}_{t} = 0$). A vehicle entering a station at time $t$ might by forced to wait $\text{wait}^{v}_{t}$ seconds. We denote $V^{\#}_{t} \in V$ the set of active vehicles on the line at time $t$, in other words all the vehicles $v \in V^{\#}_{t}$  which are not currently at a charging station $ 1_{V^{\#}_{t}}(v) = 1$. 
 
 \subsection{Bookings and demand}\label{bookings}
-The set $B$ represents the bookings the customers made during the service horizon $H$. A booking $b_{i,j} \in B$ requests a trip from station $i$ to $j$ at time $t^{b}$ for a group of $n^{b}$ persons. If the booking has been satisfied, the boolean variable $D_{b}$ is set to 1 and we know that it has been executed by vehicle $v^{b} \in V$. We denote $B^{*}_{t}$ the set of bookings which have been satisfied at time $t$, so the bookings for which $1_{B^{*}_{t}(b)} = 1$.  The pickup time of booking $b$ at station $i$ is $p^{b}$ and drop-off time at station $j$ is $d^{b}$. The waiting time $w^{b}$ equals $p^{b} - t^{b}$ and the journey time $\rho^{b}$ is $d^{b} - p^{b}$. Moreover, we define the demand density $\text{dem}_{t^{*}}$ the number of bookings which have been made between $t^{*}$ and $t^{*} + 1\text{h}$. This choice will be explained in details in Section \ref{optfleetsize}. We have $dem_{t^{*}} = |B^{\#}|$, with for all bookings $b \in B^{\#}: t^{*} \leq t^{*b} < (t^{*}+1\text{h})$. We use therefore a discrete hourly timpestamp $t^{*}$ over the scheduling horizon: $t^{*} \in T^{*}$ with $T^{*} = \{t^{*} = 1\text{h} \cdot k: 0 < t^{*} < H, k \in \mathbb{N}\}$.
+The set $B$ represents the bookings the customers made during the service horizon $H$. A booking $b_{i,j} \in B$ requests a trip from station $i$ to $j$ at time $t^{b}$ for a group of $n^{b}$ persons. If the booking has been satisfied, the boolean variable $D_{b}$ is set to 1 and we know that it has been executed by vehicle $v^{b} \in V$. We denote $B^{*}_{t}$ the set of bookings which have been satisfied at time $t$, so the bookings for which $1_{B^{*}_{t}(b)} = 1$.  The pickup time of booking $b$ at station $i$ is $p^{b}$ and drop-off time at station $j$ is $d^{b}$. The waiting time $w^{b}$ equals $p^{b} - t^{b}$ and the journey time $\rho^{b}$ is $d^{b} - p^{b}$. Moreover, we define the demand density $\text{dem}_{t^{*}}$ the number of bookings which have been made between $t^{*}$ and $t^{*} + 1\text{h}$. This choice will be explained in details in Section \ref{optfleetsize}. We have $dem_{t^{*}} = |B^{\#}|$, with for all bookings $b \in B^{\#}: t^{*} \leq t^{*b} < (t^{*}+1\text{h})$. We use therefore a discrete hourly timpestamp $t^{*}$ over the scheduling horizon: $t^{*} \in T^{*}$ with $T^{*} := \{t^{*} = 1\text{h} \cdot k: 0 < t^{*} < H, k \in \mathbb{N}\}$.
 
 \subsection{Output metrics}\label{metrics}
 At the end of the service horizon $H$, several metrics can be derived in order to evaluate the performance of the overall system dispatching the vehicles to serve the requests. 
@@ -416,7 +392,7 @@ $$\text{avgJourneyTime} = \frac{\sum_{b \in B^{*}_{H}}\rho^{b}}{|B^{*}_{H}|}.$$
 At the end of the scheduling horizon $H$, some bookings may not have been satisfied. The ratio of bookings which have been satisfied is given by
 $$\text{completedBookingsRatio} = \frac{|B^{*}_{H}|}{|B|}.$$
 
-\section{Methodology}
+\section{Methodology}\label{methodology}
 In order to evaluate the behavior and performance of the transit under various conditions with respect to the line configurations, the booking scenarios and the vehicles scheduling alternatives, we undertake analyses under laboratory conditions by simulating the operation of the system on the platform dispatching the vehicles. One of our main goal in the analysis we conduct on the line is to get measures as close as possible to real world conditions. In order to achieve this, a dynamic component is required which handles the time-dependent events. In Section \ref{framework} we describe the function of the different interconnected services simulating the behavior of the vehicles reacting to external conditions and how the overall simulation is evaluated. In Section \ref{scheduling} we present the variations of scheduling strategies used to dispatch the vehicles on the line. The parameters characterizing the simulation framework and the ones introduced in the scheduling strategy are summarized in Table \ref{table:simparametersused}. 
 
 \subsection{Simulation framework}\label{framework}
@@ -437,11 +413,11 @@ The World-Simulator is a web service which is used to start the simulation, send
 The simulated vehicles are connected to the core-engine through an established TCP protocol, like real vehicles would communicate with the platform. They can send status messages and receive missions (e.g. going to a specific charging station or waiting at a stop at for $\text{wait}^{v}_{\text{simTime}}$ seconds). The missions received by the vehicles from the core-engine are directly executed. It implies a lot of expensive computations for each vehicle in order to coordinate the entire fleet. The vehicles are therefore simulated concurrently following an actor model, each vehicle being a different actor part of the actor system. When the vehicles web service receives an HTTP request to start the simulation with a given fleet size from the world-simulator, an actor is created for each vehicle, which announces its position to the core-engine through a TCP message and subscribes to the time topic. The vehicles start at equal distance of each others on the loop with the battery completely recharged and their position and battery level is then updated every $1000/\text{rate}$ milliseconds.  
 
 \subsubsection{Core-Engine}
-The core-engine application is a distributed system that combines and processes real-time information for coordinating and optimizing the fleet of autonomous vehicles. Several testing environment components are instantiated by the core-engine application: the map, the configurations of the vehicles and the fleet size scheduling through the day. The map is a GeoJSON file generated with QGIS, a software to create and edit geospatial information, which models the fixed line as segments of four meters. This file is then translated into the application to a directed graph with an edge between every stop and charging stations. The configurations of the vehicles include all the parameters enumerated in Section \ref{vehicles}. The core-engine handles the bookings it receives from the world-simulator, updates the edges' speed of the graph (e.g. the maximum speed of an edge can decrease if there is more traffic at a given time of the day) and sends the actions to be executed by the vehicles. When it receives the starting simulation time and ratio $r$ from the world-simulator, it publishes the updated time to the corresponding Kafka topic. The scheduler component manages the number of vehicles which need to be on service at different times during the day and sends corresponding missions to the vehicles. The positions and battery states received from the vehicles through the TCP connection are then published to the corresponding Kafka topics. You can see the simulation framework in Figure \ref{fig:simu}. The green dots on the fixed line stand for the pick-up stations of the bookings which are being processed with the drop-off stations in purple. The red dots are the customers which have not been picked up yet. The battery level and speed of the vehicles are shown in the center and the bookings which are waiting and being processed are listed on the right.
+The Core-Engine application is a distributed system that combines and processes real-time information for coordinating and optimizing the fleet of autonomous vehicles. Several testing environment components are instantiated by the Core-Engine application: the map, the configurations of the vehicles and the fleet size scheduling through the day. The map is a GeoJSON file generated with QGIS, a software to create and edit geospatial information, which models the fixed line as segments of four meters. This file is then translated into the application to a directed graph with an edge between every stop and charging stations. The configurations of the vehicles include all the parameters enumerated in Section \ref{vehicles}. The Core-Engine handles the bookings it receives from the world-simulator, updates the edges' speed of the graph (e.g. the maximum speed of an edge can decrease if there is more traffic at a given time of the day) and sends the actions to be executed by the vehicles. When it receives the starting simulation time and ratio $r$ from the world-simulator, it publishes the updated time to the corresponding Kafka topic. The scheduler component manages the number of vehicles which need to be on service at different times during the day and sends corresponding missions to the vehicles. The positions and battery states received from the vehicles through the TCP connection are then published to the corresponding Kafka topics. You can see the simulation framework in Figure \ref{fig:simu}. The green dots on the fixed line stand for the pick-up stations of the bookings which are being processed with the drop-off stations in purple. The red dots are the customers which have not been picked up yet. The battery level and speed of the vehicles are shown in the center and the bookings which are waiting and being processed are listed on the right.
 
 \begin{figure} 
   \centering
-\includegraphics[width=\textwidth]{./images/coreengine}
+\includegraphics[width=\textwidth]{./images/coreengine.pdf}
 \caption{Simulation framework illustration.}
 \label{fig:simu}
 \end{figure}
@@ -485,7 +461,7 @@ Our strategy implies to decide how many vehicles should be active at each hour o
 
 \paragraph{Optimal fleet size}\label{optfleetsize} The goal is to find an optimal number of vehicles which need to be active on the line based on the demand density. There are therefore two main questions that arise: how can we define that a fleet size is $\text{optimal}$? What is exactly the $\text{demand}$? In what follows we will justify the strategical choices and heuristics used in this experimental study.
 
-As explained in Section \ref{literature}, most of the studies we can relate to our specific problem of autonomous vehicles scheduling on fixed line formulate an optimization problem with several inequalities, equalities and combinatorial constraints. There is one specific objective function representing the cost to minimize which is often composed of the fleet operating costs and/or measures of the level of service offered to the passengers. Different techniques can be used to find optimal or near-optimal solutions satisfying the constraints. There are some exact algorithms which find the optimal solution(s) but there are often not applicable for that kind of complex NP-hard problems as many problem instances are intractable. Heuristic methods  must be used instead which find near-optimal solutions or alternatively some software solvers can be used whichoften provide good solution in reasonable computational time for linear programming problem. However, when the scheduling problem is transposed into an optimization problem there are many real-world aspects that are omitted and many simplifications and assumptions are made. This is precisely the reason why we explore different scheduling strategies by simulating the real behavior of vehicles in an environment as close as possible to reality. The simulation framework for evaluating the system described in Section \ref{framework} is therefore close to the evaluation method used by \cite{evaluation} for DAS described in Section \ref{das}. In fact, different modules simulate all the dynamic components of the problem. The output measures we want to minimize of the simulation framework are close to the ones often used in the objective function of optimization formulations. We now present how we formulate the demand at different times of the scheduling horizon and how we choose that a fleet size is sufficient to serve the demand.
+As explained in Section \ref{literature}, most of the studies we can relate to our specific problem of autonomous vehicles scheduling on fixed line formulate an optimization problem with several inequalities, equalities and combinatorial constraints. There is one specific objective function representing the cost to minimize which is often composed of the fleet operating costs and/or measures of the level of service offered to the passengers. Different techniques can be used to find optimal or near-optimal solutions satisfying the constraints. There are some exact algorithms which find the optimal solution(s) but there are often not applicable for that kind of complex NP-hard problems as many problem instances are intractable. Heuristic methods  must be used instead which find near-optimal solutions or alternatively some software solvers can be used which often provide good solution in reasonable computational time for linear programming problem. However, when the scheduling problem is transposed into an optimization problem there are many real-world aspects that are omitted and many simplifications and assumptions are made. This is precisely the reason why we explore different scheduling strategies by simulating the real behavior of vehicles in an environment as close as possible to reality. The simulation framework for evaluating the system described in Section \ref{framework} is therefore close to the evaluation method used by \cite{evaluation} for DAS described in Section \ref{das}. In fact, different modules simulate all the dynamic components of the problem. The output measures we want to minimize of the simulation framework are close to the ones often used in the objective function of optimization formulations. We now present how we formulate the demand at different times of the scheduling horizon and how we choose that a fleet size is sufficient to serve the demand.
 
 \begin{itemize}
 \setlength\itemsep{1pt}
@@ -501,7 +477,7 @@ As explained in Section \ref{literature}, most of the studies we can relate to o
 Taking the exponential of the $\text{completedBookingsRatio} \in [0,1]$ seems a reasonable measure as it will take values between $[1, e = 2.72]$ and that it is a factor influencing a lot the performance of the simulation over one hour. The optimal number of vehicles for demand $\text{dem}$ is then the fleet size $|V^{o}|$ which minimizes the cost function $$\min\{\text{cost}_{\text{dem}, |V^{o}|}: {V^{o}\in[V^{-}, V^{+}]}\} .$$
 \item The second strategy is to define a level of service to be provided to the passengers and to find the minimum number of vehicles needed to satisfy the service constraint. The idea is to find a function that gives the $\text{avgWaitingTime}$ from the demand and the fleet size $\text{avgWait}_{\text{dem}, |V|}$ and then to find the minimum fleet size $|V{o}|$ required so that the $\text{avgWait}_{\text{dem}, |V^{o}|}$ is under an acceptable threshold denoted $\text{accWaitingTime}$. As we have the data for the $\text{avgWaitingTime}$ based for each $\text{dem}$ and $|V|$ combinations it is possible to run for example linear or non-linear regressions to get the equation for the function $\text{avgWait}_{\text{dem}, |V|}$. An example of this procedure applied to a real-life scenario is explained in details in Section \ref{experiments}.
 \end{enumerate}
-\item \textbf{Dynamic fleet size scheduling} For both strategies described above, we define the optimal fleet size $\text{optFleet(dem)} := |V^{o}|$. The dynamic fleet size scheduling strategy for a scheduling horizon $H$ consists then in computing at each hour $t^{*}$ of the scheduling horizon $H$ what is the optimal fleet size $\text{optFleet(dem}_{t^{*}})$ and to create appropriate increase or decrease events.
+\item \textbf{Dynamic fleet size scheduling} For both strategies described above, we define the optimal fleet size $\text{optFleet(dem)} := |V^{o}|$. The dynamic fleet size scheduling strategy fuiior a scheduling horizon $H$ consists then in computing at each hour $t^{*}$ of the scheduling horizon $H$ what is the optimal fleet size $\text{optFleet(dem}_{t^{*}})$ and to create appropriate increase or decrease events.
 
 \iffalse
  \KwData{Scheduling horizon $H$, maximum fleet size $V^{max}$, optimal fleet size function $optFleet(dem)$}
