@@ -5,34 +5,34 @@ The style file: apalike.bst
 Database file #1: /Users/prisca/Documents/Final_Report/bibliography/bibliography.bib
 You've used 16 entries,
             1935 wiz_defined-function locations,
-            566 strings with 6792 characters,
-and the built_in function-call counts, 5775 in all, are:
-= -- 566
-> -- 259
-< -- 7
-+ -- 92
-- -- 86
-* -- 483
-:= -- 1063
+            566 strings with 6798 characters,
+and the built_in function-call counts, 5841 in all, are:
+= -- 571
+> -- 270
+< -- 6
++ -- 96
+- -- 90
+* -- 493
+:= -- 1075
 add.period$ -- 49
 call.type$ -- 16
-change.case$ -- 123
+change.case$ -- 125
 chr.to.int$ -- 16
 cite$ -- 16
 duplicate$ -- 206
 empty$ -- 372
-format.name$ -- 106
-if$ -- 1088
+format.name$ -- 110
+if$ -- 1099
 int.to.chr$ -- 1
 int.to.str$ -- 0
 missing$ -- 13
 newline$ -- 82
 num.names$ -- 48
-pop$ -- 99
+pop$ -- 102
 preamble$ -- 1
-purify$ -- 123
+purify$ -- 125
 quote$ -- 0
-skip$ -- 155
+skip$ -- 154
 stack$ -- 0
 substring$ -- 351
 swap$ -- 12

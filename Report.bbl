@@ -7,6 +7,12 @@ Adra, N., Michaux, J.~L., and Andre, M. (2004).
   and inventory systems}.
 \newblock Rapport de recherche.
 
+\bibitem[Boesch et~al., 2017]{ethz}
+Boesch, P., Becker, F., and Becker, H. (2017).
+\newblock Cost-based analysis of autonomous mobility services.
+\newblock Technical Report 1225, Institute for Transport Planning and Systems
+  (IVT), ETH Zurich.
+
 \bibitem[Bongiovanni et~al., 2016]{luts}
 Bongiovanni, C., Kaspi, M., and Geroliminis, N. (2016).
 \newblock Scheduling autonomous vehicles activities.
@@ -59,12 +65,6 @@ Li, Y., Wang, J., and Chen, J. (2007).
 \newblock {\em Design of a Demand-responsive Transit System}.
 \newblock California PATH working paper. California PATH Program, Institute of
   Transportation Studies, University of California at Berkeley.
-
-\bibitem[Patrick~Boesch, 2017]{ethz}
-Patrick~Boesch, Felix~Becker, H.~B. (2017).
-\newblock Cost-based analysis of autonomous mobility services.
-\newblock Technical Report 1225, Institute for Transport Planning and Systems
-  (IVT), ETH Zurich.
 
 \bibitem[Pessaro, 2016]{nctr}
 Pessaro, B. (2016).
