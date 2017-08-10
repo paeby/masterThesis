@@ -184,7 +184,7 @@ dem,|V|,batteryCost,avgWaitingTime,completedBookingsRatio
  \LARGE
  \bigskip
  
-Experimental Comparison of Autonomous Vehicles Scheduling Algorithms
+Experimental Comparison of Autonomous Vehicles Scheduling Activities
 \end{center}
 
 %%%%%%%%%%%%%%%%%
@@ -239,73 +239,24 @@ Your abstract.
 \setlength{\parskip}{0.5em}
 \section{Introduction}
 
+Autonomous buses technology is advancing very rapidly and brings hope for significant improvement in service quality on public transportation. Cities have reached their saturation point in terms of road traffic road traffic and pollution and it leads therefore to the need of rethinking urban mobility of the 21$^{\text{st}}$ century. Autonomous buses should to be part of the equation as they can allow more dynamic and intelligent forms of public transportation when they are operated and managed collectively. In fact, replacing the human driver with an automated one makes the ecosystem much more flexible and responsive to real-time information (e.g. buses GPS data, passengers' on-demand information provided through mobile apps, real-time traffic status, weather reports, etc.). Additionally, big data information can be accumulated and used to detect customers patterns and predict the demand based on several factors (e.g. time of the day, weather, area, etc.). Possible operating models are ranging from  fixed routes with adaptive schedules to complete on-demand and ride-sharing services. Nowadays road structures, regulatory approvals and technical technology constraints make the usage of those vehicles possible only in specific road conditions in fully mapped areas. There are already some autonomous vehicles operating on different sites. In fact, since 2014 CityMobil2, a European Union funded research project, launched three large demonstrations of automated road transport sites across Europe. Moreover, two shuttles are running for the transportation company CarPostal in the city center of Sion, Switzerland, moving passengers as part of the existing transport network on a fixed route since June 2016. The company BestMile is providing the fleet management platform which decides in real-time which mission to send to which vehicle to schedule the dispatching and charging management, maintenance planning, and emergency handling. There are therefore many realistic low-cost, efficient and flexible mobility solutions for fixed-route which are applicable nowadays: low-speed shuttles for last-mile solutions, areas of low or dispersed demand complementing the main public transport network, private site solutions, etc. Hence, we concentrate our research study on strategies to schedule a fleet of autonomous electric shuttles on a fixed line in order to offer the highest quality of service to the passenger in the most efficient way for the operator.
 
-
-With the fast advances in autonomous driving technology, some 
-=>envision new cities network
-=>talk about citymobile2 and smartshuttle
-=>concentrate on fixed line
-
--Fast advances in autonomous driving technology
--rethink the layout of the cities =>
--Autonomous vehicles (AVs) are expected to revolutionize mobility by turning cars into mobility robots and allowing more dynamic and intelligent forms of public transportation. A multitude of transport services are conceivable with AVs, yet it is largely unclear which ones will prevail.
--that the future of mobility isn’t in autonomous vehicles themselves, but in what they can offer when they’re operated and managed collectively in an integrated ecosystem. Being agnostic to vehicle type or brand empowers BestMile’s platform to fully leverage the flexibility offered by autonomous mobility and further serve its vision. 
--Urban  mobility  is  one  of  the  major  challenges  of  the  21st  century  andmost  cities  have reached their saturation point in terms of road traffic and pollution. Current applied solutions being  neither  sustainable  nor  efficient,  autonomous  vehicles  hold  the  leading  position  to solve these challenges.
--In  the  field  of  passenger  transport,  autonomous  vehicle  applications  are  unlimited.  Low-speed  but  fully  autonomous  shuttles  for  last-mile  or  private  site  solutions  were  the  first  to enter the market. They fulfill a crucial market need for low-cost, efficient and flexible mobility solutions for areas that were inadequately if not un-serviced. The  next  generation  of  autonomous  vehicles  including  autonomous  cars  and  autonomous buses are being piloted all around the world. Applications are ranging from public transport through valet parking to on-demand car and ride-sharing.
-
-General problem: two types of services, on-demand and fixed-line => explain why we focus on fixed line (all constraints of the platform) 
-Fixed line because now roads are not made for more complex systems
-Goal: run simulations as close as possible to real world situations
-=> how much it can improve the system performances to be able to forecast demand
-bring concrete solution to transport models which are implemented now
-
-
-
-Current state of the art mathematical models about fleet management optimization receive justified
-critics due to their unrealistic assumptions and, thus, their impossible application in real world
-problems. An indicative, but not exhaustive, list of theses biased assumption are:
+Current state of the art mathematical formulations of fleet management optimization are hardly applicable to our autonomous shuttle fixed route model due to their unrealistic assumptions. Moreover, they often focus the optimization either from the customer point of interest or from the operator one. An indicative, but not exhaustive, list of theses biased assumption are:
 \begin{itemize}
-  \item The \textbf{instantaneous state change between \textit{active} and \textit{charging} vehicle mode}. In real
-  world indeed, charging stations are sparsely distributed on the geographical area and reaching them
-  costs energy to vehicles.
-  \item The \textbf{instantaneous increase of fleet vehicle number}. The real latency between the moment an operator
-  want to add some extra vehicles to its fleet and the moment these vehicles are actually in operation
-  can be extremely large. It depends on the geographic location of the parking space and the velocity of
-  the vehicles. Keeping in mind that the client acceptability time \footnote{time a client
-  accepts to wait before receiving a service} for a taxi service is in the order of a
-  few minutes, it makes in most case irrelevant to try to add a vehicle to a fleet if not done with
-  anticipation.
-  \item The \textbf{instantaneous charging of the vehicles}. One of the main problem in real fleet management is
-  that current battery have time charge of order-of-magnitude of hours. This requiered time have to be taken
-  into account as a period in which the vehicles are not available.
-  \item The \textbf{unlimited vehicle transport capacity}. Vehicles have limited number of seats available on which they
-  can transport passengers. Moreover, current autonomous shuttles on market have a capacity not better
-  than a few passengers, often less than ten.
+  \item \textit{The instantaneous state change between active and charging vehicle mode}. In real world indeed, charging stations are sparsely distributed on the geographical area and reaching them costs energy and time to vehicles.
+  \item \textit{The instantaneous increase of fleet vehicle number}. The real latency between the moment an operator wants to add some extra vehicles to its fleet and the moment these vehicles are actually in operation can be large. It depends on the geographic location of the parking spaces and the velocity of the vehicles. Keeping in mind that the time a client accepts to wait is in the order of few minutes, it makes in most case irrelevant to try to add a vehicle to a fleet if not done with anticipation.
+  \item \textit{The instantaneous charging of the vehicles}. One of the main problem in real fleet management is that current battery have time charge of order-of-magnitude of hours. This required time have to be taken into account as a period in which the vehicles are not available.
+  \item \textit{The very large vehicle transport capacity}. Vehicles have limited number of seats available on which they can transport passengers. Moreover, current autonomous shuttles on market have a capacity not better than a few passengers, often less than ten.
+    \item \textit{The approximative demand scenarios}. Demand is often simulated either for peak or off-peak hours based on simple models. In our case we want to assess our system for customer bookings as close as possible to realistic scenarios. 
 \end{itemize}
 
-All these aspects make current models irrelevant for real fleet management operation. In this thesis
-we approach the problem from a more realistic point of view. Specifically, we use a real world simulator
-that emulates vehicles moving on a geographical area where are distributed charging spaces, parking spaces and pick-up/drop-off locations.
-Most important, this simulator get rid of all the assumption of \textbf{instantaneousness}.
+All these aspects make current models irrelevant for real fleet management operation. Several projects are undergoing in different cities across the world and operators need to take cost-effective decisions concerning the layout of the transit network (e.g. how many vehicles are needed, where to put the charging stations, what is the energy consumption of the operating vehicles, etc.). It would not be reasonable to use simplified models, real metrics are needed. In this thesis we approach therefore the problem from a more realistic point of view. Specifically, we use a real world simulator that emulates vehicles moving on a fixed route . Most important, this simulator gets rid off all the assumption of \textit{instantaneousness}. The abandonment of the instantaneousness assumption leads trivially to the introduction of a new factor, the latency, and its corresponding remedy, the anticipation.
 
-The abandonment of the instantaneousness assumption leads trivially to the introduction
-of a new factor, the \textbf{latency}, and its corresponding remedy, the \textbf{anticipation}.
+This research focus on answering the question of \textit{How many vehicles do I must activate in order to optimize my service, in a real and latency-affected world context?} The optimization is obviously a matter of point of view, and thus needs to be specified before any answer can be drawn. We distinguish two kind of optima: client-side optimum (e.g.  shortest waiting time) and operator-side optimum (e.g. lowest energy consumption). We propose a dynamic fleet size scheduling strategy making use of demand forecasting and test how the performance metrics react to different scenarios and scheduling strategies. 
 
-\subsection{Research plan}
+The remainder of the article is organized as follows. Section \ref{literature} positions our work with respect to the relevant public transport and variants of mobility solutions. Section \ref{formulation} proposes a mathematical formulation of the problem and specific metrics used to assess the performance. Section \ref{methodology} describes the simulation framework used in this study and the fleet scheduling strategies adopted. Section \ref{experiments} evaluates the impact of the fleet size and the demand in a real environment simulated in Mountain View, California. Finally, our concluding remarks and proposed work directions are given in Section \ref{conclusion}.  
 
-This research focus on answering the question of \textit{How much vehicles do I must activate
-on my fleet in order to optimize my service, in a real and latency-affected world context?}
 
-The optimization is obviously a matter of point of view, and thus needs to be specified  before
-any answer can be drawn. We distinguish two kind of optima:
-\begin{itemize}
-  \item Client-side optimum, which correspond to the shortest waiting time
-  \item Operator-side optimum, which correspond to the lowest energy consumption
-\end{itemize}
-
-With these definitions, we study the effect of the anticipation of a variety of algorithms,
-from a zero time-horizon \footnote{Time horizon means how far in the future we know the demands}
-(no anticipation at all) to a 24h time-horizon.
 \section{Related literature}\label{literature} 
 The scope of vehicle scheduling problems related to our specific case study can range from fixed-line bus services to on-demand systems. In fact, routes and stops of the electric shuttles are predefined but timetables can be flexible to respond to the real-time demand. The set of constraints differs from traditional bus transportation: workforce regulations can be eliminated as the shuttles are not human driven, a battery management component needs to be introduced into the planning process (e.g. charging times need to be considered), the operational network has a different layout, etc. As we will see in this chapter, current research often concentrates on one specific aspect of the scheduling strategy, simplifying some constraints, assessing the system's performance using various types of metrics and considering different inputs. In what follows, we describe in Section \ref{pubtrans} some techniques used in the traditional public transport industry to guarantee a good quality of service. In Section \ref{das} we describe the concept of Demand-Adaptive Transit Systems. Finally, we detail in Section \ref{luts} an approach proposed by the Urban Transport Systems Laboratory (LUTS) at EPFL for scheduling autonomous vehicles activities.  
 
@@ -328,14 +279,14 @@ Several corrective measures based on different strategies have been developed to
   
 \cite{selfadjusting} proposed a method using boarding limits at stations to control buses which does not involve bus accelerating or waiting at stations and thus does not influence the customers' travel time and does not disturb the traffic. They do not consider a fixed schedule and a priori target headway. However, they proved that their self-adjusting control stabilizes the headway spontaneously in a short time. 
 
-As stated by \cite{information}, the majority of earlier studies conducted on maintaining a balanced headway uses arrival time of the current bus at the current stop and arrival times of the preceding buses but does not take advantage of real time information like the vehicles' geolocation. Later methods proposed new approaches assuming availability of locations and even real-time arrivals of passengers to each bus stop. For example, \cite{cooperation} proposed a solution taking into account the distance between the current bus and the preceding and following buses to adjust the speed of the current bus. It includes holding buses at stations, accelerating or decelerating. 
+As stated by \cite{information}, the majority of earlier studies conducted on maintaining a balanced headway uses arrival time of the current bus at the current stop and arrival times of the preceding buses but does not take advantage of real-time information like the vehicles' geolocation. Later methods proposed new approaches assuming availability of locations and even real-time arrivals of passengers to each bus stop. For example, \cite{cooperation} proposed a solution taking into account the distance between the current bus and the preceding and following buses to adjust the speed of the current bus. It includes holding buses at stations, accelerating or decelerating. 
 
 An important measure used in public transport in addition to the headway is the load factor. The passenger load factor measures the efficiency of a transportation system, representing the capacity utilization of the seats. It is often expressed as the ratio between the passenger-kilometers travelled to seat-kilometers available. For example \cite{loadfactor} study the importance of the vehicle load effects on the emission of vehicles through the study of the load factor and the empty running rate. They discuss the variation of the factor with various parameters (e.g. vehicle size, vehicle weight, time, travel purpose).
 
 The studies carried out within the traditional fixed-line bus services handle situations where the demand is consistently strong over the territory and where the fleet is composed of high-capacity vehicles. When the demand is weaker, it is complicated to operate an economical and frequent transit system as the resources are shared by few people and are very costly (e.g. driver salaries, fuel expenses, etc.). The autonomous fleets are composed of vehicles with lower capacity, but it is easier to dynamically adapt their scheduling strategy at low cost and have access to real-time information.
 
 \subsection{Demand-adaptive transit systems}\label{das}
-Demand-Adaptive System (DAS), or Demand-Responsive Transit (DRT), is a personalized type of transportation displaying features from both fixed-line services and on-demand systems. The line is often designed as a loop with some mandatory stops, and the trajectory of the buses can be adapted between two mandatory stops to serve passengers at additional optional stops. There compulsory stops are served within a predefined time window. A method to determine those time windows has been proposed by \cite{masterschedule}: they use a  solution framework based on decoupling the origin-destination demand with a cooperative-search algorithm. \cite{dasdesign} depicted the advantages to substitute fixed-line bus services to DRT services in two cities in California with low demand density. They propose a strategy substituting the current fixed line bus service to a demand responsive transit line and show that 2 buses instead of 4 could serve the demand. 
+Demand-Adaptive System (DAS), or Demand-Responsive Transit (DRT), is a personalized type of transportation displaying features from both fixed-line services and on-demand systems. The line is often designed as a loop with some mandatory stops, and the trajectory of the buses can be adapted between two mandatory stops to serve passengers at additional optional stops. The compulsory stops are served within a predefined time window. A method to determine those time windows has been proposed by \cite{masterschedule}: they use a  solution framework based on decoupling the origin-destination demand with a cooperative-search algorithm. \cite{dasdesign} depicted the advantages to substitute fixed-line bus services to DRT services in two cities in California with low demand density. They propose a strategy substituting the current fixed line bus service to a demand responsive transit line and show that 2 buses instead of 4 could serve the demand. 
 
 \cite{evaluation} address the issues of evaluating DAS services in comparison to traditional transit services and fully on-demand systems. The transit evaluation denotes the part of the planning process dedicated to the study of the behavior and the performance of the line under various conditions with respect to demands, policies and costs. They mention the main steps of transit lines' evaluation in order to tune operating parameters impacting the system performance under different scenarios for cost-benefit analyzes: 
 \begin{enumerate}
@@ -352,9 +303,9 @@ The importance of demand generation in step 1) differs from one system to the ot
 
 \cite{ga} tackle in their study the optimal fleet size distribution of a transit network composed of several lines and the scheduling strategy to adopt which minimizes the waiting time of passengers at their point of origin and the transfer times from one route to an other. They formulate the problem as a non-linear mixed integer programming problem (NLMIP) with resource limitations and service related constraints such as the fleet size, a minimum required headway, a minimum fleet size on each route and a maximum transfer time for passengers. They consider in the objective function only the level of service offered to the passengers, taking into account the initial waiting time of passengers and the total transfer time of passengers but no vehicles' operating cost. They mention the lack of work on this topic, possibly because of its extreme complexity, but consider the most promising attempts at solving the optimal scheduling problem being the ones using simple binary genetic algorithms as the optimization tool. 
 
-Several aspects of our autonomous vehicles scheduling problem can relate to the literature subjects listed in this section. However, no mathematical formulation describes exactly all the constraints to consider for an autonomous electric fleet of vehicles with dynamic bookings on a closed circular line. Optimization formulations simplify many real-world constraints (e.g. schedule when to send vehicles to charge, what are the exact bookings, etc.) based on the parameters to optimized (e.g. headway, satisfy on-demand bookings, optimal fleet size, etc.). We need therefore too combine some specificity of fixed line and on-demand transportation formulations with an additional battery scheduling component.  
+Several aspects of our autonomous vehicles scheduling problem can relate to the literature subjects listed in this section. However, no mathematical formulation describes exactly all the constraints to consider for an autonomous electric fleet of vehicles with dynamic bookings on a closed circular line. Optimization formulations simplify many real-world constraints (e.g. schedule when to send vehicles to charge, simplifying the bookings simulation, assuming instantaneousness of active/charging modes, etc.) based on the parameters to optimized (e.g. headway, satisfy on-demand bookings, optimal fleet size, etc.). We need therefore too combine some specificity of fixed line and on-demand transportation formulations with an additional battery scheduling component.  
 
-\section{Problem formulation}
+\section{Problem formulation}\label{formulation}
 In this section we formulate our mathematical model describing the autonomous vehicles circular line transit. All the variables are listed in Table \ref{table:parameters}. In addition to traditional bus lines descriptions, we introduce the concept of battery stations and we include dynamic bookings from one station to an other station on the loop. We will see in Section \ref{metrics} that we have access to discrete information about the state of vehicles and bookings during the simulations at regular $\text{interval}$. To formalize the timestamps at which simulated states are available during the service horizon time $H$, we denote a discrete timestamp $t$ which takes values between $[0, H]$ at fixed sampling $\text{interval}$. In other word, if the scheduling horizon $H$ is equal to one day we can have for example access to information every second (i.e. $\text{interval} = 1$ second). We have then the set of timestamps $T :=\{t = \text{interval} \cdot k:  0 < t < H, k \in \mathbb{N}\}$.
 \newcolumntype{Y}{>{\RaggedRight\arraybackslash}X} 
 \begin{table}
@@ -430,7 +381,7 @@ At the end of the service horizon $H$, several metrics can be derived in order t
 \subsubsection{Battery consumption}
 The total battery consumed by a vehicle $v$ is the sum of the battery changes over the scheduling horizon when the vehicle is not charging
 $$\text{batteryCost}^{v} = \sum_{t \in T}\Delta^{v}_{t} \cdot 1_{V^{\#}_{t}}(v) .$$
-The total battery cost for the entire system is therefore the sum of the battery consumption of each vehicle composing the fleet:
+The total battery cost for the entire system is therefore the sum of the battery consumption of each vehicle composing the fleet
 $$\text{batteryCost} = \sum_{v \in V}\text{batteryCost}^{v}$$
 \subsubsection{Occupancy}
 The average occupancy of a vehicle $v$ over the scheduling horizon $H$ is given by
@@ -442,7 +393,7 @@ $$\text{avgLoadFactor} = \frac{\sum_{v \in V}\text{loadFactor}^{v}}{|V|}.$$
 We measure the variance of the $\text{loadFactor}$ to see if the occupancy among the vehicles composing the fleet is stable among them. The closer it is to 0 the better as it implies that all vehicles are used equivalently $\text{stabilityLoadFactor} = \text{Var}(\text{loadFactor}).$
 %We denote the stability load factor the difference between the maximum load factor among the vehicles composing the fleet and the minimum one. The closer it is to 0 the better as it implies that all vehicles are used equivalently: $stability\text{loadFactor} = \max_{v^{+} \in V}{\text{loadFactor}^{v^{+}}} -  \min_{v^{-} \in V}{\text{loadFactor}^{v^{-}}}$.
 \subsubsection{Waiting time}
-The average waiting time among the satisfied bookings at the end of the scheduling horizon $H$ is given by:
+The average waiting time among the satisfied bookings at the end of the scheduling horizon $H$ is given by
 $$\text{avgWaitingTime} = \frac{\sum_{b \in B^{*}_{H}}w^{b}}{|B^{*}_{H}|}.$$
 We compute the variance of the waiting time as well which expresses if the waiting time over all the bookings is spread or not. We want therefore to minimize $\text{stabilityWaitingTime} = \text{Var}(w)$.
 
@@ -469,7 +420,7 @@ In order to evaluate the behavior and performance of the transit under various c
 Figure~\ref{fig:simulationFramework} illustrates the different web services and how they are linked to each others. Services can communicate by exchanging messages via Kafka which is an asynchronous publish-and-subscribe message broker. In what follows we describe the behavior of each module and the simulation parameters which can be tuned. 
 
 \subsubsection{World-Simulator}
-The World-Simulator is a web service which is used to start the simulation, send the booking requests and send traffic updates information through the HTTP connection established with the core-engine application. At the beginning of the simulation, it sets the time control to a given ratio which is sent to the core-engine application. A day can be simulated in $m$ minutes which corresponds to a ratio $r$ of $m / (24 \cdot 60 \text{minutes})$. The simulated time $\text{simTime}$ is therefore $r$ times the real time. The world-simulator is instantiated with a scenario describing the external events which affect the overall system. It mimics the bookings which would have been made by users with the booking application and sent through a REST API. Every simulated second at time $\text{simTime}$ it checks if there are bookings which have not been sent yet with $t^{b} \leq \text{simTime}$ and speed updates to send to the core-engine application with $\text{speed}_{t}^{e}, t \leq \text{simTime}$. 
+The World-Simulator is a web service which is used to start the simulation, send the booking requests and send traffic updates information through the HTTP connection established with the core-engine application. At the beginning of the simulation, it sets the time control to a given ratio which is sent to the core-engine application. A day can be simulated in $m$ minutes which corresponds to a ratio $r$ of $m / (24 \cdot 60 \text{minutes})$. The simulated time $\text{simTime}$ is therefore $r$ times the real-time. The world-simulator is instantiated with a scenario describing the external events which affect the overall system. It mimics the bookings which would have been made by users with the booking application and sent through a REST API. Every simulated second at time $\text{simTime}$ it checks if there are bookings which have not been sent yet with $t^{b} \leq \text{simTime}$ and speed updates to send to the core-engine application with $\text{speed}_{t}^{e}, t \leq \text{simTime}$. 
 
 \subsubsection{Simulated vehicles}\label{simvehicles}
 The simulated vehicles are connected to the core-engine through an established TCP protocol, like real vehicles would communicate with the platform. They can send status messages and receive missions (e.g. going to a specific charging station or waiting at a stop at for $\text{wait}^{v}_{\text{simTime}}$ seconds). The missions received by the vehicles from the core-engine are directly executed. It implies a lot of expensive computations for each vehicle in order to coordinate the entire fleet. The vehicles are therefore simulated concurrently following an actor model, each vehicle being a different actor part of the actor system. When the vehicles web service receives an HTTP request to start the simulation with a given fleet size from the world-simulator, an actor is created for each vehicle, which announces its position to the core-engine through a TCP message and subscribes to the time topic. The vehicles start at equal distance of each others on the loop with the battery completely recharged and their position and battery level is then updated every $1000/\text{rate}$ milliseconds.  
@@ -523,7 +474,7 @@ Our strategy implies to decide how many vehicles should be active at each hour o
 
 \paragraph{Optimal fleet size}\label{optfleetsize} The goal is to find an optimal number of vehicles which need to be active on the line based on the demand density. There are therefore two main questions that arise: how can we define that a fleet size is $\text{optimal}$? What is exactly the $\text{demand}$? In what follows we will justify the strategical choices and heuristics used in this experimental study.
 
-As explained in Section \ref{literature}, most of the studies we can relate to our specific problem of autonomous vehicles scheduling on fixed line formulate an optimization problem with several inequalities, equalities and combinatorial constraints. There is one specific objective function representing the cost to minimize which is often composed of the fleet operating costs and/or measures of the level of service offered to the passengers. Different techniques can be used to find optimal or near-optimal solutions satisfying the constraints. There are some exact algorithms which find the optimal solution(s) but there are often not applicable for that kind of complex NP-hard problems as many problem instances are intractable. Heuristic methods  must be used instead which find near-optimal solutions or alternatively some software solvers can be used which often provide good solution in reasonable computational time for linear programming problem. However, when the scheduling problem is transposed into an optimization problem there are many real-world aspects that are omitted and many simplifications and assumptions are made. This is precisely the reason why we explore different scheduling strategies by simulating the real behavior of vehicles in an environment as close as possible to reality. The simulation framework for evaluating the system described in Section \ref{framework} is therefore close to the evaluation method used by \cite{evaluation} for DAS described in Section \ref{das}. In fact, different modules simulate all the dynamic components of the problem. The output measures we want to minimize of the simulation framework are close to the ones often used in the objective function of optimization formulations. We now present how we formulate the demand at different times of the scheduling horizon and how we choose that a fleet size is sufficient to serve the demand.
+As explained in Section \ref{literature}, most of the studies we can relate to our specific problem of autonomous vehicles scheduling on fixed line formulate an optimization problem with several inequalities, equalities and combinatorial constraints. They use one specific objective function representing the cost to minimize which is often composed of the fleet operating costs and/or measures of the level of service offered to the passengers. Different techniques can be used to find optimal or near-optimal solutions satisfying the constraints. There exist some exact algorithms which find the optimal solution(s) but there are often not applicable for that kind of complex NP-hard problems as many problem instances are intractable. Heuristic methods  must be used instead which find near-optimal solutions or alternatively some software solvers can be used which often provide good solution in reasonable computational time for linear programming problem. However, when the scheduling problem is transposed into an optimization problem there are many real-world aspects that are omitted and many simplifications and assumptions are made. This is precisely the reason why we explore different scheduling strategies by simulating the real behavior of vehicles in an environment as close as possible to reality. The simulation framework for evaluating the system described in Section \ref{framework} is therefore close to the evaluation method used by \cite{evaluation} for DAS described in Section \ref{das}. In fact, different modules simulate all the dynamic components of the problem. The output measures we want to minimize of the simulation framework are close to the ones often used in the objective function of optimization formulations. We now present how we formulate the demand at different times of the scheduling horizon and how we choose that a fleet size is sufficient to serve the demand.
 
 \begin{itemize}
 \setlength\itemsep{1pt}
@@ -564,7 +515,7 @@ Taking the exponential of the $\text{completedBookingsRatio} \in [0,1]$ seems a 
   \hline			
  Parameter & Description \\
 \hline	  
-  $r$ & Simulation ratio: simulated time = $r$ times real time\\
+  $r$ & Simulation ratio: simulated time = $r$ times real-time\\
   $\text{simTime}$ & Current simulated time on the different applications \\
   $\text{rate}$ & Rate at which the state of the vehicles is updated \\
   $\text{sampleInterval}$ & Interval at which events are fetched from the reporting database \\
@@ -945,7 +896,7 @@ Based on the analysis conducted on the performance metrics of the different sche
 \subsection{Further scenario experiments}\label{further}
 All the simulations have been run with exactly the same graph and vehicles configurations. However, it is in the best interest of the operator to know what kind of planning decisions can be made in order to improve the system. As for any transportation service, there are some compromises to take a priori concerning the overall money spent on the fixed line design and vehicles, allowing a reasonable return on investment. We run therefore two additional simulations changing the charging station places in Section \ref{spreadcharging} and the vehicles' battery consumption model in Section \ref{batterycons}.
 
-\subsubsection{Autonomous Charging Stations}\label{spreadcharging}
+\subsubsection{Autonomous charging stations}\label{spreadcharging}
 In current cities where vehicles are operating, the charging stations are located all at the same place. In fact, they are at the depot where shuttles are stored and an employee needs to manually put them on charge. The National Center for Transit Research (NCTR), University of South Florida, published a report summarizing the state of public transportation vehicle automation and the characteristics of the latest two autonomous electric shuttles (see \cite{nctr}). Each charging station costs 20'000 Euros (22'558 USD) whilst each vehicle cost approximately 200'000 to 220'000 Euros. However, some new technologies are emerging in this sector which do not imply any human help. For example Plugless offers an autonomous wireless charging station, for the same charging power (3.3kW, see \cite{plugless}) which cost 5'999 USD. We can therefore envision a future system making use of these new technologies. It would be a line with autonomous charging stations spread along the loop instead of one single depot where they need to go to charge. In order to measure how it would ameliorate the transportation system, we change the graph by placing 13 charging on the loop. We run a simulation for a constant fleet size of 8 vehicles and only mandatory stops and compare it to the scenario with the charging stations at one place. The improvements can be visualized in Figure \ref{batterycompare}. The $\text{batteryCost}$ drops from 16.62 to 14.25 (-14 \%) as vehicles do not need to stop operating and travel long distances to the single charging station point. The $\text{avgWaitingTime}$ is improved as well from 10 minutes to 8 minutes and especially the completed bookings ratio which have a waiting time under 6 minutes grows from 0.47 to 0.56. You can observe on Figure \ref{spread} that the waiting time increases again when vehicles need to go to charge as it happens at the same time when they run low on battery so we could even obtain better results if a dynamic fleet size scheduling strategy is used. 
 
 \begin{figure}
@@ -996,8 +947,9 @@ display columns/0/.style={string type,column name={}}
 \end{sidewaystable}
 
 \section{Conclusion}\label{conclusion}
+
 \subsection{Summary}\label{summary}
-\subsection{Future Work}\label{futurework}
+\subsection{Future ork}\label{futurework}
 
 \newpage
 \bibliographystyle{apalike}
