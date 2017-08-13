@@ -1,97 +1,145 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{18}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Adra et~al., 2004]{loadfactor}
-Adra, N., Michaux, J.~L., and Andre, M. (2004).
+\bibitem[Adra et~al.(2004)Adra, Michaux, and Andre]{loadfactor}
+N.~Adra, J.~L. Michaux, and Michel Andre.
 \newblock {Analysis of the load factor and the empty running rate for road
   transport. Artemis - assessment and reliability of transport emission models
-  and inventory systems}.
+  and inventory systems}, 2004.
+\newblock URL \url{https://hal.archives-ouvertes.fr/hal-00546125}.
 \newblock Rapport de recherche.
 
-\bibitem[Boesch et~al., 2017]{ethz}
-Boesch, P., Becker, F., and Becker, H. (2017).
+\bibitem[Boesch et~al.(2017)Boesch, Becker, and Becker]{ethz}
+Patrick Boesch, Felix Becker, and Henrik Becker.
 \newblock Cost-based analysis of autonomous mobility services.
 \newblock Technical Report 1225, Institute for Transport Planning and Systems
-  (IVT), ETH Zurich.
+  (IVT), ETH Zurich, 2017.
 
-\bibitem[Bongiovanni et~al., 2016]{luts}
-Bongiovanni, C., Kaspi, M., and Geroliminis, N. (2016).
+\bibitem[Bongiovanni et~al.(2016)Bongiovanni, Kaspi, and Geroliminis]{luts}
+Claudia Bongiovanni, Mor Kaspi, and Nikolas Geroliminis.
 \newblock Scheduling autonomous vehicles activities.
-\newblock Technical report, Urban Transport Systems Laboratory EPFL.
+\newblock Technical report, Urban Transport Systems Laboratory EPFL, 2016.
 
-\bibitem[Camps and Romeu, 2016]{hwadherence}
-Camps, J.~M. and Romeu, M.~E. (2016).
+\bibitem[Camps and Romeu(2016)]{hwadherence}
+Josep~Mension Camps and Miquel~Estrada Romeu.
 \newblock Headway adherance. detection and reduction of the bus bunching
   effect.
-\newblock {\em AET papers repository}.
+\newblock \emph{AET papers repository}, 2016.
 
-\bibitem[Chakroborty et~al., 2001]{ga}
-Chakroborty, P., Deb, K., and Sharma, R. (2001).
+\bibitem[Chakroborty et~al.(2001)Chakroborty, Deb, and Sharma]{ga}
+Partha Chakroborty, Kalyanmoy Deb, and {Raj Kumar} Sharma.
 \newblock Optimal fleet size distribution and scheduling of transit systems
   using genetic algorithms.
-\newblock {\em Transportation Planning and Technology}, 24(3):209--225.
+\newblock \emph{Transportation Planning and Technology}, 24\penalty0
+  (3):\penalty0 209--225, 8 2001.
+\newblock ISSN 0308-1060.
 
-\bibitem[Cort{\'{e}}s et~al., 2010]{hybrid}
-Cort{\'{e}}s, C.~E., S{\'{a}}ez, D., Milla, F., N{\'{u}}{\~{n}}ez, A., and
-  Riquelme, M. (2010).
+\bibitem[CityMobil2(2014)]{citymobil}
+CityMobil2.
+\newblock About citymobil2.
+\newblock \url{http://www.citymobil2.eu/en/About-CityMobil2/Overview/}, 2014.
+\newblock last checked: 2017-07-28.
+
+\bibitem[Cort{\'{e}}s et~al.(2010)Cort{\'{e}}s, S{\'{a}}ez, Milla,
+  N{\'{u}}{\~{n}}ez, and Riquelme]{hybrid}
+Cristi{\'{a}}n~E. Cort{\'{e}}s, Doris S{\'{a}}ez, Freddy Milla, Alfredo
+  N{\'{u}}{\~{n}}ez, and Marcela Riquelme.
 \newblock Hybrid predictive control for real-time optimization of public
   transport systems' operations based on evolutionary multi-objective
   optimization.
-\newblock {\em Transportation Research Part C: Emerging Technologies},
-  18(5):757--769.
+\newblock \emph{Transportation Research Part C: Emerging Technologies},
+  18\penalty0 (5):\penalty0 757--769, oct 2010.
+\newblock \doi{10.1016/j.trc.2009.05.016}.
+\newblock URL \url{https://doi.org/10.1016/j.trc.2009.05.016}.
 
-\bibitem[Crainic et~al., 2010]{masterschedule}
-Crainic, T.~G., Errico, F., Malucelli, F., and Nonato, M. (2010).
+\bibitem[Crainic et~al.(2010)Crainic, Errico, Malucelli, and
+  Nonato]{masterschedule}
+Teodor~Gabriel Crainic, Fausto Errico, Federico Malucelli, and Maddalena
+  Nonato.
 \newblock Designing the master schedule for demand-adaptive transit systems.
-\newblock {\em Annals of Operations Research}, 194(1):151--166.
+\newblock \emph{Annals of Operations Research}, 194\penalty0 (1):\penalty0
+  151--166, mar 2010.
+\newblock \doi{10.1007/s10479-010-0710-5}.
+\newblock URL \url{https://doi.org/10.1007/s10479-010-0710-5}.
 
-\bibitem[Daganzo and Pilachowski, 2011]{cooperation}
-Daganzo, C.~F. and Pilachowski, J. (2011).
+\bibitem[Daganzo and Pilachowski(2011)]{cooperation}
+Carlos~F. Daganzo and Josh Pilachowski.
 \newblock Reducing bunching with bus-to-bus cooperation.
-\newblock {\em Transportation Research Part B: Methodological}, 45(1):267--277.
+\newblock \emph{Transportation Research Part B: Methodological}, 45\penalty0
+  (1):\penalty0 267--277, jan 2011.
+\newblock \doi{10.1016/j.trb.2010.06.005}.
+\newblock URL \url{https://doi.org/10.1016/j.trb.2010.06.005}.
 
-\bibitem[Gabriel et~al., 2008]{evaluation}
-Gabriel, T., Fausto, C., Malucelli, E.~F., and Nonato, M. (2008).
+\bibitem[Gabriel et~al.(2008)Gabriel, Fausto, Malucelli, and
+  Nonato]{evaluation}
+Teodor Gabriel, Crainic Fausto, Errico~Federico Malucelli, and Maddalena
+  Nonato.
 \newblock A proposal for the evaluation of demand-adaptive transit systems.
-\newblock {\em Annals of Operations Research}.
+\newblock \emph{Annals of Operations Research}, 2008.
 
-\bibitem[He, 2015]{information}
-He, S.-X. (2015).
+\bibitem[He(2015)]{information}
+Sheng-Xue He.
 \newblock An anti-bunching strategy to improve bus schedule and headway
   reliability by making use of the available accurate information.
-\newblock {\em Computers \& Industrial Engineering}, 85:17 -- 32.
+\newblock \emph{Computers \& Industrial Engineering}, 85:\penalty0 17 -- 32,
+  2015.
+\newblock ISSN 0360-8352.
+\newblock \doi{http://dx.doi.org/10.1016/j.cie.2015.03.004}.
+\newblock URL
+  \url{http://www.sciencedirect.com/science/article/pii/S0360835215001138}.
 
-\bibitem[Li et~al., 2007]{dasdesign}
-Li, Y., Wang, J., and Chen, J. (2007).
-\newblock {\em Design of a Demand-responsive Transit System}.
+\bibitem[Li et~al.(2007)Li, Wang, and Chen]{dasdesign}
+Y.~Li, J.~Wang, and J.~Chen.
+\newblock \emph{Design of a Demand-responsive Transit System}.
 \newblock California PATH working paper. California PATH Program, Institute of
-  Transportation Studies, University of California at Berkeley.
+  Transportation Studies, University of California at Berkeley, 2007.
+\newblock URL \url{https://books.google.ch/books?id=mTg3nQAACAAJ}.
 
-\bibitem[Pessaro, 2016]{nctr}
-Pessaro, B. (2016).
+\bibitem[Pessaro(2016)]{nctr}
+Brian Pessaro.
 \newblock Evaluation of automated vehicle technology in transit.
 \newblock Technical report, National Center for Transit Research, Center for
-  Urban Transportation Research (CUTR), University of South Florida.
+  Urban Transportation Research (CUTR), University of South Florida, 2016.
 
-\bibitem[Pine et~al., 1998]{tcrp}
-Pine, R., Niemeyer, J., and Chisholm, R. (1998).
-\newblock {\em Transit Scheduling: Basic and Advanced Manuals}.
+\bibitem[Pine et~al.(1998)Pine, Niemeyer, and Chisholm]{tcrp}
+R.~Pine, J.~Niemeyer, and R.~Chisholm.
+\newblock \emph{Transit Scheduling: Basic and Advanced Manuals}.
 \newblock Report (Transit Cooperative Research Program). National Academy
-  Press.
+  Press, 1998.
+\newblock ISBN 9780309062626.
+\newblock URL \url{https://books.google.ch/books?id=Hq9tQgAACAAJ}.
 
-\bibitem[Plugless, 2017]{plugless}
-Plugless (2017).
+\bibitem[Plugless(2017)]{plugless}
+Plugless.
 \newblock Tech specs plugless gen 1 system.
+\newblock \url{https://www.pluglesspower.com/gen1-tech-specs/}, 2017.
+\newblock last checked: 2017-08-05.
 
-\bibitem[van Oort et~al., 2010]{reliability}
-van Oort, N., Wilson, N., and van Nes, R. (2010).
+\bibitem[PostBus(2016)]{carpostal}
+PostBus.
+\newblock Smartshuttle project.
+\newblock \url{https://www.postauto.ch/en/smartshuttle-projekt}, 2016.
+\newblock last checked: 2017-07-14.
+
+\bibitem[van Oort et~al.(2010)van Oort, Wilson, and van Nes]{reliability}
+Niels van Oort, Nigel Wilson, and Rob van Nes.
 \newblock Reliability improvement in short headway transit services.
-\newblock {\em Transportation Research Record: Journal of the Transportation
-  Research Board}, 2143:67--76.
+\newblock \emph{Transportation Research Record: Journal of the Transportation
+  Research Board}, 2143:\penalty0 67--76, dec 2010.
+\newblock \doi{10.3141/2143-09}.
+\newblock URL \url{https://doi.org/10.3141/2143-09}.
 
-\bibitem[Zhao et~al., 2016]{selfadjusting}
-Zhao, S., Lu, C., Liang, S., and Liu, H. (2016).
+\bibitem[Zhao et~al.(2016)Zhao, Lu, Liang, and Liu]{selfadjusting}
+Shuzhi Zhao, Chunxiu Lu, Shidong Liang, and Huasheng Liu.
 \newblock A self-adjusting method to resist bus bunching based on boarding
   limits.
-\newblock {\em Mathematical Problems in Engineering}, 2016:1--7.
+\newblock \emph{Mathematical Problems in Engineering}, 2016:\penalty0 1--7,
+  2016.
+\newblock \doi{10.1155/2016/8950209}.
+\newblock URL \url{https://doi.org/10.1155/2016/8950209}.
 
 \end{thebibliography}
