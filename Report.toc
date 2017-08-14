@@ -6,7 +6,7 @@
 \contentsline {section}{\numberline {3}Problem formulation}{11}{section.3}
 \contentsline {subsection}{\numberline {3.1}Circular route}{11}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}Vehicles}{11}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Bookings and demand}{13}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.3}Bookings and demand density}{13}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}Output metrics}{13}{subsection.3.4}
 \contentsline {subsubsection}{\numberline {3.4.1}Battery consumption}{13}{subsubsection.3.4.1}
 \contentsline {subsubsection}{\numberline {3.4.2}Occupancy}{13}{subsubsection.3.4.2}
@@ -36,10 +36,10 @@
 \contentsline {subsubsection}{\numberline {5.2.2}Fixed loop graph}{27}{subsubsection.5.2.2}
 \contentsline {subsubsection}{\numberline {5.2.3}Simulated demand}{28}{subsubsection.5.2.3}
 \contentsline {subsection}{\numberline {5.3}Headway experiments}{29}{subsection.5.3}
-\contentsline {subsection}{\numberline {5.4}Dynamic fleet size experiments}{31}{subsection.5.4}
-\contentsline {subsubsection}{\numberline {5.4.1}Generating data}{33}{subsubsection.5.4.1}
-\contentsline {subsubsection}{\numberline {5.4.2}Impact of the fleet size and the demand density}{35}{subsubsection.5.4.2}
-\contentsline {paragraph}{\numberline {5.4.2.1}Average performance metrics}{35}{paragraph.5.4.2.1}
+\contentsline {subsection}{\numberline {5.4}Dynamic fleet size experiments}{30}{subsection.5.4}
+\contentsline {subsubsection}{\numberline {5.4.1}Generating data}{34}{subsubsection.5.4.1}
+\contentsline {subsubsection}{\numberline {5.4.2}Impact of the fleet size and the demand density}{34}{subsubsection.5.4.2}
+\contentsline {paragraph}{\numberline {5.4.2.1}Average performance metrics}{34}{paragraph.5.4.2.1}
 \contentsline {paragraph}{\numberline {5.4.2.2}Performance metrics in function of fleet size and demand density}{35}{paragraph.5.4.2.2}
 \contentsline {paragraph}{\numberline {5.4.2.3}Extreme simulation examples}{37}{paragraph.5.4.2.3}
 \contentsline {subsubsection}{\numberline {5.4.3}Comparison of scheduling strategies}{39}{subsubsection.5.4.3}
@@ -50,7 +50,7 @@
 \contentsline {subsection}{\numberline {5.5}Choice of scheduling strategy}{43}{subsection.5.5}
 \contentsline {subsection}{\numberline {5.6}Further scenario experiments}{45}{subsection.5.6}
 \contentsline {subsubsection}{\numberline {5.6.1}Autonomous charging stations}{45}{subsubsection.5.6.1}
-\contentsline {subsubsection}{\numberline {5.6.2}Battery consumption}{47}{subsubsection.5.6.2}
+\contentsline {subsubsection}{\numberline {5.6.2}Battery consumption}{46}{subsubsection.5.6.2}
 \contentsline {section}{\numberline {6}Conclusion}{50}{section.6}
 \contentsline {subsection}{\numberline {6.1}Summary}{50}{subsection.6.1}
 \contentsline {subsection}{\numberline {6.2}Future work}{50}{subsection.6.2}

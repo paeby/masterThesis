@@ -1,4 +1,4 @@
-\begin{thebibliography}{18}
+\begin{thebibliography}{19}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -141,5 +141,13 @@ Shuzhi Zhao, Chunxiu Lu, Shidong Liang, and Huasheng Liu.
   2016.
 \newblock \doi{10.1155/2016/8950209}.
 \newblock URL \url{https://doi.org/10.1155/2016/8950209}.
+
+\bibitem[Zuber(2017)]{mbc}
+Sophie Zuber.
+\newblock Mobilité: deux navettes mbc autonomes circuleront à cossonay dès le
+  mois d'aout.
+\newblock \url{https://www.lacote.ch/articles/regions/district-de-morges},
+  2017.
+\newblock last checked: 2017-07-28.
 
 \end{thebibliography}

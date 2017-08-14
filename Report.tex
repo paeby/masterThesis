@@ -48,7 +48,7 @@
 \usepackage[margin=1.3in]{geometry} % RS addition
 
 \begin{filecontents*}{avg_value.csv}
-Strategy,batteryCost,avgWaitingTime,maxWaitingTime,minWaitingTime,stabilityWaitingTime,averageOccupancy,averageloadFactor,maxloadFactor,minloadFactor,completedBookingsRatio, ba
+Strategy,batteryCost,avgWaitingTime,maxWaitingTime,minWaitingTime,waitingTimeVariance,averageOccupancy,averageloadFactor,maxloadFactor,minloadFactor,completedBookingsRatio, ba
 Constant Waiting Time at Stops,18.03,15,167,0,662,2.34,0.24,0.61,0.11,0.70,0.39
 Constant Fleet Size,16.62,10,127,0,307,2.44,0.25,0.29,0.21,0.83,0.47
 Optional Stops,25.92,5,57,0,36,2.87,0.29,0.40,0.15,0.81,0.63
@@ -230,7 +230,7 @@ Supervisors:		\>	Bastien Rojanawisut	  \textsuperscript{2}	\> bastien.rojanawisu
 
 
 \begin{abstract}
-In this research study, we formally describe the scheduling of an autonomous fleet of electric shuttles activities operating on a fixed loop. As opposed to most of the work done in this area, we get rid off any simplifications of the problem by using and improving a real world simulator that emulates vehicles moving on a fixed route with battery stations, optional/mandatory stops and dynamic bookings. The scheduling of the vehicles includes planning battery management activities, controlling the ideal distance between the shuttles to avoid the bus bunching effect, and re-scheduling activities to increase/decrease the active fleet size. We evaluate the performance of the transit line from both the customer and the operator point of interest, analyzing the impact of the fleet size and the demand on the performance metrics. We propose two strategies to find the optimal fleet size based on the demand density over one hour, balancing both the passenger-side optimum and the operator-side optimum, in order to dynamically adapt the number of active vehicles on the line based on the forecast demand density at each hour of the day. We test our scheduling strategies over one day on a fixed-line designed in Mountain View, California, with realistic bookings and we show that we can reduce both the waiting time of the customers and the operating cost of the vehicles. 
+In this research study, we formally describe the scheduling of an autonomous fleet of electric shuttles activities operating on a fixed loop. As opposed to most of the work done in this area, we get rid off most simplifications of the problem by using and improving a real world simulator that emulates vehicles moving on a fixed route with battery stations, optional/mandatory stops and dynamic bookings. The scheduling of the vehicles includes planning battery management activities, controlling the ideal distance between the shuttles to avoid the bus bunching effect, and re-scheduling activities to increase/decrease the active fleet size. We evaluate the performance of the transit line from both the customer and the operator point of interest, analyzing the impact of the fleet size and the demand on the performance metrics. We propose two strategies to find the optimal fleet size based on the demand density over one hour, balancing both the passenger-side optimum and the operator-side optimum, in order to dynamically adapt the number of active vehicles on the line based on the forecast demand density at each hour of the day. We test our scheduling strategies over one day on a fixed-line designed in Mountain View, California, with realistic bookings and we show that we can reduce both the waiting time of the customers and the operating cost of the vehicles. 
 \end{abstract}
 
 \newpage
@@ -240,22 +240,22 @@ In this research study, we formally describe the scheduling of an autonomous fle
 \setlength{\parskip}{0.5em}
 \section{Introduction}
 
-Autonomous buses technology is advancing very rapidly and brings hope for significant improvement in service quality on public transportation. Cities have reached their saturation point in terms of road traffic and pollution and consequently lead to the need of rethinking urban mobility of the 21$^{\text{st}}$ century. Autonomous buses should to be part of the equation as they can allow more dynamic and intelligent forms of public transportation when they are operated and managed collectively. In fact, replacing the human driver with an automated one makes the ecosystem much more flexible and responsive to real-time information (e.g. buses GPS data, passengers' on-demand information provided through mobile apps, real-time traffic status, weather reports, etc.). Additionally, big data information can be accumulated and used to detect customers patterns and predict the demand based on several factors (e.g. time of the day, weather, area, etc.). Possible operating models are ranging from fixed routes with adaptive schedules to complete on-demand and ride-sharing services. Nowadays road structures, regulatory approvals and technical technology constraints make the usage of those vehicles possible only in specific road conditions in fully mapped areas. There exists already some autonomous vehicles operating on different sites. In fact, since 2014 CityMobil2, a European Union funded research project, launched three large demonstrations of automated road transport sites across Europe (\cite{citymobil}). Moreover, two shuttles are running for the transportation company CarPostal in the city center of Sion, Switzerland, moving passengers as part of the existing transport network on a fixed route since June 2016 (\cite{carpostal}). The company BestMile is providing the fleet management platform which decides in real-time which mission to send to which vehicle to schedule the dispatching and charging management, maintenance planning, and emergency handling. There are therefore many realistic low-cost, efficient and flexible mobility solutions for fixed-route which are applicable nowadays: low-speed shuttles for last-mile solutions, areas of low or dispersed demand complementing the main public transport network, private site solutions, etc. Hence, we concentrate our research study on strategies to schedule a fleet of autonomous electric shuttles on a fixed line in order to offer the highest quality of service to the passenger in the most efficient way for the operator.
+Autonomous buses technology is advancing very rapidly and brings hope for significant improvement in service quality on public transportation. Cities have reached their saturation point in terms of road traffic and pollution and consequently lead to the need of rethinking urban mobility of the 21$^{\text{st}}$ century. Autonomous buses should to be part of the equation as they can allow more dynamic and intelligent forms of public transportation when they are operated and managed collectively. In fact, replacing the human driver with an automated one makes the ecosystem much more flexible and responsive to real-time information (e.g. buses GPS data, passengers' on-demand information provided through mobile apps, real-time traffic status, weather reports, etc.). Additionally, big data information can be accumulated and used to detect customers patterns and predict the demand based on several factors (e.g. time of the day, weather, area, etc.). Possible operating models are ranging from fixed routes with adaptive schedules to complete on-demand and ride-sharing services. Nowadays road structures, regulatory approvals and technical technology constraints make the usage of those vehicles possible only in specific road conditions in fully mapped areas. However, there exists already some autonomous vehicles operating on different sites. In fact, since 2014 CityMobil2, a European Union funded research project, launched three large demonstrations of automated road transport sites across Europe (\cite{citymobil}). Moreover, two shuttles are running for the transportation company CarPostal in the city center of Sion, Switzerland, moving passengers as part of the existing transport network on a fixed route since June 2016 (\cite{carpostal}). There are other undergoing projects for fixed line services: in December 2017, two shuttles will be used in Cossonay by Transports de la Région Morges-Bière-Cossonay (MBC), Switzerland, on two fixed loops to transport people from a cable railway to the city center (\cite{mbc}). The company BestMile is providing for these projects the fleet management platform which decides in real-time which mission to send to which vehicle to schedule the dispatching and charging management, maintenance planning, and emergency handling. There are therefore many realistic low-cost, efficient and flexible mobility solutions for fixed-route which are applicable nowadays: low-speed shuttles for last-mile solutions, areas of low or dispersed demand complementing the main public transport network, private site solutions, etc. Hence, we concentrate our research study on strategies to schedule a fleet of autonomous electric shuttles on a fixed line in order to offer the highest quality of service to the passenger in the most efficient way for the operator.
 
 Current state of the art mathematical formulations of fleet management optimization are hardly applicable to our autonomous shuttle fixed route model due to their unrealistic assumptions. Moreover, they often focus the optimization either from the customer point of interest or from the operator one. An indicative, but not exhaustive, list of theses biased assumption are:
 \begin{itemize}
-  \item \textit{The instantaneous state change between active and charging vehicle mode}. In real world indeed, charging stations are sparsely distributed on the geographical area and reaching them costs energy and time to vehicles.
-  \item \textit{The instantaneous increase of fleet vehicle number}. The real latency between the moment an operator wants to add some extra vehicles to its fleet and the moment these vehicles are actually in operation can be large. It depends on the geographic location of the parking spaces and the velocity of the vehicles. Keeping in mind that the time a client accepts to wait is in the order of few minutes, it makes in most case irrelevant to try to add a vehicle to a fleet if not done with anticipation.
-  \item \textit{The instantaneous charging of the vehicles}. One of the main problem in real fleet management is that current battery has a recharging period of order-of-magnitude of hours. This required time has to be taken into account as a period in which the vehicles are not available.
-  \item \textit{The very large vehicle transport capacity}. Vehicles have limited number of seats available to transport passengers. Moreover, current autonomous shuttles on the market have a capacity not better than a few passengers, often less than ten.
-    \item \textit{The approximate demand scenarios}. Demand is often simulated either for peak or off-peak hours based on simple models. In our case we want to assess our system for customer bookings as close as possible to realistic scenarios. 
+  \item The instantaneous state change between active and charging vehicle mode. \\In real world indeed, charging stations are sparsely distributed on the geographical area and reaching them costs energy and time to vehicles.
+  \item The instantaneous increase of fleet vehicle number. \\ The real latency between the moment an operator wants to add some extra vehicles to its fleet and the moment these vehicles are actually in operation can be large. It depends on the geographic location of the parking spaces and the velocity of the vehicles. Keeping in mind that the time a client accepts to wait is in the order of few minutes, it makes in most case irrelevant to try to add a vehicle to a fleet if not done with anticipation.
+  \item The instantaneous charging of the vehicles.\\ One of the main problem in real fleet management is that current battery has a recharging period of some hours. This required time has to be taken into account as a period in which the vehicles are not available.
+  \item The very large vehicle transport capacity.\\ Traditional buses have a higher number of seats available to transport passengers than the electric shuttles. In fact, current autonomous shuttles on the market have a capacity not better than a few passengers, often less than ten.
+    \item The approximate demand scenarios. \\Demand is often simulated either for peak or off-peak hours based on simple models. In our case we want to assess our system for customer bookings as close as possible to realistic scenarios. 
 \end{itemize}
 
-All these aspects make current models irrelevant for real fleet management operation. Several projects are undergoing in different cities across the world and operators need to take cost-effective decisions concerning the layout of the transit network (e.g. how many vehicles are needed, where to put the charging stations, what is the energy consumption of the operating vehicles, etc.). It would not be reasonable to use simplified models, real metrics are needed. In this thesis we approach therefore the problem from a more realistic point of view. Specifically, we use a real world simulator that emulates vehicles moving on a fixed route . Most important, this simulator gets rid off all the assumption of \textit{instantaneousness}. 
+All these aspects make current models irrelevant for real fleet management operation. Several projects are undergoing in different cities across the world and operators need to take cost-effective decisions concerning the layout of the transit network (e.g. how many vehicles are needed, where to put the charging stations, what is the energy consumption of the operating vehicles, etc.). It would not be reasonable to use simplified models as real metrics are needed. In this thesis we approach therefore the problem from a more realistic point of view. Specifically, we use a real world simulator that emulates vehicles moving on a fixed route . Most important, this simulator gets rid off all the assumption of \textit{instantaneousness}. 
 
 This research focus on answering the question \textit{How many vehicles do I must activate in order to optimize my service, in a real and latency-affected world context?} The optimization is obviously a matter of point of view, and thus needs to be specified before any answer can be drawn. We distinguish two kind of optima: client-side optimum (e.g.  shortest waiting time) and operator-side optimum (e.g. lowest energy consumption). We propose a dynamic fleet size scheduling strategy making use of demand forecasting and test how the performance metrics react to different scenarios and scheduling strategies. 
 
-The remainder of the article is organized as follows. Section \ref{literature} positions our work with respect to the relevant public transport studies and variants of mobility solutions. Section \ref{formulation} proposes a mathematical formulation of the problem and specific metrics used to assess the performance. Section \ref{methodology} describes the simulation framework used and ameliorated in this study and the fleet scheduling strategies adopted. Section \ref{experiments} evaluates the impact of the fleet size and the demand in a real environment simulated in Mountain View, California. Finally, our concluding remarks and proposed work directions are given in Section \ref{conclusion}.  
+The remainder of the work is organized as follows. Section \ref{literature} positions our study with respect to the relevant public transport studies and variants of mobility solutions. Section \ref{formulation} proposes a mathematical formulation of the problem and specific metrics used to assess the performance. Section \ref{methodology} describes the simulation framework used and ameliorated in this study and the fleet scheduling strategies adopted. Section \ref{experiments} evaluates the impact of the fleet size and the demand in a real environment simulated in Mountain View, California. Finally, our concluding remarks and proposed work directions are given in Section \ref{conclusion}.  
 
 
 \section{Related literature}\label{literature} 
@@ -304,7 +304,7 @@ The importance of demand generation in step 1) differs from one system to the ot
 
 \cite{ga} tackle in their study the optimal fleet size distribution of a transit network composed of several lines and the scheduling strategy to adopt which minimizes the waiting time of passengers at their point of origin and the transfer times from one route to an other. They formulate the problem as a non-linear mixed integer programming problem (NLMIP) with resource limitations and service related constraints such as the fleet size, a minimum required headway, a minimum fleet size on each route and a maximum transfer time for passengers. They consider in the objective function only the level of service offered to the passengers, taking into account the initial waiting time of passengers and the total transfer time of passengers but no vehicles' operating cost. They mention the lack of work on this topic, possibly because of its extreme complexity, but consider the most promising attempts at solving the optimal scheduling problem being the ones using simple binary genetic algorithms as the optimization tool. 
 
-Several aspects of our autonomous vehicles scheduling problem can relate to the literature subjects listed in this section. However, no mathematical formulation describes exactly all the constraints to consider for an autonomous electric fleet of vehicles with dynamic bookings on a closed circular line. Optimization formulations simplify many real-world constraints (e.g. schedule when to send vehicles to charge, simplifying the bookings simulation, assuming instantaneousness of active/charging modes, etc.) based on the parameters to optimized (e.g. headway, satisfy on-demand bookings, optimal fleet size, etc.). We need therefore too combine some specificity of fixed line and on-demand transportation formulations with an additional battery scheduling component.  
+Several aspects of our autonomous vehicles scheduling problem can relate to the literature subjects listed in this section. However, no mathematical formulation describes exactly all the constraints to consider for an autonomous electric fleet of vehicles with dynamic bookings on a closed circular line. Optimization formulations simplify many real-world constraints (e.g. simplifying the bookings simulation, assuming instantaneousness of active/charging modes, etc.) based on the parameters to optimized (e.g. headway, satisfy on-demand bookings, optimal fleet size, etc.). We therefore need too combine some specificity of fixed line and on-demand transportation formulations with an additional battery scheduling component.  
 
 \section{Problem formulation}\label{formulation}
 In this section we formulate our mathematical model describing the autonomous vehicles circular line transit. All the variables are listed in Table \ref{table:parameters}. In addition to traditional bus lines descriptions, we introduce the concept of battery stations and we include dynamic bookings from one station to an other station on the loop. We will see in Section \ref{metrics} that we have access to discrete information about the state of vehicles and bookings during the simulations at regular $\text{interval}$. To formalize the timestamps at which simulated states are available during the service horizon time $H$, we denote a discrete timestamp $t$ which takes values between $[0, H]$ at fixed sampling $\text{interval}$. In other word, if the scheduling horizon $H$ is equal to one day we can have for example access to information every second (i.e. $\text{interval} = 1$ second). We have then the set of timestamps $T :=\{t = \text{interval} \cdot k:  0 < t < H, k \in \mathbb{N}\}$.
@@ -334,7 +334,7 @@ In this section we formulate our mathematical model describing the autonomous ve
   $s^{v}$ & Maximum speed of vehicle $v \in V$ \\
   
   $\text{speed}^{e}_{t}$ & Speed in edge $e$ at time $t$ \\
-  $\text{bat}^{v}_{t} \in [0, q^{v}]$ & Battery level of vehicle $v$ at time $t$ \\  
+  $\text{batt}^{v}_{t} \in [0, q^{v}]$ & Battery level of vehicle $v$ at time $t$ \\  
   $\Delta^{v}_{t}$ & Battery change between $t$ and its preceding timestamp \\  
   $e^{v}_{t}$ & Edge $e \in E$ which vehicle $v$ is traversing at time $t$ \\
   $\text{next}^{v}_{t}$ &  Distance to the next vehicle in front of $v$ on the loop at time $t$ \\
@@ -357,7 +357,7 @@ In this section we formulate our mathematical model describing the autonomous ve
   $1_{B^{*}_{t}}(b)$ & 1 if request $b$ has been satisfied at time $t$, 0 otherwise \\
   \hline  
 \end{tabularx}
-\caption{Problem sets and parameters.}
+\caption{Problem sets and parameters}
 \label{table:parameters}
 \end{table}
 \subsection{Circular route}
@@ -366,15 +366,15 @@ The fixed line in this transportation system is a closed simple loop. The route 
 \begin{figure} 
   \centering
 \includegraphics[scale=0.7]{./images/loop.pdf}
-\caption{Example of a circular route.}
+\caption{Example of a circular route}
 \label{fig:route}
 \end{figure}
 
 \subsection{Vehicles}\label{vehicles}
 Each vehicle $v \in V$ composing the fleet  moving on the circular closed line is characterized by a capacity $c^{v}$, a maximum speed $s^{v}$, a maximum charge $q^{v}$, a recharge rate $\alpha^{v}$ and a battery consumption rate $\beta^{v}$. The battery level of vehicle $v$ at the timestamp $t$ is $\text{batt}^{v}_{t} \in [0, q^{v}]$. For a given timestamp $t$ we let $\Delta^{v}_{t} = \text{batt}^{v}_{t} - \text{batt}^{v}_{t-1}$. The edge the vehicle $v$ is currently traversing is $e^{v}_{t}$ and the distance to the next vehicle in front of it on the loop is given by $\text{next}^{v}_{t}$. The occupancy of the vehicle is expressed as $o^{v}_{t} \in \{0, c^{v}\}$. The vehicle is travelling either at its maximum speed or at the limitation of the current edge. Its current speed is therefore max$\{s^{v}, \text{speed}^{e^{v}_{t}}\}$. When a vehicle is charging at a station $1_{V^{\#}_{t}}(v) = 0$ and it cannot carry any passengers (i.e. $o^{v}_{t} = 0$). A vehicle entering a station at time $t$ might by forced to wait $\text{wait}^{v}_{t}$ seconds. We denote $V^{\#}_{t} \in V$ the set of active vehicles on the line at time $t$, in other words all the vehicles $v \in V^{\#}_{t}$  which are not currently at a charging station (i.e. $ 1_{V^{\#}_{t}}(v) = 1$). 
 
-\subsection{Bookings and demand}\label{bookings}
-The set $B$ represents the bookings the customers made during the service horizon $H$. A booking $b_{i,j} \in B$ requests a trip from station $i$ to $j$ at time $t^{b}$ for a group of $n^{b}$ persons. If the booking has been satisfied, the boolean variable $D_{b}$ is set to 1 and we know that it has been executed by vehicle $v^{b} \in V$. We denote $B^{*}_{t}$ the set of bookings which have been satisfied at time $t$, so the bookings for which $1_{B^{*}_{t}(b)} = 1$.  The pickup time of booking $b$ at station $i$ is $p^{b}$ and drop-off time at station $j$ is $d^{b}$. The waiting time $w^{b}$ equals $p^{b} - t^{b}$ and the journey time $\rho^{b}$ is $d^{b} - p^{b}$. Moreover, we let the demand density $\text{dem}_{t^{*}}$ be the number of bookings which have been made between $t^{*}$ and $t^{*} + 1\text{h}$. This choice will be explained in details in Section \ref{optfleetsize}. We have $dem_{t^{*}} = |B^{\#}|$, with for all bookings $b \in B^{\#}: t^{*} \leq t^{*b} < (t^{*}+1\text{h})$. We use therefore a discrete hourly timpestamp $t^{*}$ over the scheduling horizon: $t^{*} \in T^{*}$ with $T^{*} := \{t^{*} = 1\text{h} \cdot k: 0 < t^{*} < H, k \in \mathbb{N}\}$.
+\subsection{Bookings and demand density}\label{bookings}
+The set $B$ represents the bookings the customers made during the service horizon $H$. A booking $b_{i,j} \in B$ is a user's request for a trip from station $i$ to $j$ at time $t^{b}$ for a group of $n^{b}$ persons. If the booking has been satisfied, the boolean variable $D_{b}$ is set to 1 and we know that it has been executed by vehicle $v^{b} \in V$. We denote $B^{*}_{t}$ the set of bookings which have been satisfied at time $t$, so the bookings for which $1_{B^{*}_{t}(b)} = 1$.  The pickup time of booking $b$ at station $i$ is $p^{b}$ and drop-off time at station $j$ is $d^{b}$. The waiting time $w^{b}$ equals $p^{b} - t^{b}$ and the journey time $\rho^{b}$ is $d^{b} - p^{b}$. Moreover, we let the demand density $\text{dem}_{t^{*}}$ be the number of bookings which have been made between $t^{*}$ and $t^{*} + 1\text{h}$. This choice will be explained in details in Section \ref{optfleetsize}. We have $\text{dem}_{t^{*}} = |B^{\#}|$, with for all bookings $b \in B^{\#}: t^{*} \leq t^{*b} < (t^{*}+1\text{h})$. We use therefore a discrete hourly timpestamp $t^{*}$ over the scheduling horizon: $t^{*} \in T^{*}$ with $T^{*} := \{t^{*} = 1\text{h} \cdot k: 0 < t^{*} < H, k \in \mathbb{N}\}$.
 
 \subsection{Output metrics}\label{metrics}
 At the end of the service horizon $H$, several metrics can be derived in order to evaluate the performance of the overall system dispatching the vehicles to serve the requests. 
@@ -383,7 +383,7 @@ At the end of the service horizon $H$, several metrics can be derived in order t
 The total battery consumed by a vehicle $v$ is the sum of the battery changes over the scheduling horizon when the vehicle is not charging
 $$\text{batteryCost}^{v} = \sum_{t \in T}\Delta^{v}_{t} \cdot 1_{V^{\#}_{t}}(v) .$$
 The total battery cost for the entire system is therefore the sum of the battery consumption of each vehicle composing the fleet
-$$\text{batteryCost} = \sum_{v \in V}\text{batteryCost}^{v}$$
+$$\text{batteryCost} = \sum_{v \in V}\text{batteryCost}^{v}.$$
 \subsubsection{Occupancy}
 The average occupancy of a vehicle $v$ over the scheduling horizon $H$ is given by
 $$\text{avgOccupancy}^{v} = \frac{\sum_{t \in T}o^{v}_{t}}{|T|}.$$
@@ -391,12 +391,12 @@ The average occupancy does not take into account the time the vehicle spends at 
 $$\text{loadFactor}^{v} = \frac{\sum_{t \in T} \Delta^{v}_{t} \cdot 1_{V^{\#}_{t}}(v) \cdot o^{v}_{t}}{\text{batteryCost}^{v} \cdot c^{v}}.$$
 We can compute the average load factor of the fleet as
 $$\text{avgLoadFactor} = \frac{\sum_{v \in V}\text{loadFactor}^{v}}{|V|}.$$
-We measure the variance of the $\text{loadFactor}$ to see if the occupancy among the vehicles composing the fleet is stable among them. The closer it is to 0 the better as it implies that all vehicles are used equivalently $\text{stabilityLoadFactor} = \text{Var}(\text{loadFactor}).$
+We measure the variance of the $\text{loadFactor}$ to measure if the occupancy among the vehicles has a small variance. The closer it is to 0 the better as it implies that all vehicles are used equivalently $\text{loadFactorVariance} = \text{Var}(\text{loadFactor}).$
 %We denote the stability load factor the difference between the maximum load factor among the vehicles composing the fleet and the minimum one. The closer it is to 0 the better as it implies that all vehicles are used equivalently: $stability\text{loadFactor} = \max_{v^{+} \in V}{\text{loadFactor}^{v^{+}}} -  \min_{v^{-} \in V}{\text{loadFactor}^{v^{-}}}$.
 \subsubsection{Waiting time}
 The average waiting time among the satisfied bookings at the end of the scheduling horizon $H$ is given by
 $$\text{avgWaitingTime} = \frac{\sum_{b \in B^{*}_{H}}w^{b}}{|B^{*}_{H}|}.$$
-We compute the variance of the waiting time as well which expresses if the waiting time over all the bookings is spread or not. We want therefore to minimize $\text{stabilityWaitingTime} = \text{Var}(w)$.
+We compute the variance of the waiting time as well which expresses if the waiting time over all the bookings is spread or not. We want therefore to minimize $\text{waitingTimeVariance} = \text{Var}(w)$.
 
 \subsubsection{Journey time}
 The average journey time for the satisfied bookings is given by
@@ -414,7 +414,7 @@ In order to evaluate the behavior and performance of the transit under various c
 \begin{figure} 
   \centering
 \includegraphics[width = \textwidth]{./images/SimulationFramework2.pdf}
-\caption{Interconnected modules composing the simulation framework.}
+\caption{Interconnected modules composing the simulation framework}
 \label{fig:simulationFramework}
 \end{figure}
 
@@ -449,14 +449,14 @@ As we already mentioned, simulations are run in an environment simulating all th
 \subsubsection{Scheduling the activities of vehicles}\label{schedule}
 When a vehicle $v$ arrives at a station $j$ at $\text{simTime}$, it checks if it is carrying passengers which have made a booking $b_{i,j}$. If it is the case it needs to stop and its load is updated. If any customer who made a booking $b_{j,k}$ has not been picked up yet (i.e. $b_{j,k} \not\in B^{*}$) and that it has enough free places to pick up the customer, so that the equation $o^{v}_{\text{simTime}} + n^{b_{j,k}} \leq c^{v}$ holds, then it picks up the passenger(s) from the booking request. It waits $\text{wait}^{v}_{\text{simTime}}$ seconds based on the headway computation which is explained in Section \ref{hw}. If the vehicle does not need to stop to drop off or pick up passengers for a booking and that the station $s$ is not mandatory (i.e. $M^{s} = 0$) then it can simply skip the station.   
 
-The battery level $\text{batt}^{v}_{\text{simTime}}$ of vehicle $v$ is controlled every time a vehicle arrives at a station. If it is under a threshold $\text{minBatt}^{v}$, it can not pick up any passenger any more, need to drop off every passenger at their requested drop-off station and finally goes the the closest charging station. When a vehicle is recharging and there is a booking $b$ not picked up yet, $1_{B^{*}_{\text{simTime}}} = 0$, then the vehicle is dispatched on the loop again if its battery level is above a threshold denoted $\text{enoughBatt}^{v}$. 
+The battery level $\text{batt}^{v}_{\text{simTime}}$ of vehicle $v$ is controlled every time a vehicle arrives at a station. If it is under a threshold $\text{minBatt}^{v}$, it can not pick up any passenger any more, need to drop off every passenger at their requested drop-off station and finally goes the the closest charging station. When a vehicle is recharging and there is a booking $b$ not picked up yet, $1_{B^{*}_{\text{simTime}}(b)} = 0$, then the vehicle is dispatched on the loop again if its battery level is above a threshold denoted $\text{enoughBatt}^{v}$. 
 
 \subsubsection{Headway}\label{hw}
 Even though the vehicles start at equal distance at the beginning of the scheduling horizon, if no strategy is adopted to maintain an equal distance between them the system will suffer from the well-known bus bunching effect described in Section \ref{pubtrans}. In fact, the buses picking up passengers (which need to wait longer at stations) are slowing down and their preceding buses will catch them up, especially if some stations are not mandatory and they can skip them. As we have at our disposal updated states of the vehicles, we can adopt a decentralized strategy in order to dynamically balance the distances between the active vehicles operating on the loop. The idea is to compute the ideal distance between the vehicles and to stop longer the ones too close to their following vehicle on the line, or on the other hand stop less if they are too far. As explained in Section \ref{schedule}, each time a vehicle stops at a station we compute the number of seconds it has to wait until it can leave if does not skip the station. Let $\text{default}$ be the default waiting time in seconds at a station. The time a vehicle $v$ waits at a station at time $\text{simTime}$ is $\text{wait}^{v}_{\text{simTime}} = \text{default} \cdot \text{ratio}$, with the $\text{ratio}$ computed as follows:
 \begin{itemize}
 \setlength\itemsep{1pt}
-\item The ideal distance between each vehicle is given by $$\text{ideal} = \frac{\text{len}}{|V^{\#}_{\text{simTime}}|},$$ $V^{\#}_{\text{simTime}}$ being the set of active vehicles on the line.
-\item We compute the distance to the next vehicle on the line $\text{next}^{v}_{\text{simTime}}$ and we let $\text{ratio}$ be the ratio between the ideal distance and the distance to the following car $$\frac{\text{next}^{v}_{\text{simTime}}}{\text{ideal}}$$.
+\item The ideal distance between each vehicle is given by $$\text{ideal} := \frac{\text{len}}{|V^{\#}_{\text{simTime}}|},$$ $V^{\#}_{\text{simTime}}$ being the set of active vehicles on the line.
+\item  $$\text{ratio} := \frac{\text{next}^{v}_{\text{simTime}}}{\text{ideal}}.$$
 \end{itemize}
 It holds then that if $\text{ratio} < 1$ the next vehicle is too far so the vehicle needs to wait less than $\text{ideal}$ and otherwise the next vehicle is too close and it waits more as $\text{ratio} >1$. Moreover, the time a vehicle waits at a station is bounded from below by $\text{waitMin}$ and from above by $\text{waitMax}$ in order to avoid unreasonable values.
 
@@ -483,7 +483,7 @@ As explained in Section \ref{literature}, most of the studies we can relate to o
 \item \textbf{Optimality} We need to define a strategy to find an optimal number of vehicles based on the demand density of each hour. We adopt two distinct strategies inspired from the different formulations of the objective function in optimization problems. The first approach is to include both the fleet operating cost and the level of service offered to the passengers in the computation of the total cost to minimize. The second one is to include the minimum level of service which need to be achieved in the constraints set and therefore to minimize the fleet operating costs. For both strategies, in order to gather data about the overall performance and compute the different costs, we run several simulations with various fleet sizes and demand densities. The demand is simulated between $\text{dem}^{-}$ and $\text{dem}^{+}$ and the fleet size between $V^{-}$ and $V^{+}$. Vehicles scheduling implies generally dispatching the vehicles during a scheduling horizon of one day. However, we want to obtain the optimal number of vehicles for one hour and therefore avoid any noise coming from the battery management activities. Those simulations are therefore run over a scheduling horizon of one hour $H = 1$h and all the metrics described in Section \ref{metrics} are collected. 
 \begin{enumerate}
 \setlength\itemsep{1pt} 
-\item In the first strategy we consider defining a cost function including both the cost of the vehicles and service provided to the passengers. For a fixed demand, the total energy consumption will grow proportionally to the fleet size whilst the waiting time decrease. This is coherent as the more vehicles are active on the line the higher the service frequency will be. As we want to find a balance between the battery consumption and the quality of service offered to the passengers we sum the energy cost and the waiting time cost. In order to compare those two metrics which are not on the same scale, we normalize them between 0 and 1 by feature scaling $$\frac{x-x_{\min}}{x_{\max}-x_{\min}}.$$ The $\text{batteryCost}$ is normalized between 0 and 1 with $x_{\min}$ being the $\text{batteryCost}$ when we run the simulation for the same demand $\text{dem}$ with $V^{-}$ vehicles and $x_{\max}$ with $V^{+}$ vehicles. The same scaling is done for the $\text{avgWaitingTime}$: for a group with the same demand density $\text{dem}$ the values are normalized by feature scaling with $x_{\min}$ probably the average waiting time when running with the maximum fleet size  $V^{+}$ and $x_{\max}$ with smallest fleet size. Moreover, we have to take into account the fact that some bookings made over the simulated hour are not completed by the end of the scheduling horizon $H=1\text{h}$. We need then to maximize the percentage of completed bookings over the hour as the ones not satisfied will be reported to the next hour. We can therefore divide the energy and waiting costs by the percentage of bookings completed. The cost function for the demand $\text{dem} = |B|$ with a fleet size $|V|$ is then
+\item In the first strategy we consider defining a cost function including both the cost of the vehicles and service provided to the passengers. For a fixed demand, the total energy consumption will grow proportionally to the fleet size whilst the waiting time decrease. This is coherent as the more vehicles are active on the line the higher the service frequency will be. As we want to find a balance between the battery consumption and the quality of service offered to the passengers we sum the energy cost and the waiting time cost. In order to compare those two metrics which are not on the same scale, we normalize them between 0 and 1 by feature scaling $$\frac{x-x_{\min}}{x_{\max}-x_{\min}}.$$ The $\text{batteryCost}$ is normalized between 0 and 1 with $x_{\min}$ being the battery cost when we run the simulation for the same demand $\text{dem}$ with $V^{-}$ vehicles and $x_{\max}$ with $V^{+}$ vehicles. The same scaling is done for the $\text{avgWaitingTime}$: for a group with the same demand density $\text{dem}$ the values are normalized by feature scaling with $x_{\min}$ probably the average waiting time when running with the maximum fleet size  $V^{+}$ and $x_{\max}$ with smallest fleet size. Moreover, we have to take into account the fact that some bookings made over the simulated hour are not completed by the end of the scheduling horizon $H=1\text{h}$. We need then to maximize the percentage of completed bookings over the hour as the ones not satisfied will be reported to the next hour. We can therefore divide the energy and waiting costs by the percentage of bookings completed. The cost function for the demand $\text{dem} = |B|$ with a fleet size $|V|$ is then
 
 \begin{equation} \label{costfunction}
 \text{cost}_{\text{dem}, |V|} = \frac{\text{batteryCost} + \text{avgWaitingTime}}{e^{\text{completedBookingsRatio}}}.
@@ -532,7 +532,7 @@ Taking the exponential of the $\text{completedBookingsRatio} \in [0,1]$ seems a 
   \hline  
 \end{tabularx}
 
-\caption{Simulation framework and scheduling parameters.}
+\caption{Simulation framework and scheduling parameters}
 \label{table:simparameters}
 \end{table}
 
@@ -552,7 +552,7 @@ Simulations are run over a scheduling horizon $H$ of one hour with a demand dens
   \centering
   \vspace{-0.5em}
 \includegraphics[scale=0.7]{./images/stability.pdf}
-\caption{Performance metrics at growing simulation ratio $r$.}
+\caption{Performance metrics at growing simulation ratio $r$}
 \label{fig:stability}
 \end{figure}
 
@@ -574,19 +574,19 @@ Simulations are run over a scheduling horizon $H$ of one hour with a demand dens
   \hline  
 \end{tabular}
 }
-\caption{Simulation framework parameters used.}
+\caption{Simulation framework parameters used}
 \label{table:simparametersused}
 \end{table}
 
 \subsection{Scenario settings}\label{scenariosettings}
 In order to compare different scheduling strategies and different scenarios, we run all simulations with the same type of vehicles on the same fixed line. In what follows all the parameters used for the simulation are detailed.
 \subsubsection{Vehicles}\label{vparam}
-Each vehicle $v$ composing the fleet $V$ has a capacity $c^{v}$ = 10. The battery level varies from 0 to $q^{v} = 1$. The battery discharges, proportionally to its speed $s^{v}$ given in kilometers per hour, at each actor step of simulated duration $\delta = r \cdot 0.33$ seconds by:
+Each vehicle $v$ composing the fleet $V$ has a capacity $c^{v}$ = 10. The battery level varies from 0 to $q^{v} = 1$. The battery discharges proportionally to its speed $s^{v}$ given in meters per second at each actor step of simulated duration $\delta = r \cdot 0.33$ seconds by
 \begin{equation} \label{vehicleequation}
-\Delta_{\text{simTime}}^{v} = ((0.109166\cdot (s^{v})^{2} + 4.40912 \cdot s^{v} + 153.46199) \cdot s^{v}) \cdot \delta \cdot \beta^{v} / 50000
+\Delta_{\text{simTime}}^{v} = ((0.0024\cdot (s^{v})^{2} + 0.3402 \cdot s^{v} + 42.63) \cdot s^{v}) \cdot \delta \cdot \beta^{v} / 50000
 \end{equation}
 and similarly it recharges by $ \delta \cdot \alpha^{v}$. This model has been given by the manufacturer NAVYA for shuttle model ARMA. 
-The homogeneous fleet has ratios $\alpha^{v}$ and $\beta^{v}$ set to $1$ for all vehicles in the fleet unless stated otherwise. As explained in Section \ref{schedule}, vehicles finish their missions and go to charge if their battery level is under $\text{minBatt}^{v} = 0.3$ and they can leave the charging stations if $\text{enoughBatt}^{v}= 1$. Vehicles go at constant speed of 20 kilometers per hour as in cities with the current shuttle technologies and road settings it is not possible for them to go faster. 
+The vehicles of the homogeneous fleet have ratios $\alpha^{v}$ and $\beta^{v}$ set to $1$ for all vehicles in the fleet unless stated otherwise. As explained in Section \ref{schedule}, vehicles finish their missions and go to charge if their battery level is under $\text{minBatt}^{v} = 0.3$ and they can leave the charging stations if $\text{enoughBatt}^{v}= 1$. Vehicles go at constant speed of 20 km/h as in cities with the current shuttle technologies and road settings it is not possible for them to go faster. 
 
 \subsubsection{Fixed loop graph}
 The fixed line is located in Mountain View, California, with 32 stops situated at strategical points on the loop based on the types of area (accommodations, shopping centers, industry, etc.). In current running autonomous transportation infrastructure, like for example in Sion for the project SmartShuttle, two vehicles are running on a fixed line and there is one depot where they can recharge. The charging stations are nowadays centred at one place on the loop for most transportation networks as we will explained in Section \ref{spreadcharging}. We set therefore ten charging stations in the same area. The total length of the loop is of 9.8 kilometers and covers the all the residential and industrial areas (i.e. $\text{len} = 9.8\text{ km}$).
@@ -594,100 +594,101 @@ The fixed line is located in Mountain View, California, with 32 stops situated a
 \begin{figure}
   \centering
 \includegraphics[scale=0.5]{./images/graph}
-\caption{Fixed loop with 32 stops and 10 battery stations in the same area.}
+\caption{Fixed loop with 32 stops and 10 battery stations in the same area}
 \label{graph}
 \end{figure}
 
 
 \subsubsection{Simulated demand}\label{simdem}
-The goal of the simulations is to send realistic bookings in this specific loop over the scheduling horizon of one day in order to get meaningful metrics. As there is no available information of the demand distribution on this specific loop, other data can be analysed and realistic bookings can be extrapolated from it. The simulated demand is estimated analysing traffic information data of the area of study provided by HERE Maps. This data set provides real-time traffic flow tags for the main road segments in the USA. There is for example the free-flow (maximum speed allowed) over the average speed at each minute of the day for each segment as well as the estimated number of vehicles. 20\% of the total number of vehicles is considered as public transport. The data over one week from Monday to Friday is selected for analysis. Generalized additive model is used to predict the number of vehicles for every minute at each edge of the graph. The change in number of vehicles between each segment is recorded in order to estimate the number of pick-up (when it increases) and drop-off (when it decreases). In order to simulate bookings from one of the 32 stations to an other station, the correlation matrix of the number of vehicles between the segments is used with a multinomial distribution with weights of the zoning area (residential, industrial or office) to generate bookings from one station to an other for a week-day starting at midnight. The output is a list of 584 bookings with varying number of passengers $1 \leq n^{b} \leq 5$. The number of bookings generated every hour of the scheduling horizon of one day is represented in Figure \ref{fig:demand}.
+The goal of the simulations is to send realistic bookings in this specific loop over the scheduling horizon of one day in order to get meaningful metrics. As there is no available information of the demand distribution on this specific loop, other data can be analyzed and realistic bookings can be extrapolated from it. The simulated demand is estimated analyzing traffic information data of the area of study provided by HERE Maps. This data set provides real-time traffic flow tags for the main road segments in the USA. There is for example the free-flow (maximum speed allowed) over the average speed at each minute of the day for each segment as well as the estimated number of vehicles. 20\% of the total number of vehicles is considered as public transport. The data over one week from Monday to Friday is selected for analysis. Generalized additive model is used to predict the number of vehicles for every minute at each edge of the graph. The change in number of vehicles between each segment is recorded in order to estimate the number of pick-up (when it increases) and drop-off (when it decreases). In order to simulate bookings from one of the 32 stations to an other station, the correlation matrix of the number of vehicles between the segments is used with a multinomial distribution with weights of the zoning area (residential, industrial or office) to generate bookings from one station to an other for a week-day starting at midnight. The output is a list of 584 bookings with varying number of passengers $1 \leq n^{b} \leq 5$. The number of bookings generated every hour of the scheduling horizon of one day is represented in Figure \ref{fig:demand}.
 
 \begin{figure}[H]
   \centering
 \includegraphics[scale=0.5]{./images/demand.pdf}
-\caption{Demand density $\text{dem}_{t^{*}}$ at each hour of a week-day.}
+\caption{Demand density $\text{dem}_{t^{*}}$ at each hour of a week-day}
 \label{fig:demand}
 \end{figure}
 
 \subsection{Headway experiments}\label{hwexperiments}
-As explained in Section \ref{hw}, we adopt a strategy stopping the vehicles mandatory stations during an adaptive waiting time based on the distance to the next vehicle on the loop. In order to analyse what is the impact on the transportation service, we compare the output of the simulation metrics when running with the dynamic waiting strategy or without. We analyse the results of the simulations with only mandatory stops or with only optional stops. The following strategies are therefore simulated:
+As explained in Section \ref{hw}, we adopt a strategy stopping the vehicles at mandatory stations during an adaptive waiting time based on the distance to the next vehicle on the loop. In order to analyze what is the impact on the transportation service, we compare the output of the simulation metrics when running with the dynamic waiting strategy or without. We analyze the results of the simulations with only mandatory stops or with only optional stops. The following strategies are therefore simulated:
 \begin{enumerate}
 \setlength\itemsep{1pt}
 \item \textbf{Constant $\text{wait}_t^{v}$}: every time a vehicle arrives at a station it waits 20 seconds, in other words $\text{default}= 20$ sec and $\text{ratio}$ is always equal to 1. 
-\item \textbf{Adaptive $\text{wait}_t^{v}$}: when a vehicle arrives at a station it waits $\text{wait}_t^{v} = \text{default} \cdot \text{ratio}$, with $\text{default} = 20$ sec and $\text{ratio}$ computed as explained in Section \ref{hw}. The minimum waiting time $\text{waitMin}$ is $2$ seconds and the maximum waiting time $\text{waitMax}$ is $10$ minutes.
+\item \textbf{Adaptive $\text{wait}_t^{v}$}: when a vehicle arrives at a station it waits $\text{wait}_t^{v} = \text{default} \cdot \text{ratio}$, with $\text{default} = 20$ sec and $\text{ratio}$ computed as explained in Section \ref{hw}. The minimum waiting time $\text{waitMin}$ is $2$ seconds and the maximum waiting time $\text{waitMax}$ is $2$ minutes.
 \begin{enumerate}
-\item \textbf{Mandatory stops} $\forall s \in S: M^{s} = 1$. The adaptive waiting time is computed each time a vehicle arrives at a station.
-\item \textbf{Optional stops} $\forall s \in S: M^{s} = 0$. When a vehicle arrives at a station if it does not need to stop for passengers it can skip the stop (i.e. $\text{wait}_{t}^{v} = 0$).
+\item \textbf{Mandatory stops} for every stop $s \in S$: $M^{s} = 1$. The adaptive waiting time is computed each time a vehicle arrives at a station.
+\item \textbf{Optional stops} for every stop $s \in S$: $M^{s} = 0$. When a vehicle arrives at a station if it does not need to stop for passengers it can skip the stop (i.e. $\text{wait}_{t}^{v} = 0$).
 \end{enumerate}
 \end{enumerate}
 We run the simulations over a scheduling horizon $H$ of one day, with the simulated bookings obtained as explained in Section \ref{simdem}. The fleet is composed of 8 homogeneous vehicles always active (unless they are running low on battery and need to be sent to charge), with the characteristics enumerated in Section \ref{vparam}. 
 
 \begin{figure}
   \centering
-\begin{subfigure}[b]{0.435\textwidth}
+\begin{subfigure}[b]{0.51\textwidth}
   \includegraphics[width=\linewidth]{./images/busbunching.pdf}
   \caption{Constant $\text{wait}_t^{v}$}
   \label{busbunching}
 \end{subfigure}
-\begin{subfigure}[b]{0.4\textwidth}
+\begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\linewidth]{./images/spread.pdf}
   \caption{Adaptive $\text{wait}_t^{v}$, mand. stops}
   \label{adaptive}
 \end{subfigure}
-\begin{subfigure}[b]{0.4\textwidth}
+\begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\linewidth]{./images/optionalstopsgroup.pdf}
   \caption{Adaptive $\text{wait}_t^{v}$, optional stops}
   \label{skip}
 \end{subfigure}
 
 \label{simustate}
-\caption{Vehicles' positions on the fixed line at $\text{simTime} =$ 6:00 am illustrating the distance between vehicles.}
+\caption{Vehicles' positions on the fixed line at $\text{simTime} =$ 6:00 am illustrating the distance between vehicles}
 \end{figure}
 
-The state of the fixed line at the same simulated time ($\text{simTime}$ = 6:00 am) is shown in Figure \ref{simustate}. As we can observe in Figure \ref{busbunching}, when there is no particular strategy adopted to maintain the ideal distance between the vehicles, they end up in two distinct bus convoys of four shuttles each. It happens because the preceding shuttles can not take over the one picking up and dropping the passengers in the front. This phenomenon is illustrated in Figure \ref{constant}: the average occupancy is higher over the entire day especially for one vehicle. In Figure \ref{adaptiveload} we can see that adapting the stopping time at each station works well for maintaining an ideal distance between the shuttles. Until the end of the simulation no convoy is formed and the $\text{loadFactor}$ per vehicle does not vary a lot between the vehicles. In fact, the $\text{loadFactorStability}$ is 0.003 as opposed to 0.034 for the constant stopping time strategy. If we allow shuttles to skip stations, the headway between them varies a lot as the distance is not regulated every time they reach a station, but the $\text{loadFactorStability} =  0.006$ is still low. The percentage change of the performance metrics of the adaptive waiting time strategies relative to the constant stopping time strategy is represented in Figure \ref{hwcompare}. We can see that the battery consumption increases a lot if stops can be skipped as vehicles are never forced to wait when the demand is low. Moreover, vehicles wait on average $35$ seconds if the stops are mandatory and $25$ seconds if they are optional. The $\text{avgWaitingTime}$ is 10 minutes if all stops are mandatory and 5 minutes if stops can be skipped. This has a substantial impact on the level of service offered to the passengers. However, less bookings are satisfied at the end of the day with only optional stops. This is probably due to the fact that vehicles do not always maintain the ideal distance between them. 
+The state of the fixed line at the same simulated time ($\text{simTime}$ = 6:00 am) is shown in Figure \ref{simustate}. We recall that the simulation starts at midnight. As we can observe in Figure \ref{busbunching}, when there is no particular strategy adopted to maintain the ideal distance between the vehicles, they end up in two distinct bus convoys of four shuttles each. It happens because the preceding shuttles can not take over the one picking up and dropping the passengers in the front. This phenomenon is illustrated in Figure \ref{constant}: the average occupancy is higher over the entire day especially for one vehicle. In Figure \ref{adaptiveload} we can see that adapting the stopping time at each station works well for maintaining an ideal distance between the shuttles. Until the end of the simulation no convoy is formed and the distribution of the load factor has small variance. In fact, the $\text{loadFactorVariance}$ is 0.003 as opposed to 0.034 for the constant stopping time strategy. If we allow shuttles to skip stations, the headway between them varies a lot as the distance is not regulated every time they reach a station, but the $\text{loadFactorVariance} =  0.006$ is still low. The percentage change of the performance metrics of the adaptive waiting time strategies relative to the constant stopping time strategy is represented in Figure \ref{hwcompare}. We can see that the battery consumption increases a lot if stops can be skipped as vehicles are never forced to wait when the demand is low. Moreover, vehicles wait on average $35$ seconds if the stops are mandatory and $25$ seconds if they are optional. The average waiting time is 10 minutes if all stops are mandatory and 5 minutes if stops can be skipped. This has a substantial impact on the level of service offered to the passengers. It interesting to compare the $\text{completedBookingsRatio}$:  at the end of the day 81\% of the requests are satisfied with optional stops and 83\% with mandatory stops. However, the percentage of the ones which have a waiting time under 6 minutes is higher with optional stops: 63\% as opposed to 47\% with mandatory stops. This is reflected as well in the variance of the waiting time. In fact, the distribution of the waiting time has a smaller variance for the optional stops than the mandatory stops strategy (36 instead of 307). 
 
 \begin{figure}
   \centering
-\begin{subfigure}[b]{0.445\textwidth}
+\begin{subfigure}[b]{0.56\textwidth}
   \includegraphics[width=\linewidth]{./images/constanthw.png}
   \caption{Constant $\text{wait}_t^{v}$}
   \label{constant}
 \end{subfigure}
-\begin{subfigure}[b]{0.42\textwidth}
+\begin{subfigure}[b]{0.55\textwidth}
   \includegraphics[width=\linewidth]{./images/hwmax10simu}
-  \caption{Adaptive $\text{wait}_t^{v}$, mand. stops}
+  \caption{Adaptive $\text{wait}_t^{v}$, mandatory stops}
   \label{adaptiveload}
 \end{subfigure}
-\begin{subfigure}[b]{0.49\textwidth}
+\begin{subfigure}[b]{0.65\textwidth}
+\hspace{1.3em}  
   \includegraphics[width=\linewidth]{./images/optionalstops}
   \caption{Adaptive $\text{wait}_t^{v}$, optional stops}
   \label{skipload}
 \end{subfigure}
 \label{simuload}
-\caption{Average occupancy of each vehicle at each hour of the day for the different headway strategies.}
+\caption{Average occupancy of each vehicle at each hour of the day for the different headway strategies}
 \end{figure}
 
 \begin{figure}
   \centering
 \includegraphics[width=\textwidth]{./images/headwayCompare.pdf}
-\caption{Percentage change of the adaptive waiting strategies' performance metrics relative to the constant stopping time strategy.}
+\caption{Percentage change of the adaptive waiting strategies' performance metrics relative to the constant stopping time strategy}
 \label{hwcompare}
 \end{figure}
 
 \subsection{Dynamic fleet size experiments}\label{dynamicexperiments}
-In what follows we present the several stages conducted in our experimental analysis in order to determine the optimal fleet size following the method described in Section \ref{dynamic}. In Section \ref{data} we detail the data for analysis. The impact of fleet size and the demand density on the performance metrics is then detailed in Section \ref{impact}. The performance of the two dynamic fleet size strategies are finally compared in Section \ref{comparedynamic}. For all simulations run in this section we use the adaptive waiting time at stations for a fixed line with only mandatory stops. 
+In what follows we present the several stages conducted in our experimental analysis in order to determine the optimal fleet size following the method described in Section \ref{dynamic}. In Section \ref{data} we detail the data for analysis. The impact of fleet size and the demand density on the performance metrics is then detailed in Section~\ref{impact}. The performance of the two dynamic fleet size strategies are finally compared in Section~\ref{comparedynamic}. For all simulations run in this section we use the adaptive waiting time at stations for a fixed line with only mandatory stops. 
 
 \subsubsection{Generating data}\label{data}
-As explained in Section \ref{dynamic}, in order to get insights about the impact of the number of vehicles with varying demand density on the performance metrics we need to run several simulations and gather all the data. As simulations are time-consuming, we need to choose which sampling $D$ of demand density we want to simulate. Based on the demand density frequency over the day which is plotted in Figure \ref{demfreq}, we run simulations for $\text{dem} \in D = \{13, 15, 21, 23, 25, 27, 31, 36, 40, 46, 58\}$. For each demand density we generate a list of bookings at fixed interval $1\text{h} / \text{dem}$. Simulations are then run over one hour with varying the fleet size from $V^{-}=2$ vehicles to $V^{+}=10$ vehicles. For each simulation of varying demand density and fleet size, the performance metrics are recorded, those measures are listed in Table \ref{values}. As the simulations are subject to some perturbation due to the accelerated time, we clean the data by replacing the values lower than the $5^{\text{th}}$ quantiles and higher than the $95^{\text{th}}$ quantiles. 
+As explained in Section \ref{dynamic}, in order to get insights about the impact of the number of vehicles with varying demand density on the performance metrics we need to run several simulations and gather all the data. As simulations are time-consuming, we need to choose which sampling $D$ of demand density we want to simulate. Based on the demand density frequency over the day which is plotted in Figure \ref{demfreq}, we run simulations for $\text{dem} \in D = \{13, 15, 21, 23, 25, 27, 31, 36, 40, 46, 58\}$. For each demand density we generate a list of bookings at fixed interval $1\text{h} / \text{dem}$. Simulations are then run over one hour with varying the fleet size from $V^{-}=2$ vehicles to $V^{+}=10$ vehicles. For each simulation of varying demand density and fleet size, the performance metrics are recorded. As the simulations are subject to some perturbation due to the accelerated time, we clean the data by replacing the values lower than the $5^{\text{th}}$ quantiles and higher than the $95^{\text{th}}$ quantiles by the values of the $5^{\text{th}}$ and $95^{\text{th}}$ quantiles. 
 
 \begin{figure}
   \centering
 \includegraphics[scale=0.6]{./images/demand_freq.png}
-  \caption{Demand density frequency over the simulated day.}
+  \caption{Demand density frequency over the simulated day}
 \label{demfreq}
 \end{figure}
 
-
+\iffalse
 \tiny{
 \csvreader[
   longtable=lllll,
@@ -697,10 +698,10 @@ As explained in Section \ref{dynamic}, in order to get insights about the impact
   late after line=\\,
   late after last line=\\\bottomrule,
   before reading={\catcode`\#=12},after reading={\catcode`\#=6},
-  table foot = \caption{Performance metrics obtained after running simulation for each demand density and fleet size combination.}
+  table foot = \caption{Performance metrics obtained after running simulation for each demand density and fleet size combination}
 ]{values2.csv}{1=\a,2=\b,3=\c,4=\d,5=\e}{\a & \b & \c & \d & \e}
 }
-
+\fi
 
 \normalsize
 \subsubsection{Impact of the fleet size and the demand density}\label{impact}
@@ -712,7 +713,7 @@ In Figure \ref{averages} the averages of the performance metrics over all demand
 \begin{figure}
   \centering
 \includegraphics[scale=0.5]{./images/vehicleimpact.pdf}
-  \caption{Performance metrics averages over all demand densities $\text{dem} \in D$ at growing fleet size.}
+  \caption{Performance metrics averages over all demand densities $\text{dem} \in D$ at growing fleet size}
 \label{averages}
 \end{figure}
 
@@ -730,7 +731,7 @@ In Figure \ref{averages} the averages of the performance metrics over all demand
     $\text{avgJourneyTime}$ & 27 minutes & 20 minutes & -26\% \\
     \midrule
     \end{tabular}
-    \caption{Percentage change between performance metrics averages when running simulations with two and with ten vehicles.}
+    \caption{Percentage change between performance metrics averages when running simulations with two and with ten vehicles}
     \label{blabla}
   \end{table}
   
@@ -758,17 +759,17 @@ with the demand density, the fleet size and the dummy variables as predictors. W
 
 \begin{figure}
   \centering
-\begin{subfigure}[b]{0.452\textwidth}
+\begin{subfigure}[b]{0.51\textwidth}
   \includegraphics[width=\linewidth]{./images/battery.png}
   \caption{$\text{batteryCost}$}
   \label{batteryCost}
 \end{subfigure}
-\begin{subfigure}[b]{0.45\textwidth}
+\begin{subfigure}[b]{0.51\textwidth}
   \includegraphics[width=\linewidth]{./images/waitingtime.png}
   \caption{$\text{avgWaitingTime}$}
   \label{wtcost}
 \end{subfigure}
-\begin{subfigure}[b]{0.458\textwidth}
+\begin{subfigure}[b]{0.51\textwidth}
   \includegraphics[width=\linewidth]{./images/completed.png}
   \caption{$\text{completedBookingsRatio}$}
   \label{cbr}
@@ -791,7 +792,7 @@ with the demand density, the fleet size and the dummy variables as predictors. W
     $average\text{loadFactor}$ & 0.5 & -0.5\\
     \midrule
     \end{tabular}
-    \caption{Correlation coefficients between performance metrics and demand density and fleet size.}
+    \caption{Correlation coefficients between performance metrics and demand density and fleet size}
     \label{correlation}
   \end{table}
 
@@ -841,37 +842,37 @@ We use therefore the second strategy that implies finding the function of the av
 \begin{figure}[h] 
   \centering
 \includegraphics[scale=0.43]{./images/optimalFleet.pdf}
-  \caption{Dynamic fleet size at each hour of the day for the two strategies in function of the demand density divided by ten (for the sake of readability).}
+  \caption{Dynamic fleet size at each hour of the day for the two strategies in function of the demand density divided by ten (for the sake of readability)}
 \label{optfleet}
 \end{figure}
 
 \paragraph{Comparison of the performance metrics}
-We run the simulations with adapting the fleet size, according to the results presented in the previous section, over the scheduling horizon of one day for both strategies. We use the same graph and settings for the vehicles as the ones described in Section \ref{hwexperiments} with the adaptive waiting time and only mandatory stops. For both of them the maximum optimal fleet size is 8, so we compare those strategies with a constant fleet size of 8 vehicles. The Figure \ref{strategyCompare} illustrates the percentage change of the scheduling. As expected, the battery consumption is lower for the first strategy (14.82 instead of 16.58 for the second strategy and 16.62 for constant 8 vehicles) as it varies between 3 to 8 vehicles instead of 6 to 8. The $\text{batteryCost}$ is therefore only improved by 0.24\% for the second strategy compared to a fixed fleet of vehicles, however the quality of the service offered to the passenger is better. In fact, for the second strategy each booking waits on average 7 minutes compared to 8 minutes for the first strategy and 10 minutes for the constant fleet size. Moreover, the stability of the waiting time is improved as the variance of the waiting times over the completed bookings $\text{stabilityWaitingTime}$ decreases from 307 for the constant fleet size to 91 for the second strategy and 59 for the first one. The cost function strategy has therefore a better $\text{stabilityWaitingTime}$ but a longer $\text{avgWaitingTime}$ than the maximum waiting time strategy. However, if we compare the ratios of completed bookings which have a smaller waiting time than 6 minutes over the total number of completed bookings then the second strategy is better than the first one (0.5 instead of 0.48). The usage of vehicles of the second strategy is the most efficient one as the $\text{avgLoadFactor}$ is 0.45 instead of 0.3 for the first strategy and 0.25 for the constant fleet size.
+We run the simulations with adapting the fleet size, according to the results presented in the previous section, over the scheduling horizon of one day for both strategies. We use the same graph and settings for the vehicles as the ones described in Section \ref{hwexperiments} with the adaptive waiting time and only mandatory stops. For both of them the maximum optimal fleet size is 8, so we compare those strategies with a constant fleet size of 8 vehicles. The Figure \ref{strategyCompare} illustrates the percentage change of the scheduling. As expected, the battery consumption is lower for the first strategy (14.82 instead of 16.58 for the second strategy and 16.62 for constant 8 vehicles) as it varies between 3 to 8 vehicles instead of 6 to 8. The $\text{batteryCost}$ is therefore only improved by 0.24\% for the second strategy compared to a fixed fleet of vehicles, however the quality of the service offered to the passenger is better. In fact, for the second strategy each booking waits on average 7 minutes compared to 8 minutes for the first strategy and 10 minutes for the constant fleet size. Moreover, the waiting time is well distributed as its variance over the completed bookings $\text{waitingTimeVariance}$ decreases from 307 for the constant fleet size to 91 for the second strategy and 59 for the first one. The cost function strategy has therefore a better $\text{waitingTimeVariance}$ but a longer $\text{avgWaitingTime}$ than the maximum waiting time strategy. However, if we compare the ratios of completed bookings which have a smaller waiting time than 6 minutes over the total number of completed bookings then the second strategy is better than the first one (0.5 instead of 0.48). The usage of vehicles of the second strategy is the most efficient one as the $\text{avgLoadFactor}$ is 0.45 instead of 0.3 for the first strategy and 0.25 for the constant fleet size.
 
 \begin{figure}[h] 
   \centering
-\includegraphics[scale=0.55]{./images/strategyCompare.pdf}
-  \caption{Percentage change of the scheduling strategies' performance metrics relative to the constant fleet of vehicles with mandatory stops.}
+\includegraphics[width=\textwidth]{./images/strategyCompare.pdf}
+  \caption{Percentage change of the scheduling strategies' performance metrics relative to the constant fleet of vehicles with mandatory stops}
 \label{strategyCompare}
 \end{figure}
 
 \paragraph{Comparison between waiting time and charging vehicles}
-In order to judge whether the moment a vehicle has been sent to charge was appropriate, we compare the impact it has on the waiting time. We draw therefore a plot that shows the number of charging vehicles on the line and the average waiting time per hour over the day. The average waiting time is normalized between 0 and the fleet size. We can observe on Figure \ref{constantfs} that if the entire fleet size is active at the beginning of the scheduling horizon, then all vehicles will run low on battery approximately at the same time and they will be sent to the charging stations. The waiting time is really low at the beginning but then it increases drastically whilst vehicles are charging and it reflects therefore why the $\text{avgWaitingTime}$ and the $\text{stabilityWaitingTime}$ are not as good as the metrics obtained when the fleet size is reduced at some hours of the day. In fact, adapting the fleet size through the scheduling horizon allows the vehicles to charge when the demand is lower and to be all available when the demand density is higher and more vehicles are needed. We can observe on Figure \ref{batterystrat1} and Figure \ref{batterystrat2} that even though almost all vehicles are active the waiting time still increase around 5 pm. It is when the demand density is higher as we can see on Figure \ref{fig:demand}. We can conclude that if the operator has at its disposal only few vehicles then it is really valuable to schedule efficiently when the vehicles should go to charge in order to offer a good quality of service to the clients. 
+In order to judge whether the moment a vehicle has been sent to charge was appropriate, we compare the impact it has on the waiting time. We draw therefore a plot that shows the number of charging vehicles on the line and the average waiting time per hour over the day. The average waiting time is normalized between 0 and the fleet size. We can observe on Figure \ref{constantfs} that if the entire fleet size is active at the beginning of the scheduling horizon, then all vehicles will run low on battery approximately at the same time and they will be sent to the charging stations. The waiting time is really low at the beginning but then it increases drastically whilst vehicles are charging and it reflects therefore why the $\text{avgWaitingTime}$ and the $\text{waitingTimeVariance}$ are not as good as the metrics obtained when the fleet size is reduced at some hours of the day. In fact, adapting the fleet size through the scheduling horizon allows the vehicles to charge when the demand is lower and to be all available when the demand density is higher and more vehicles are needed. We can observe on Figure \ref{batterystrat1} and Figure \ref{batterystrat2} that even though almost all vehicles are active the waiting time still increase around 5 pm. It is when the demand density is higher as we can see on Figure \ref{fig:demand}. We can conclude that if the operator has at its disposal only few vehicles then it is really valuable to schedule efficiently when the vehicles should go to charge in order to offer a good quality of service to the clients. 
 
 \begin{figure}
 \label{compare2}
   \centering
-\begin{subfigure}[b]{0.452\textwidth}
+\begin{subfigure}[b]{0.51\textwidth}
   \includegraphics[width=\linewidth]{./images/charge}
   \caption{Constant Fleet Size}
   \label{constantfs}
 \end{subfigure}
-\begin{subfigure}[b]{0.45\textwidth}
+\begin{subfigure}[b]{0.51\textwidth}
   \includegraphics[width=\linewidth]{./images/charge1}
   \caption{Strategy 1: Cost Function}
   \label{batterystrat1}
 \end{subfigure}
-\begin{subfigure}[b]{0.458\textwidth}
+\begin{subfigure}[b]{0.51\textwidth}
   \includegraphics[width=\linewidth]{./images/charge2}
   \caption{Strategy 2: Maximum Waiting Time}
   \label{batterystrat2}
@@ -880,17 +881,17 @@ In order to judge whether the moment a vehicle has been sent to charge was appro
 \vspace{-0.5em}
 \includegraphics[scale=0.35]{./images/labels}
 \end{center}
-\caption{Number of charging vehicles on the line and hourly average waiting time (normalized between 0 and the fleet size) over the simulated day for different scheduling strategies.}
+\caption{Number of charging vehicles on the line and hourly average waiting time (normalized between 0 and the fleet size) over the simulated day for different scheduling strategies}
 \label{sendtocharge}
 \end{figure}
 
 \subsection{Choice of scheduling strategy}\label{comparestrat}
-Based on the analysis conducted on the performance metrics of the different scheduling techniques, we can come up with some general advice on which strategy to adopt based on the operator costs' concerns. In fact, the different autonomous models have not the same operating cost: the Institute for Transport Planning and Systems, Swiss Federal Institute of Technology Zurich, conducted a cost-based analysis of autonomous mobility services (see \cite{ethz}). They present a detailed cost estimation for standard transportation systems and future transport modes of automated vehicles. For example, the cost per passenger-kilometer (the average total cost per vehicle and day divided by average passenger kilometers per vehicle and day) varies in function of the vehicle size ans passenger demand. This is illustrated in Figure \ref{passengerkm}. They consider the depreciation, maintenance, cleaning, tires and fuel costs. It might therefore be the case that the operator puts the priority in the customer's level of service as it brings more value than spending a little bit more on the operating cost. In Figure \ref{strategyCompare} we can see the improvements of the three different scheduling strategies compared to the constant fleet size. We can conclude that if the fleet operating cost is not a concern we can recommend to consider having optional stops with as many active vehicles as possible. Moreover, if the transportation company owns many vehicles, it might be possible to hold a part of the fleet at the depot and to activate them to replace the vehicles operating on the line which need to be sent to the charging stations. However, if the operating cost of vehicles is high and need to be considered, then it is really valuable to use the adaptive fleet size strategies which reduces the battery consumption (and therefore the kilometers travelled). Moreover, if the operator owns only few vehicles and that the moment to send vehicles to charge is critical as it reduced considerably the fleet size then those strategies are efficient. The first strategy is the best one considering the battery cost and the second one offers a good balance between the level of service offered to the customers and the operating cost.
+Based on the analysis conducted on the performance metrics of the different scheduling techniques, we can come up with some general advice on which strategy to adopt based on the operator costs' concerns. In fact, the different autonomous models have not the same operating cost: the Institute for Transport Planning and Systems, Swiss Federal Institute of Technology Zurich, conducted a cost-based analysis of autonomous mobility services (see \cite{ethz}). They present a detailed cost estimation for standard transportation systems and future transport modes of automated vehicles. For example, the cost per passenger-kilometer (the average total cost per vehicle and day divided by average passenger kilometers per vehicle and day) varies in function of the vehicle size ans passenger demand. This is illustrated in Figure \ref{passengerkm}. They consider the depreciation, maintenance, cleaning, tires and fuel costs. It might therefore be the case that the operator puts the priority in the customer's level of service as it brings more value than spending a little bit more on the operating cost. In Figure \ref{strategyCompare} we can see the improvements of the three different scheduling strategies compared to the constant fleet size. We can conclude that if the fleet operating cost is not a concern we can recommend to consider having optional stops with as many active vehicles as possible. Moreover, if the transportation company owns many vehicles, it might be possible to hold a part of the fleet at the depot and to activate them to replace the vehicles operating on the line which need to be sent to the charging stations. However, if the operating cost of vehicles is high and need to be considered, then it is really valuable to use the adaptive fleet size strategies which reduces the battery consumption (and therefore the kilometers traveled). Moreover, if the operator owns only few vehicles and that the moment to send vehicles to charge is critical as it reduced considerably the fleet size then those strategies are efficient. The first strategy is the best one considering the battery cost and the second one offers a good balance between the level of service offered to the customers and the operating cost.
  
  \begin{figure}[h] 
   \centering
 \includegraphics[scale=0.5]{./images/passengerperkmcost}
-  \caption{Graph illustrating the prices per passenger-km versus number of passengers for traditional and autonomous transit systems (\cite{ethz}).}
+  \caption{Graph illustrating the prices per passenger-km versus number of passengers for traditional and autonomous transit systems (\cite{ethz})}
 \label{passengerkm}
 \end{figure}
 
@@ -903,26 +904,28 @@ In current cities where vehicles are operating, the charging stations are locate
 \begin{figure}
   \centering
 \includegraphics[scale=0.5]{./images/manycharging}
-  \caption{Fixed line scenario with spread autonomous charging stations.}
+  \caption{Fixed line scenario with spread autonomous charging stations}
 \label{manycharging}
 \end{figure}
 
 \begin{figure}
   \centering
 
-\includegraphics[scale=0.5]{./images/spreadcharging.pdf}
- \caption{Number of charging vehicles on the line and hourly average waiting time (normalized between 0 and the fleet size) over the simulated day for a line with spread charging stations.}
+\includegraphics[scale=0.55]{./images/spreadcharging.pdf}
+\includegraphics[scale=0.3]{./images/labels}
+ \caption{Number of charging vehicles on the line and hourly average waiting time (normalized between 0 and the fleet size) over the simulated day for a line with spread charging stations}
 \label{spread}
+
 \end{figure}
 
 
 \subsubsection{Battery consumption}\label{batterycons}
-The different shuttle models available today on the market have different battery performances. In fact, as detailed in the NCTR report (\cite{nctr}) mention the difference between autonomous shuttles of two different manufacturers: EasyMile and NAVYA. The latest model EZ10 from the French company EasyMile has a an autonomy up to 14 hours, whilst the ARMA electric bus from an other French company NAVYA has an autonomy ranging from 5 to 12 hours, depending on the charging system and the battery capacity. Operators are faced to choose one model or the other and will always be confronted to a growing offer as other manufacturers are currently developing new autonomous electric vehicles. It is therefore important for them to know what kind of benefits a better battery can bring to the overall system's performance. We modify the discharging ratio $\beta$ which was equal to 1 to 0.65. The battery consumption function (\ref{vehicleequation}) decreases therefore slower and vehicles have a longer autonomy corresponding to approximately 13 hours. We run a simulation with the updated discharging function for a constant fleet size of 8 vehicles. During the simulated day vehicles need to be sent to charge only once instead of twice. The $\text{batteryCost}$ is reduced from 16.62 to 10.29, decreasing by 38\%, which is coherent as we reduced the battery discharging ratio $\beta$ by 35\%. The 3\% difference is explained by the fact that when vehicles are sent to charge they do not wait at each stop any more and therefore consume more battery. The interesting performance metric which is improved is the average waiting time: in fact, it is reduced from 10 minutes to 5 minutes. The impact of sending vehicles to charge is therefore not negligible as it has a considerable negative effect on the $\text{avgWaitingTime}$, the $\text{stabilityWaitingTime}$ and the $\text{completedBookingsRatio} < 6\text{min}$. 
+The different shuttle models available today on the market have different battery performances. In fact, as detailed in the NCTR report (\cite{nctr}) mention the difference between autonomous shuttles of two different manufacturers: EasyMile and NAVYA. The latest model EZ10 from the French company EasyMile has a an autonomy up to 14 hours, whilst the ARMA electric bus from an other French company NAVYA has an autonomy ranging from 5 to 12 hours, depending on the charging system and the battery capacity. Operators are faced to choose one model or the other and will always be confronted to a growing offer as other manufacturers are currently developing new autonomous electric vehicles. It is therefore important for them to know what kind of benefits a better battery can bring to the overall system's performance. We modify the discharging ratio $\beta$ which was equal to 1 to 0.65. The battery consumption function (\ref{vehicleequation}) decreases therefore slower and vehicles have a longer autonomy corresponding to approximately 13 hours. We run a simulation with the updated discharging function for a constant fleet size of 8 vehicles. During the simulated day vehicles need to be sent to charge only once instead of twice. The $\text{batteryCost}$ is reduced from 16.62 to 10.29, decreasing by 38\%, which is coherent as we reduced the battery discharging ratio $\beta$ by 35\%. The 3\% difference is explained by the fact that when vehicles are sent to charge they do not wait at each stop any more and therefore consume more battery. The interesting performance metric which is improved is the average waiting time: in fact, it is reduced from 10 minutes to 5 minutes. The impact of sending vehicles to charge is therefore not negligible as it has a considerable negative effect on the $\text{avgWaitingTime}$, the $\text{waitingTimeVariance}$ and the $\text{completedBookingsRatio} < 6\text{min}$. 
 
 \begin{figure}
   \centering
-\includegraphics[scale=0.55]{./images/batteryCompare.pdf}
-  \caption{Percentage change of the scheduling strategies' performance metrics relative to the constant fleet of vehicles with mandatory stops.}
+\includegraphics[width=\textwidth]{./images/batteryCompare.pdf}
+  \caption{Percentage change of the scheduling strategies' performance metrics relative to the constant fleet of vehicles with mandatory stops}
 \label{batterycompare}
 \end{figure}
 
@@ -944,7 +947,7 @@ every last row/.style={after row=\bottomrule},
 display columns/0/.style={string type,column name={}}
 ]
 {avg_value.csv}
-\caption{Performance metrics of all simulations run over one simulated day for the different scheduling strategies.}
+\caption{Performance metrics of all simulations run over one simulated day for the different scheduling strategies}
 \end{sidewaystable}
 
 \section{Conclusion}\label{conclusion}
