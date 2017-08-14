@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.13)  14 AUG 2017 16:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.13)  14 AUG 2017 17:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1206,14 +1206,14 @@ s/EPFL.pdf> <./images/bestmile.jpg>] [2] (./Report.toc [3
 \openout6 = `Report.toc'.
 
  [4]
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 243.
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 247.
 
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 243.
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 247.
  [5
 
 ] [6] [7
@@ -1440,9 +1440,14 @@ File: ./images/strategyCompare.pdf Graphic file (type pdf)
 
 <use ./images/strategyCompare.pdf>
 Package pdftex.def Info: ./images/strategyCompare.pdf used on input line 854.
-(pdftex.def)             Requested size: 409.60544pt x 289.61774pt.
- [42 <./images/strategyCompare.pdf, page is rotated 270 degrees>] <./images/cha
-rge.png, id=886, 958.58125pt x 741.77126pt>
+(pdftex.def)             Requested size: 439.4269pt x 310.70587pt.
+
+Overfull \hbox (29.82146pt too wide) in paragraph at lines 854--855
+ [][] 
+ []
+
+[42 <./images/strategyCompare.pdf, page is rotated 270 degrees>]
+<./images/charge.png, id=886, 958.58125pt x 741.77126pt>
 File: ./images/charge.png Graphic file (type png)
 
 <use ./images/charge.png>
@@ -1547,13 +1552,13 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 976.
 ### simple group (level 1) entered at line 1061 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 32415 strings out of 492995
- 752798 string characters out of 6132704
+ 32413 strings out of 492995
+ 752768 string characters out of 6132704
  1077525 words of memory out of 5000000
- 35175 multiletter control sequences out of 15000+600000
+ 35173 multiletter control sequences out of 15000+600000
  69110 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,15n,98p,2907b,28269s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 69i,15n,98p,2841b,28267s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-ec.en
 c}{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/lo
 cal/texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texliv
@@ -1576,7 +1581,7 @@ ype1/public/lm/lmsy6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public
 /lm/lmsy8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmtt10.
 pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmtt12.pfb></usr/
 local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Report.pdf (54 pages, 3802640 bytes).
+Output written on Report.pdf (54 pages, 3802129 bytes).
 PDF statistics:
  1145 PDF objects out of 1200 (max. 8388607)
  915 compressed objects within 10 object streams
